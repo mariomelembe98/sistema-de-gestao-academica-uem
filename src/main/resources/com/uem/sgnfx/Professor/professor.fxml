@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Professor.ProfessorApplication">
+   <children>
+      <Pane prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: green;" />
+   </children>
+</AnchorPane>
