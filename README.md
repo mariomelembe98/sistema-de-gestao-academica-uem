@@ -1,5 +1,3 @@
-Aqui está uma descrição detalhada do projeto para adicionar ao arquivo `README.md` do Git, cobrindo todos os aspectos importantes do SIGA:
-
 ---
 
 # SIGA - Sistema Integrado de Gestão Acadêmica
