@@ -1,5 +1,3 @@
-Aqui está a descrição para o arquivo `README`:
-
 ---
 
 **Sistema de Gestão Acadêmica (SGA)**
