@@ -1,8 +1,8 @@
 ---
 
-**Sistema de Gestão Acadêmica (SGA)**
+# Sistema de Gestão Acadêmica (SGA)
 
-**Visão Geral:**
+## Visão Geral:
 O Sistema de Gestão Acadêmica (SGA) é uma aplicação desktop desenvolvida para otimizar e automatizar a administração de processos acadêmicos. Ele fornece uma plataforma digital centralizada para facilitar a interação entre estudantes, docentes, gestores e administradores, promovendo transparência, acessibilidade e eficiência na gestão acadêmica.
 
 **Objetivos:**
