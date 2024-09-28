@@ -1,105 +1,87 @@
----
+Aqui está um exemplo para o seu arquivo `README.md` com base na descrição fornecida:
 
-# SIGA - Sistema Integrado de Gestão Acadêmica
+```markdown
+# Sistema de Gestão Acadêmica (SGA)
 
-## Descrição do Projeto
+## Visão Geral
 
-O **Sistema Integrado de Gestão Acadêmica (SIGA)** é uma aplicação desenvolvida em Java para gerenciar processos acadêmicos em instituições de ensino superior. O sistema visa automatizar e simplificar as operações diárias relacionadas à gestão de estudantes, docentes e gestores acadêmicos, como matrícula, inscrições em disciplinas, gerenciamento de notas e monitoramento do desempenho acadêmico.
+O **Sistema de Gestão Acadêmica (SGA)** é uma aplicação desktop desenvolvida para optimizar e automatizar processos acadêmicos, fornecendo uma plataforma digital centralizada que facilita a interação entre estudantes, docentes, gestores e administradores. O sistema promove a transparência, acessibilidade e eficiência na gestão acadêmica.
 
-O SIGA oferece uma plataforma centralizada que integra todas as informações acadêmicas, permitindo uma melhor comunicação entre os usuários e aumentando a eficiência dos processos administrativos. Com funcionalidades intuitivas e um design modular, o SIGA é ideal para universidades que buscam modernizar suas operações acadêmicas.
+## Objectivos
 
-## Funcionalidades Principais
+### Objectivo Geral
+Desenvolver um sistema para gerenciar informações acadêmicas de maneira eficaz, automatizando processos como matrícula, inscrição em disciplinas e gerenciamento de histórico acadêmico.
 
-- **Autenticação e Controle de Acesso**: Sistema de login seguro com autenticação para diferentes perfis de usuários, incluindo estudantes, docentes e gestores.
+### Objectivos Específicos
+- **Facilitar o acesso às informações acadêmicas**: Permitir que estudantes e docentes acessem, de forma rápida e segura, o histórico acadêmico, notas e progresso em disciplinas.
+- **Automatizar o processo de inscrição e matrícula**: Inscrição automática em disciplinas e matrícula de novos estudantes, com validação de horários e integridade de dados.
+- **Gerenciar lançamento e publicação de notas**: Permitir que docentes registrem e publiquem notas, e que estudantes as visualizem imediatamente.
+- **Oferecer relatórios e análises acadêmicas**: Geração de relatórios sobre desempenho, matrículas, inscrições e notas.
+- **Centralizar a administração acadêmica**: Gestão eficiente de cursos, alocação de docentes e administração de perfis de estudantes.
+- **Garantir a segurança e integridade dos dados**: Controle de acesso e permissões diferenciadas para cada tipo de usuário.
+
+## Funcionalidades
+
+### Acesso ao Sistema
+- **Autenticação baseada em perfis**: Perfis de estudante, docente e gestor, com controle de acesso e recuperação de senha via e-mail.
   
-- **Gestão de Estudantes**:
-  - Visualização do histórico acadêmico com notas e disciplinas cursadas.
-  - Inscrição em disciplinas e acompanhamento das matrículas.
-  - Acesso a informações financeiras para pagamento de matrículas.
+### Perfil Estudante
+- **Histórico Acadêmico**: Visualização de notas e cursos realizados.
+- **Inscrições e Matrículas**: Inscrição automática em disciplinas e gestão de pagamento de matrícula.
 
-- **Gestão de Docentes**:
-  - Registro e publicação de notas para os estudantes.
-  - Gerenciamento das disciplinas lecionadas.
-  - Acompanhamento da lista de alunos por disciplina.
+### Perfil Docente
+- **Gerenciamento de Disciplinas**: Acesso a disciplinas ministradas e estudantes matriculados.
+- **Avaliações**: Registro e publicação de notas das avaliações.
 
-- **Gestão Acadêmica para Gestores**:
-  - Administração de cursos, disciplinas e regimes acadêmicos.
-  - Registo, edição e listagem de estudantes e docentes.
-  - Geração de relatórios acadêmicos e estatísticos.
+### Administração Central
+- **Gestão de Usuários**: Criação de perfis para estudantes, docentes e gestores.
+- **Gestão Acadêmica**: Criação de cursos, alocação de docentes e configuração de unidades acadêmicas.
 
-- **Relatórios e Análise de Dados**:
-  - Geração de relatórios de desempenho acadêmico.
-  - Análises de matrículas, notas e taxas de aprovação.
-
-## Estrutura do Projeto
-
-O projeto segue a arquitetura MVC (Model-View-Controller), dividindo a lógica de apresentação, controle e persistência dos dados:
-
-```
-src/
-│
-├── main/
-│   ├── java/com/siga/
-│   │   ├── controller/       # Controladores da aplicação
-│   │   ├── model/            # Modelos de dados (Entidades)
-│   │   ├── repository/       # Repositórios para acesso ao BD
-│   │   └── service/          # Lógica de negócios
-│   └── resources/
-│       ├── application.properties   # Configurações da aplicação
-```
+### Funcionalidades Adicionais
+- **Notificações**: Envio de notificações por e-mail.
+- **Relatórios Detalhados**: Geração de relatórios sobre desempenho acadêmico e disciplinas.
 
 ## Tecnologias Utilizadas
+- **Java**: Linguagem de programação principal.
+- **JavaFX**: Interface gráfica.
+- **Hibernate**: Mapeamento objeto-relacional (ORM).
+- **MySQL**: Banco de dados relacional para armazenamento de informações.
 
-- **Java 11+**: Linguagem de programação principal.
-- **Spring Boot**: Framework para desenvolvimento de aplicações Java, usado para criar APIs e gerenciar o ciclo de vida da aplicação.
-- **Spring Data JPA**: Para mapeamento objeto-relacional (ORM) e integração com o banco de dados.
-- **MySQL/PostgreSQL**: Base de dados relacional para armazenar informações acadêmicas.
-- **Spring Security**: Para autenticação e controle de acessos.
-- **Thymeleaf/JavaFX (para Web/Desktop)**: Frameworks para criação da interface de usuário.
+## Funcionalidades Específicas
 
-## Como Executar o Projeto
+### Lançamento de Notas pelo Docente
+- **Registro e publicação de notas**: Docentes podem registrar e publicar as notas das avaliações.
+- **Cálculo automático de médias**: O sistema calcula automaticamente as médias ponderadas e determina a aprovação/reprovação dos estudantes.
 
-### Pré-requisitos
+### Visualização de Notas pelo Estudante
+- **Histórico Acadêmico**: Acesso em tempo real às notas e desempenho nas disciplinas.
 
-- Java 11 ou superior
-- Maven ou Gradle instalado
-- MySQL ou PostgreSQL configurado
-- IDE como IntelliJ IDEA ou Eclipse
+### Relatórios de Desempenho
+- **Por turma ou curso**: Estatísticas de desempenho acadêmico, média de turma, distribuição de notas e taxa de aprovação.
+- **Análise de histórico acadêmico**: Relatórios detalhados para gestores, auxiliando na tomada de decisões acadêmicas.
 
-### Passos para Executar
+## Como Executar
 
 1. Clone o repositório:
-
    ```bash
-   git clone https://github.com/seu-usuario/siga.git
+   git clone https://github.com/mariomelembe98/sistema-de-gestao-academica-uem.git
    ```
 
-2. Importe o projeto para sua IDE preferida.
+2. Configure o banco de dados MySQL e insira as credenciais no arquivo de configuração.
 
-3. Configure o banco de dados no arquivo `application.properties`:
-
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/siga_db
-   spring.datasource.username=seu_usuario
-   spring.datasource.password=sua_senha
-   ```
-
-4. Execute o comando Maven para iniciar a aplicação:
-
+3. Execute o sistema via IDE (IntelliJ, Eclipse) ou terminal:
    ```bash
-   mvn spring-boot:run
+   mvn clean install
+   mvn javafx:run
    ```
 
-5. Acesse a aplicação no navegador ou na interface de sua preferência.
+## Contribuições
 
-## Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests, relatar bugs ou sugerir novas funcionalidades.
+Sinta-se à vontade para abrir _issues_ ou enviar _pull requests_ para melhorias no sistema.
 
 ## Licença
 
-Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Este projeto está licenciado sob a licença MIT.
+```
 
----
-
-Essa descrição cobre os principais aspectos do projeto, desde a funcionalidade até as instruções de configuração e execução. Se precisar de mais alguma informação ou ajuste, é só avisar!
+Essa estrutura oferece uma boa visão geral do projeto e suas funcionalidades. Você pode ajustar conforme necessário.
