@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.LoginController">
+   <children>
+      <TabPane fx:id="tabPane" layoutY="-63.0" prefHeight="564.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabLogin" text="Untitled Tab 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane layoutX="25.0" layoutY="30.0" prefHeight="450.0" prefWidth="350.0">
+                           <children>
+                              <TextField fx:id="txtUsuario" layoutX="86.0" layoutY="220.0" prefHeight="30.0" prefWidth="200.0" promptText="nome de utilizador ou email" />
+                              <PasswordField fx:id="txtSenha" layoutX="86.0" layoutY="270.0" prefHeight="30.0" prefWidth="200.0" promptText="senha" />
+                              <Button fx:id="btnLogin" layoutX="116.0" layoutY="351.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Entrar">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="127.0" layoutY="156.0" text="Autenticação">
+                                 <font>
+                                    <Font name="System Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="136.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/icons8_male_user_96px.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lblEsqueciSenha" layoutX="192.0" layoutY="308.0" prefHeight="18.0" prefWidth="89.0" text="Esqueci senha" underline="true" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabEsqueciSenha" text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="500.0" prefWidth="400.0">
+                           <children>
+                              <Pane fx:id="panelVoltar" layoutX="23.0" layoutY="32.0" prefHeight="35.0" prefWidth="75.0">
+                                 <children>
+                                    <ImageView fx:id="iconVoltar" fitHeight="24.0" fitWidth="26.0" layoutX="4.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Images/icons8_left_32px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="lblVoltar" layoutX="35.0" layoutY="9.0" text="Voltar" />
+                                 </children>
+                              </Pane>
+                              <TextField layoutX="100.0" layoutY="235.0" prefHeight="40.0" prefWidth="200.0" promptText="email" />
+                              <Button layoutX="174.0" layoutY="333.0" mnemonicParsing="false" text="Button" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Pane layoutX="400.0" opacity="0.9" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #2F4F4F;" />
+   </children>
 </AnchorPane>

@@ -10,11 +10,20 @@ module com.uem.sgnfx {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
+    requires swing.toast.notifications;
+    requires java.persistence;
+    requires com.jfoenix;
+    requires jakarta.persistence;
 
     exports com.uem.sgnfx.Controllers.Admin to javafx.graphics, javafx.fxml;
     exports com.uem.sgnfx.Controllers.Estudante to javafx.graphics, javafx.fxml;
     exports com.uem.sgnfx.Controllers.Professor to javafx.graphics, javafx.fxml;
 
     opens com.uem.sgnfx to javafx.fxml;
+    opens com.uem.sgnfx.Controllers.Admin to javafx.fxml;
+    opens com.uem.sgnfx.Controllers.Estudante to javafx.fxml;
+    opens com.uem.sgnfx.Controllers.Professor to javafx.fxml;
+
     exports com.uem.sgnfx;
 }

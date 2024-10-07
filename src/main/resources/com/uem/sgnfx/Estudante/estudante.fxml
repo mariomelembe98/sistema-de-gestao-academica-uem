@@ -1,40 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Estudante.EstudanteController">
    <children>
       <Pane prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: green;">
          <children>
-            <Button layoutX="15.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Avalicoes" />
-            <Button layoutX="15.0" layoutY="180.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Inscrições" />
-            <Button layoutX="15.0" layoutY="220.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Matricula" />
-            <Button layoutX="15.0" layoutY="260.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Mensalidades" />
+            <Button id="btnAvaliacoes" fx:id="btnAvaliacoes" layoutX="15.0" layoutY="140.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Avalições" />
+            <Button id="btnInscricoes" fx:id="btnInscricoes" layoutX="15.0" layoutY="180.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Inscrições" />
+            <Button id="btnMatriculas" fx:id="btnMatriculas" layoutX="15.0" layoutY="220.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Matricula" />
+            <Button id="btnMensalidades" fx:id="btnMensalidades" layoutX="15.0" layoutY="260.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" text="Mensalidades" />
          </children></Pane>
-      <TabPane layoutX="200.0" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="200.0" layoutY="-29.0" prefHeight="429.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab id="tabAvaliacoes" fx:id="tabAvaliacoes" text="Untitled Tab 1">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Accordion layoutX="152.0" layoutY="76.0" prefHeight="250.0" prefWidth="394.0">
+                          <panes>
+                            <TitledPane animated="false" text="untitled 1">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="untitled 2">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" prefHeight="110.0" prefWidth="676.0" text="untitled 3">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </TitledPane>
+                          </panes>
+                        </Accordion>
+                        <Pane prefHeight="30.0" prefWidth="700.0" style="-fx-background-color: gray;" />
+                     </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab id="tabInscricoes" fx:id="tabInscricoes" text="Untitled Tab 2">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="237.0" layoutY="171.0" prefHeight="40.0" prefWidth="226.0" text="Inscrições" textAlignment="CENTER">
+                           <font>
+                              <Font name="Tahoma" size="48.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Untitled Tab 3">
+            <Tab id="tabMatriculas" fx:id="tabMatriculas" text="Untitled Tab 3">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="237.0" layoutY="171.0" prefHeight="40.0" prefWidth="226.0" text="Matricula" textAlignment="CENTER">
+                           <font>
+                              <Font name="Tahoma" size="48.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
                </content>
             </Tab>
-            <Tab text="Untitled Tab 4">
+            <Tab id="tabMensalidades" fx:id="tabMensalidades" text="Untitled Tab 4">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="201.0" layoutY="170.0" prefHeight="62.0" prefWidth="297.0" text="Mensalidades" textAlignment="CENTER">
+                           <font>
+                              <Font name="Tahoma" size="48.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
                </content>
             </Tab>
         </tabs>

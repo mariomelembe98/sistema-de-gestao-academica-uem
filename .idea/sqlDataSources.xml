@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="a7b658b8-afae-466a-8023-c98bbb02935d" name="db_sgn@localhost Mapping">
+      <data-sources db="02c2d4bd-9060-43b1-810e-0072e882afa2" ddl="447839a1-6412-4a2d-9943-df784b925be8" />
+      <scope>
+        <node kind="schema" qname="db_sgn" />
+      </scope>
+    </mapping>
+    <mapping uuid="be980343-a83b-40e9-917e-1c18fea8dc81" name="@localhost Mapping">
+      <data-sources db="c9537126-64d7-4bc2-8ac0-a4e2530e5efb" />
+    </mapping>
+    <mapping uuid="535549b8-2b45-4877-94e4-e5b0723ee778" name="medlink@localhost Mapping">
+      <data-sources db="5c7692ba-9f5a-4aa0-9e40-ea95e9bba6ca" ddl="9e9c3f7f-76ab-4e78-a12a-64ba81a75245" />
+      <scope>
+        <node kind="schema" qname="medlink" />
+      </scope>
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="447839a1-6412-4a2d-9943-df784b925be8" />
+          <option name="name" value="db_sgn@localhost (DDL)" />
+          <option name="dbmsName" value="MYSQL" />
+          <option name="parent" value="02c2d4bd-9060-43b1-810e-0072e882afa2" />
+          <option name="urls">
+            <array />
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+        <State>
+          <option name="id" value="9e9c3f7f-76ab-4e78-a12a-64ba81a75245" />
+          <option name="name" value="medlink@localhost (DDL)" />
+          <option name="dbmsName" value="MYSQL" />
+          <option name="parent" value="5c7692ba-9f5a-4aa0-9e40-ea95e9bba6ca" />
+          <option name="urls">
+            <array />
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>

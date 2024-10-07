@@ -24,17 +24,17 @@
       <artifactId>javafx-fxml</artifactId>
       <version>22-ea+11</version>
     </dependency>
-<dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-web</artifactId>
-      <version>22-ea+11</version>
-    </dependency>
       <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-swing</artifactId>
-        <version>22-ea+11</version>
-      </dependency>
-<dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>22-ea+11</version>
+          </dependency>
+            <dependency>
+              <groupId>org.openjfx</groupId>
+              <artifactId>javafx-swing</artifactId>
+              <version>22-ea+11</version>
+            </dependency>
+          <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
       <version>22-ea+11</version>
@@ -102,7 +102,18 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.5.3.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>9.0.10</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -124,7 +135,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.uem.sgnfx/com.uem.sgnfx.HelloApplication</mainClass>
+              <mainClass>com.uem.sgnfx/com.uem.sgnfx.LoginApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
