@@ -1,10 +1,13 @@
 package com.uem.sgnfx.Models;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "users", schema = "medlink", uniqueConstraints = {
         @UniqueConstraint(name = "users_email_unique", columnNames = {"email"})
 })
 public class User {
@@ -33,6 +36,21 @@ public class User {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Patient> patients = new LinkedHashSet<>();
+
+    public User(Long id, String name, String email, Instant emailVerifiedAt, String password, String rememberToken, Instant createdAt, Instant updatedAt, Set<Patient> patients) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.emailVerifiedAt = emailVerifiedAt;
+        this.password = password;
+        this.rememberToken = rememberToken;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.patients = patients;
+    }
 
     public Long getId() {
         return id;
@@ -96,6 +114,14 @@ public class User {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(Set<Patient> patients) {
+        this.patients = patients;
     }
 
 }

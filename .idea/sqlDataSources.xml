@@ -21,16 +21,6 @@
     <option name="dataSources">
       <list>
         <State>
-          <option name="id" value="447839a1-6412-4a2d-9943-df784b925be8" />
-          <option name="name" value="db_sgn@localhost (DDL)" />
-          <option name="dbmsName" value="MYSQL" />
-          <option name="parent" value="02c2d4bd-9060-43b1-810e-0072e882afa2" />
-          <option name="urls">
-            <array />
-          </option>
-          <option name="outLayout" value="File per object by schema.groovy" />
-        </State>
-        <State>
           <option name="id" value="9e9c3f7f-76ab-4e78-a12a-64ba81a75245" />
           <option name="name" value="medlink@localhost (DDL)" />
           <option name="dbmsName" value="MYSQL" />

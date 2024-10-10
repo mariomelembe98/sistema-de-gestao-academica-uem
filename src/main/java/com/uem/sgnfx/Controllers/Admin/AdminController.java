@@ -29,7 +29,13 @@ public class AdminController {
     private JFXButton btnListarEstudantes;
 
     @FXML
+    private JFXButton btnListarEstudantes1;
+
+    @FXML
     private JFXButton btnRegistarEstudante;
+
+    @FXML
+    private JFXButton btnRegistarEstudante1;
 
     @FXML
     private ImageView iconVoltarPanelEstudantes;
@@ -38,7 +44,13 @@ public class AdminController {
     private ImageView iconVoltarPanelEstudantes1;
 
     @FXML
+    private Label lblDocenteDashboard;
+
+    @FXML
     private Label lblEstudanteDashboard;
+
+    @FXML
+    private Label lblHome;
 
     @FXML
     private Pane panelHomeEstudante;
@@ -48,6 +60,9 @@ public class AdminController {
 
     @FXML
     private Pane panelHomeEstudante11;
+
+    @FXML
+    private Pane panelHomeEstudante2;
 
     @FXML
     private Tab tabAdicionarEstudantes;
@@ -78,12 +93,14 @@ public class AdminController {
         btnDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabDocentes));
         btnEstudantes.setOnAction(event -> tabPane.getSelectionModel().select(tabEstudantes));
         btnRegistarEstudante.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarEstudantes));
+        btnListarEstudantes.setOnAction(event -> tabPane.getSelectionModel().select(tabListarEstudantes));
         lblEstudanteDashboard.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
-        btnListarEstudantes.setOnAction(event-> tabPane.getSelectionModel().select(tabListarEstudantes));
+        lblDocenteDashboard.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
         btnAdicionarNovo.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarEstudantes));
         btnGestores.setOnAction(event -> tabPane.getSelectionModel().select(tabGestores));
         iconVoltarPanelEstudantes.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabEstudantes));
         iconVoltarPanelEstudantes1.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabEstudantes));
+
     }
 
 }

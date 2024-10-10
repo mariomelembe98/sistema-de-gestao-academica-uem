@@ -10,14 +10,14 @@ public class Disciplina {
     private Long id;
     private String nome;
     private Curso curso;
-    private Docente docenteResponsavel;
+    private List<Docente> docenteResponsavels;
     private List<Estudante> estudantesMatriculados;
 
-    public Disciplina(Long id, String nome, Curso curso, Docente docenteResponsavel, List<Estudante> estudantesMatriculados) {
+    public Disciplina(Long id, String nome, Curso curso, List<Docente> docenteResponsavels, List<Estudante> estudantesMatriculados) {
         this.id = id;
         this.nome = nome;
         this.curso = curso;
-        this.docenteResponsavel = docenteResponsavel;
+        this.docenteResponsavels = docenteResponsavels;
         this.estudantesMatriculados = estudantesMatriculados;
     }
 
@@ -45,12 +45,12 @@ public class Disciplina {
         this.curso = curso;
     }
 
-    public Docente getDocenteResponsavel() {
-        return docenteResponsavel;
+    public List<Docente> getDocenteResponsavels() {
+        return docenteResponsavels;
     }
 
-    public void setDocenteResponsavel(Docente docenteResponsavel) {
-        this.docenteResponsavel = docenteResponsavel;
+    public void setDocenteResponsavels(List<Docente> docenteResponsavels) {
+        this.docenteResponsavels = docenteResponsavels;
     }
 
     public List<Estudante> getEstudantesMatriculados() {

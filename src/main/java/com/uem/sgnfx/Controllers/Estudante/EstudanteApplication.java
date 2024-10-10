@@ -13,7 +13,7 @@ public class EstudanteApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         // Use caminho absoluto se necessário
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/uem/sgnfx/Estudante/estudante.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         primaryStage.setResizable(false);
         primaryStage.resizableProperty();
         primaryStage.setTitle("Estudante");

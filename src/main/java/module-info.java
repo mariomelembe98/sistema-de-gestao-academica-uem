@@ -15,6 +15,7 @@ module com.uem.sgnfx {
     requires java.persistence;
     requires com.jfoenix;
     requires jakarta.persistence;
+    requires org.hibernate.orm.core;
 
     exports com.uem.sgnfx.Controllers.Admin to javafx.graphics, javafx.fxml;
     exports com.uem.sgnfx.Controllers.Estudante to javafx.graphics, javafx.fxml;

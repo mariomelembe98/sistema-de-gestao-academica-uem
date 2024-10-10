@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by USER on 21/09/2024.
  */
 
-public class Pessoa {
+public abstract class Pessoa {
     private long id;
     private String nome;
     private String apelido;
