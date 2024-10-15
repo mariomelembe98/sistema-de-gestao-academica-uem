@@ -1,41 +1,83 @@
 package com.uem.sgnfx.Models;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-/**
- * Created by USER on 21/09/2024.
- */
+import java.time.Instant;
+import java.time.LocalDate;
 
-public abstract class Pessoa {
-    private long id;
+@Entity
+@Table(name = "pessoas", schema = "gestao_academica", uniqueConstraints = {
+        @UniqueConstraint(name = "pessoas_email_unique", columnNames = {"email"})
+})
+public class Pessoa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "apelido", nullable = false)
     private String apelido;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "telefone", nullable = false)
     private String telefone;
-    private Date dataNascimento;
-    private boolean isStatus = true;
-    private boolean isAdmin = false;
-    private String senha;
 
-    public Pessoa() {}
+    @Column(name = "endereco", nullable = false)
+    private String endereco;
 
-    public Pessoa(long id, String nome, String apelido, String email, String telefone, Date dataNascimento, boolean isStatus, boolean isAdmin, String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.apelido = apelido;
-        this.email = email;
-        this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
-        this.isStatus = isStatus;
-        this.isAdmin = isAdmin;
-        this.senha = senha;
-    }
+    @Column(name = "bi", nullable = false)
+    private String bi;
 
-    public long getId() {
+    @Column(name = "genero", nullable = false)
+    private String genero;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
+
+    @Column(name = "estado_civil", nullable = false)
+    private String estadoCivil;
+
+    @Column(name = "nacionalidade", nullable = false)
+    private String nacionalidade;
+
+    @Column(name = "naturalidade", nullable = false)
+    private String naturalidade;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ColumnDefault("1")
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = false;
+
+    @ColumnDefault("0")
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin = false;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,50 +113,108 @@ public abstract class Pessoa {
         this.telefone = telefone;
     }
 
-    public Date getDataNascimento() {
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getBi() {
+        return bi;
+    }
+
+    public void setBi(String bi) {
+        this.bi = bi;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    public boolean isStatus() {
-        return isStatus;
+    public String getEstadoCivil() {
+        return estadoCivil;
     }
 
-    public void setStatus(boolean status) {
-        isStatus = status;
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
     }
 
-    public boolean isAdmin() {
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+
+    public String getNaturalidade() {
+        return naturalidade;
+    }
+
+    public void setNaturalidade(String naturalidade) {
+        this.naturalidade = naturalidade;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Pessoa{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", apelido='" + apelido + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", isStatus=" + isStatus +
-                ", isAdmin=" + isAdmin +
-                ", senha='" + senha + '\'' +
-                '}';
+    public Instant getCreatedAt() {
+        return createdAt;
     }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }

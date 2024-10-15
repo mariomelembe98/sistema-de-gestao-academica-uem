@@ -1,25 +1,46 @@
 package com.uem.sgnfx.Models;
 
-import java.util.List;
+import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-/**
- * Created by USER on 07/10/2024.
- */
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "disciplinas", schema = "gestao_academica")
 public class Disciplina {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
-    private String nome;
-    private Curso curso;
-    private List<Docente> docenteResponsavels;
-    private List<Estudante> estudantesMatriculados;
 
-    public Disciplina(Long id, String nome, Curso curso, List<Docente> docenteResponsavels, List<Estudante> estudantesMatriculados) {
-        this.id = id;
-        this.nome = nome;
-        this.curso = curso;
-        this.docenteResponsavels = docenteResponsavels;
-        this.estudantesMatriculados = estudantesMatriculados;
-    }
+    @Column(name = "designacao", nullable = false)
+    private String designacao;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    @OneToMany(mappedBy = "disciplina")
+    private Set<DisciplinaDocente> disciplinaDocentes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "disciplina")
+    private Set<DisciplinaEstudante> disciplinaEstudantes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "disciplina")
+    private Set<Inscricao> inscricoes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "disciplina")
+    private Set<Nota> notas = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -29,12 +50,12 @@ public class Disciplina {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDesignacao() {
+        return designacao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDesignacao(String designacao) {
+        this.designacao = designacao;
     }
 
     public Curso getCurso() {
@@ -45,19 +66,52 @@ public class Disciplina {
         this.curso = curso;
     }
 
-    public List<Docente> getDocenteResponsavels() {
-        return docenteResponsavels;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDocenteResponsavels(List<Docente> docenteResponsavels) {
-        this.docenteResponsavels = docenteResponsavels;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public List<Estudante> getEstudantesMatriculados() {
-        return estudantesMatriculados;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setEstudantesMatriculados(List<Estudante> estudantesMatriculados) {
-        this.estudantesMatriculados = estudantesMatriculados;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
+
+    public Set<DisciplinaDocente> getDisciplinaDocentes() {
+        return disciplinaDocentes;
+    }
+
+    public void setDisciplinaDocentes(Set<DisciplinaDocente> disciplinaDocentes) {
+        this.disciplinaDocentes = disciplinaDocentes;
+    }
+
+    public Set<DisciplinaEstudante> getDisciplinaEstudantes() {
+        return disciplinaEstudantes;
+    }
+
+    public void setDisciplinaEstudantes(Set<DisciplinaEstudante> disciplinaEstudantes) {
+        this.disciplinaEstudantes = disciplinaEstudantes;
+    }
+
+    public Set<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(Set<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
+
+    public Set<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(Set<Nota> notas) {
+        this.notas = notas;
+    }
+
 }

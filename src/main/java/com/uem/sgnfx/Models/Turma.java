@@ -5,33 +5,33 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "notas", schema = "gestao_academica")
-public class Nota {
+@Table(name = "turmas", schema = "gestao_academica")
+public class Turma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "estudante_id", nullable = false)
-    private Estudante estudante;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "disciplina_id", nullable = false)
-    private Disciplina disciplina;
-
-    @Column(name = "nota", nullable = false)
-    private Double nota;
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
 
     @Column(name = "created_at")
     private Instant createdAt;
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "turma")
+    private Set<TurmaDocente> turmaDocentes = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -41,28 +41,20 @@ public class Nota {
         this.id = id;
     }
 
-    public Estudante getEstudante() {
-        return estudante;
+    public String getNome() {
+        return nome;
     }
 
-    public void setEstudante(Estudante estudante) {
-        this.estudante = estudante;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
-    public Double getNota() {
-        return nota;
-    }
-
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public Instant getCreatedAt() {
@@ -79,6 +71,14 @@ public class Nota {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<TurmaDocente> getTurmaDocentes() {
+        return turmaDocentes;
+    }
+
+    public void setTurmaDocentes(Set<TurmaDocente> turmaDocentes) {
+        this.turmaDocentes = turmaDocentes;
     }
 
 }

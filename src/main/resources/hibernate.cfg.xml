@@ -1,15 +1,45 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="connection.url"/>
-    <property name="connection.driver_class"/>
-    <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gestao_academica</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"/>
 
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
-  </session-factory>
+        <!-- JDBC connection pool settings -->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Names the annotated entity class -->
+        <mapping class="com.uem.sgnfx.Models.Estudante"/>
+        <mapping class="com.uem.sgnfx.Models.User"/>
+        <mapping class="com.uem.sgnfx.Models.Curso"/>
+        <mapping class="com.uem.sgnfx.Models.Curso"/>
+        <mapping class="com.uem.sgnfx.Models.Curso"/>
+        <mapping class="com.uem.sgnfx.Models.User"/>
+        <mapping class="com.uem.sgnfx.Models.DisciplinaEstudante"/>
+        <mapping class="com.uem.sgnfx.Models.Inscricao"/>
+        <mapping class="com.uem.sgnfx.Models.Disciplina"/>
+        <mapping class="com.uem.sgnfx.Models.Nota"/>
+        <mapping class="com.uem.sgnfx.Models.Departamento"/>
+        <mapping class="com.uem.sgnfx.Models.Turma"/>
+        <mapping class="com.uem.sgnfx.Models.TurmaDocente"/>
+        <mapping class="com.uem.sgnfx.Models.Pessoa"/>
+        <mapping class="com.uem.sgnfx.Models.DisciplinaDocente"/>
+        <mapping class="com.uem.sgnfx.Models.Docente"/>
+    </session-factory>
 </hibernate-configuration>

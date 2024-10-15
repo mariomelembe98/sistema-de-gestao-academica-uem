@@ -1,14 +1,14 @@
 package com.uem.sgnfx.Models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "cursos", schema = "gestao_academica")
-public class Curso {
+@Table(name = "departamentos", schema = "gestao_academica")
+public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,16 +21,17 @@ public class Curso {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "departamento_id", nullable = false)
-    private Departamento departamento;
-
     @Column(name = "created_at")
     private Instant createdAt;
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "departamento")
+    private Set<Curso> cursos = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "departamento")
+    private Set<Docente> docentes = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -56,14 +57,6 @@ public class Curso {
         this.descricao = descricao;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -78,6 +71,22 @@ public class Curso {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(Set<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public Set<Docente> getDocentes() {
+        return docentes;
+    }
+
+    public void setDocentes(Set<Docente> docentes) {
+        this.docentes = docentes;
     }
 
 }

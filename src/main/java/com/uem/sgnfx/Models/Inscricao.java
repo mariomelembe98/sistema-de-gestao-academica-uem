@@ -7,8 +7,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.Instant;
 
 @Entity
-@Table(name = "notas", schema = "gestao_academica")
-public class Nota {
+@Table(name = "inscricoes", schema = "gestao_academica")
+public class Inscricao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,9 +23,6 @@ public class Nota {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "disciplina_id", nullable = false)
     private Disciplina disciplina;
-
-    @Column(name = "nota", nullable = false)
-    private Double nota;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -55,14 +52,6 @@ public class Nota {
 
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
-    }
-
-    public Double getNota() {
-        return nota;
-    }
-
-    public void setNota(Double nota) {
-        this.nota = nota;
     }
 
     public Instant getCreatedAt() {

@@ -7,8 +7,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.Instant;
 
 @Entity
-@Table(name = "notas", schema = "gestao_academica")
-public class Nota {
+@Table(name = "turma_docente", schema = "gestao_academica")
+public class TurmaDocente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -16,16 +16,13 @@ public class Nota {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "estudante_id", nullable = false)
-    private Estudante estudante;
+    @JoinColumn(name = "docente_id", nullable = false)
+    private Docente docente;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "disciplina_id", nullable = false)
-    private Disciplina disciplina;
-
-    @Column(name = "nota", nullable = false)
-    private Double nota;
+    @JoinColumn(name = "turma_id", nullable = false)
+    private Turma turma;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -41,28 +38,20 @@ public class Nota {
         this.id = id;
     }
 
-    public Estudante getEstudante() {
-        return estudante;
+    public Docente getDocente() {
+        return docente;
     }
 
-    public void setEstudante(Estudante estudante) {
-        this.estudante = estudante;
+    public void setDocente(Docente docente) {
+        this.docente = docente;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
-    public Double getNota() {
-        return nota;
-    }
-
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     public Instant getCreatedAt() {

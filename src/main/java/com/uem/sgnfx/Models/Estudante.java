@@ -1,144 +1,279 @@
 package com.uem.sgnfx.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Date;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-/**
- * Created by USER on 21/09/2024.
- */
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "db_sgn")
-public class Estudante extends Pessoa{
+@Table(name = "estudantes", schema = "gestao_academica", uniqueConstraints = {
+        @UniqueConstraint(name = "estudantes_email_unique", columnNames = {"email"})
+})
+public class Estudante {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    /**
-     * @param id
-     * @param nome
-     * @param apelido
-     * @param email
-     * @param telefone
-     * @param dataNascimento
-     * @param isStatus
-     * @param isAdmin
-     * @param senha
-     */
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-    public Estudante(long id, String nome, String apelido, String email, String telefone, Date dataNascimento, boolean isStatus, boolean isAdmin, String senha) {
-        super(id, nome, apelido, email, telefone, dataNascimento, isStatus, isAdmin, senha);
+    @Column(name = "apelido", nullable = false)
+    private String apelido;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "telefone", nullable = false)
+    private String telefone;
+
+    @Column(name = "codigoestudante", nullable = false)
+    private String codigoestudante;
+
+    @Column(name = "endereco", nullable = false)
+    private String endereco;
+
+    @Column(name = "bi", nullable = false)
+    private String bi;
+
+    @Column(name = "genero", nullable = false)
+    private String genero;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
+
+    @Column(name = "estado_civil", nullable = false)
+    private String estadoCivil;
+
+    @Column(name = "nacionalidade", nullable = false)
+    private String nacionalidade;
+
+    @Column(name = "naturalidade", nullable = false)
+    private String naturalidade;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
+
+    @ColumnDefault("1")
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = false;
+
+    @ColumnDefault("0")
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin = false;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    @OneToMany(mappedBy = "estudante")
+    private Set<DisciplinaEstudante> disciplinaEstudantes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "estudante")
+    private Set<Inscricao> inscricoes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "estudante")
+    private Set<Nota> notas = new LinkedHashSet<>();
+
+    public Long getId() {
+        return id;
     }
 
-    public Estudante() {}
-
-    /**
-     * @return
-     */
-    @Override
-    public long getId() {
-        return super.getId();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    /**
-     * @param id
-     */
-    @Override
-    public void setId(long id) {
-        super.setId(id);
-    }
-
-    /**
-     * @return
-     */
-    @Override
     public String getNome() {
-        return super.getNome();
+        return nome;
     }
 
-    /**
-     * @param nome
-     */
-    @Override
     public void setNome(String nome) {
-        super.setNome(nome);
+        this.nome = nome;
     }
 
-    /**
-     * @return
-     */
-    @Override
     public String getApelido() {
-        return super.getApelido();
+        return apelido;
     }
 
-    /**
-     * @param apelido
-     */
-    @Override
     public void setApelido(String apelido) {
-        super.setApelido(apelido);
+        this.apelido = apelido;
     }
 
-    /**
-     * @return
-     */
-    @Override
     public String getEmail() {
-        return super.getEmail();
+        return email;
     }
 
-    /**
-     * @param email
-     */
-    @Override
     public void setEmail(String email) {
-        super.setEmail(email);
+        this.email = email;
     }
 
-    /**
-     * @return
-     */
-    @Override
     public String getTelefone() {
-        return super.getTelefone();
+        return telefone;
     }
 
-    /**
-     * @param telefone
-     */
-    @Override
     public void setTelefone(String telefone) {
-        super.setTelefone(telefone);
+        this.telefone = telefone;
     }
 
-    /**
-     * @return
-     */
-    @Override
-    public Date getDataNascimento() {
-        return super.getDataNascimento();
+    public String getCodigoestudante() {
+        return codigoestudante;
     }
 
-    /**
-     * @param dataNascimento
-     */
-    @Override
-    public void setDataNascimento(Date dataNascimento) {
-        super.setDataNascimento(dataNascimento);
+    public void setCodigoestudante(String codigoestudante) {
+        this.codigoestudante = codigoestudante;
     }
 
-    /**
-     * @return
-     */
-    @Override
-    public boolean isStatus() {
-        return super.isStatus();
+    public String getEndereco() {
+        return endereco;
     }
 
-    /**
-     * @param status
-     */
-    @Override
-    public void setStatus(boolean status) {
-        super.setStatus(status);
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
+
+    public String getBi() {
+        return bi;
+    }
+
+    public void setBi(String bi) {
+        this.bi = bi;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+
+    public String getNaturalidade() {
+        return naturalidade;
+    }
+
+    public void setNaturalidade(String naturalidade) {
+        this.naturalidade = naturalidade;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Set<DisciplinaEstudante> getDisciplinaEstudantes() {
+        return disciplinaEstudantes;
+    }
+
+    public void setDisciplinaEstudantes(Set<DisciplinaEstudante> disciplinaEstudantes) {
+        this.disciplinaEstudantes = disciplinaEstudantes;
+    }
+
+    public Set<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(Set<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
+
+    public Set<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(Set<Nota> notas) {
+        this.notas = notas;
+    }
+
 }

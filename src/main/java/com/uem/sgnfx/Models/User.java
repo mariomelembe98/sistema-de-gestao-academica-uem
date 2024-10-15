@@ -7,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", schema = "medlink", uniqueConstraints = {
+@Table(name = "users", schema = "gestao_academica", uniqueConstraints = {
         @UniqueConstraint(name = "users_email_unique", columnNames = {"email"})
 })
 public class User {
@@ -38,19 +38,13 @@ public class User {
     private Instant updatedAt;
 
     @OneToMany(mappedBy = "user")
-    private Set<Patient> patients = new LinkedHashSet<>();
+    private Set<Docente> docentes = new LinkedHashSet<>();
 
-    public User(Long id, String name, String email, Instant emailVerifiedAt, String password, String rememberToken, Instant createdAt, Instant updatedAt, Set<Patient> patients) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.emailVerifiedAt = emailVerifiedAt;
-        this.password = password;
-        this.rememberToken = rememberToken;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.patients = patients;
-    }
+    @OneToMany(mappedBy = "user")
+    private Set<Estudante> estudantes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Pessoa> pessoas = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -116,12 +110,28 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Patient> getPatients() {
-        return patients;
+    public Set<Docente> getDocentes() {
+        return docentes;
     }
 
-    public void setPatients(Set<Patient> patients) {
-        this.patients = patients;
+    public void setDocentes(Set<Docente> docentes) {
+        this.docentes = docentes;
+    }
+
+    public Set<Estudante> getEstudantes() {
+        return estudantes;
+    }
+
+    public void setEstudantes(Set<Estudante> estudantes) {
+        this.estudantes = estudantes;
+    }
+
+    public Set<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(Set<Pessoa> pessoas) {
+        this.pessoas = pessoas;
     }
 
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -19,7 +21,7 @@
          <left>
             <Pane prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton alignment="BOTTOM_LEFT" layoutX="25.0" layoutY="166.0" prefHeight="50.0" prefWidth="200.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
+                  <JFXButton fx:id="btnTurmas" alignment="BOTTOM_LEFT" layoutX="25.0" layoutY="166.0" prefHeight="50.0" prefWidth="200.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -66,6 +68,9 @@
                      <image>
                         <Image url="@../../../../Images/icons8_male_user_50px.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </children></Pane>
          </top>
@@ -74,62 +79,254 @@
                <children>
                   <TabPane fx:id="tabPane" prefHeight="550.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab fx:id="tabHome" text="Untitled Tab 1">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                      <Tab fx:id="tabDisciplinas" text="Untitled Tab 2">
+                      <Tab fx:id="tabHome" text="Tab Home">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="170.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_book_96px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="170.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></JFXButton>
-                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="319.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_book_96px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="319.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></JFXButton>
-                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="450.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_book_96px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="450.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></JFXButton>
+                                    <Label layoutX="201.0" layoutY="168.0" text="Painel Inicial" textFill="#4d5b4f">
+                                       <font>
+                                          <Font name="System Bold" size="64.0" />
+                                       </font>
+                                    </Label>
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                        <Tab text="Untitled Tab">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
+                        <Tab fx:id="tabTurmas" text="Tab Turmas">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: whitesmoke;">
+                                 <children>
+                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="125.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_google_classroom_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton layoutX="125.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="310.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_google_classroom_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton layoutX="310.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="497.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_google_classroom_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton layoutX="497.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
+                                    <Label layoutX="159.0" layoutY="240.0" text="Turma A">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="344.0" layoutY="240.0" text="Turma B">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="531.0" layoutY="240.0" text="Turma C">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator prefWidth="750.0" />
+                                    <Label fx:id="panelTurmas" layoutX="64.0" text="Painel &gt;">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Label>
+                                    <Label layoutX="125.0" text="Turmas">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="arrowTurmas" fitHeight="30.0" fitWidth="30.0" layoutX="28.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_left_32px.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                                 <rotationAxis>
+                                    <Point3D z="6.0" />
+                                 </rotationAxis>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="tabTurmas1" text="Tab Turma">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: whitesmoke;">
+                                 <children>
+                                    <Separator prefWidth="750.0" />
+                                    <Label fx:id="panelTurmas1" layoutX="64.0" text="Painel &gt;">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Label>
+                                    <Label layoutX="125.0" text="Turmas">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="arrowTurmas1" fitHeight="30.0" fitWidth="30.0" layoutX="28.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_left_32px.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                                 <rotationAxis>
+                                    <Point3D z="6.0" />
+                                 </rotationAxis>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                      <Tab fx:id="tabDisciplinas" text="Tab Displinas">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="125.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_book_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton fx:id="btnDisciplina" layoutX="125.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></JFXButton>
+                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="310.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_book_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton layoutX="310.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></JFXButton>
+                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="497.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_book_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton layoutX="497.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></JFXButton>
+                                    <Label layoutX="122.0" layoutY="240.0" text="Matematica Discreta I">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="301.0" layoutY="240.0" text="Matematica Discreta II">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="477.0" layoutY="240.0" text="Fundamentos de Geometria">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator prefWidth="750.0" />
+                                    <Label fx:id="panelDisciplinas" layoutX="64.0" text="Painel &gt;">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Label>
+                                    <Label layoutX="125.0" text="Disciplinas">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="arrowDisciplinas" fitHeight="30.0" fitWidth="30.0" layoutX="28.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_left_32px.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children></AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab fx:id="tabDisciplina" text="Tab Displina">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Separator prefWidth="750.0" />
+                                    <Label fx:id="panelDisciplinas1" layoutX="64.0" text="Painel &gt;">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Label>
+                                    <Label layoutX="125.0" text="Disciplina">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="arrowDisciplina" fitHeight="30.0" fitWidth="30.0" layoutX="28.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Images/icons8_left_32px.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                    <Label layoutX="28.0" layoutY="61.0" text="Disciplina de: ">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="185.0" layoutY="61.0" text="Matematica Discreta I" textFill="#38613f">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTreeTableView layoutX="28.0" layoutY="156.0" prefHeight="330.0" prefWidth="700.0" />
+                                    <Label layoutX="43.0" layoutY="121.0" text="Lista de Estudantes" textFill="#38613f">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
                         </Tab>
                         <Tab text="Untitled Tab">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
                         </Tab>
                     </tabs>
                   </TabPane>
-                  <Pane prefHeight="30.0" prefWidth="750.0" style="-fx-background-color: white;">
-                     <children>
-                        <Separator prefWidth="750.0" />
-                     </children>
-                  </Pane>
+                  <Pane layoutY="1.0" prefHeight="30.0" prefWidth="750.0" style="-fx-background-color: whitesmoke;" />
                </children>
             </Pane>
          </center>
