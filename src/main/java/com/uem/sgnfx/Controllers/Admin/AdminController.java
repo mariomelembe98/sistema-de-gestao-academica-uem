@@ -5,9 +5,7 @@ package com.uem.sgnfx.Controllers.Admin;
  */
 
 import com.jfoenix.controls.JFXButton;
-import com.uem.sgnfx.DAO.EstudanteDAO;
 import com.uem.sgnfx.DAO.EstudanteDAOImpl;
-import com.uem.sgnfx.DAO.UserDAO;
 import com.uem.sgnfx.DAO.UserDAOImpl;
 import com.uem.sgnfx.Models.Estudante;
 import com.uem.sgnfx.Models.User;
@@ -20,12 +18,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AdminController {
-
-    private EstudanteDAO estudanteDAO;
-    private Estudante estudante;
 
     @FXML
     private Button btnAddDocente;
@@ -106,7 +103,7 @@ public class AdminController {
     private Button btnUtilizadores;
 
     @FXML
-    private TableColumn<?, ?> colUserCreatedAt;
+    private TableColumn<?, ?> colUserEmail, colUserCreatedAt;
 
     @FXML
     private TableColumn<?, ?> colUserCreatedAt1;
@@ -115,16 +112,13 @@ public class AdminController {
     private TableColumn<?, ?> colUserCreatedAt11;
 
     @FXML
-    private TableColumn<?, ?> colUserEmail;
-
-    @FXML
     private TableColumn<?, ?> colUserEmail1;
 
     @FXML
     private TableColumn<?, ?> colUserEmail11;
 
     @FXML
-    private TableColumn<?, ?> colUserId;
+    private TableColumn<?, ?> colUserId, colUserName, emailColumn;
 
     @FXML
     private TableColumn<?, ?> colUserId1;
@@ -133,19 +127,16 @@ public class AdminController {
     private TableColumn<?, ?> colUserId11;
 
     @FXML
-    private TableColumn<?, ?> colUserName;
-
-    @FXML
     private TableColumn<?, ?> colUserName1;
 
     @FXML
     private TableColumn<?, ?> colUserName11;
 
     @FXML
-    private TableColumn<?, ?> emailColumn;
+    private TableView<Estudante> estudanteTable;
 
     @FXML
-    private TableView<Estudante> estudanteTable;
+    private TableView<User> tableViewUsers;
 
     @FXML
     private ImageView iconVoltarPanelDocentes;
@@ -184,7 +175,13 @@ public class AdminController {
     private ImageView imgBackDocente;
 
     @FXML
+    private TableColumn<?, ?> idEstudanteColumn;
+
+    @FXML
     private TableColumn<?, ?> nomeColumn;
+
+    @FXML
+    private TableColumn<Estudante, LocalDateTime> createdAtEstudanteColumn;
 
     @FXML
     private Pane panelAddDocentes;
@@ -223,19 +220,7 @@ public class AdminController {
     private Pane panelListarEstudantes;
 
     @FXML
-    private Tab tabAddCurso;
-
-    @FXML
-    private Tab tabAddDisciplina;
-
-    @FXML
-    private Tab tabAddTurma;
-
-    @FXML
-    private Tab tabAdicionarDocentes;
-
-    @FXML
-    private Tab tabAdicionarEstudantes;
+    private Tab tabAddCurso, tabAddDisciplina, tabAddTurma, tabAdicionarDocentes, tabAdicionarEstudantes;
 
     @FXML
     private Tab tabAdicionarUtilizadores;
@@ -286,9 +271,6 @@ public class AdminController {
     private TableView<?> tableViewDisciplinas;
 
     @FXML
-    private TableView<User> tableViewUsers;
-
-    @FXML
     private TableColumn<?, ?> telefoneColumn;
 
     @FXML
@@ -297,7 +279,8 @@ public class AdminController {
     @FXML
     private TextField txtPesquisarEstudante;
 
-    private UserDAO userDAO;
+    private EstudanteDAOImpl estudanteDAO;
+    private UserDAOImpl userDAO;
 
     @FXML
     void initialize() {
@@ -310,9 +293,11 @@ public class AdminController {
 
 
         // Configure as colunas da tabela
+        idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoestudante"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        createdAtEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
         colUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -322,7 +307,7 @@ public class AdminController {
 
         // Carregar os estudantes
         listarEstudantes();
-        carregarUsers();
+        ListarUsers();
 
     }
 
@@ -372,29 +357,37 @@ public class AdminController {
 
     @FXML
     public void listarEstudantes() {
-
         List<Estudante> estudantes = estudanteDAO.readAll();
         System.out.println("Número de estudantes encontrados: " + (estudantes != null ? estudantes.size() : 0));
-
-        if (estudantes == null || estudantes.isEmpty()) {
-            System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
-        } else {
-
-//            for (Estudante estudante : estudantes) {
-//                System.out.println(estudante.getNome());
-//            }
-
-            ObservableList<Estudante> observableEstudantes = FXCollections.observableArrayList(estudantes);
-            estudanteTable.setItems(observableEstudantes);
-        }
+        actualizarTabelaEstudantes(estudantes);
     }
 
-
     @FXML
-    private void carregarUsers() {
+    private void ListarUsers() {
         List<User> users = userDAO.readAll();
         ObservableList<User> observableUsers = FXCollections.observableArrayList(users);
         tableViewUsers.setItems(observableUsers);
+        actualizarTabelaUsers(users);
+    }
+
+    private void actualizarTabelaEstudantes(List<Estudante> estudantes) {
+        if (estudantes != null && !estudantes.isEmpty()) {
+            ObservableList<Estudante> observableEstudantes = FXCollections.observableArrayList(estudantes);
+            estudanteTable.setItems(observableEstudantes);
+        } else {
+            estudanteTable.getItems().clear();
+            System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
+        }
+    }
+
+    private void actualizarTabelaUsers(List<User> users) {
+        if (users != null && !users.isEmpty()) {
+            ObservableList<User> observableUsers = FXCollections.observableArrayList(users);
+            tableViewUsers.setItems(observableUsers);
+        } else {
+            tableViewUsers.getItems().clear();
+            System.out.println("Nenhum utilizador encontrado ou lista de utilizadores está vazia.");
+        }
     }
 
 

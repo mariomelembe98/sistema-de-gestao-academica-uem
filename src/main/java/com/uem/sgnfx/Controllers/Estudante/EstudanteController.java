@@ -5,18 +5,13 @@
 package com.uem.sgnfx.Controllers.Estudante;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import com.uem.sgnfx.Models.Estudante;
-import com.uem.sgnfx.DAO.EstudanteDAO;
-import com.uem.sgnfx.DAO.EstudanteDAOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class EstudanteController {
 
@@ -26,7 +21,6 @@ public class EstudanteController {
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
 
-    private EstudanteDAO estudanteDAO;
     private SessionFactory sessionFactory;
 
     @FXML // fx:id="btnAvaliacoes"
@@ -59,9 +53,6 @@ public class EstudanteController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
 
-        // Configuração do Hibernate
-        initializeHibernate();
-
         // Adicionando manipuladores de eventos para os botões
         btnAvaliacoes.setOnAction(event -> tabPane.getSelectionModel().select(tabAvaliacoes));
         btnInscricoes.setOnAction(event -> tabPane.getSelectionModel().select(tabInscricoes));
@@ -70,15 +61,6 @@ public class EstudanteController {
 
     }
 
-    private void initializeHibernate() {
-        try {
-            Configuration configuration = new Configuration().configure();
-            sessionFactory = configuration.buildSessionFactory();
-            estudanteDAO = new EstudanteDAOImpl(sessionFactory);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Trate o erro adequadamente
-        }
-    }
+
 
 }
