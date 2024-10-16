@@ -25,7 +25,7 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
         }
     }
 
-    // TODO: Método específico: Listar estudantes ativos
+    // TODO: Método específico: Listar estudantes activos
     public List<Estudante> listarAtivos() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Estudante where isActive = true", Estudante.class).list();
@@ -41,6 +41,16 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
             return session.createQuery("from Estudante where curso.id = :cursoId", Estudante.class)
                     .setParameter("cursoId", cursoId)
                     .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // TODO: Método específico: Contar número total de estudantes
+    public Long contarTotalDeEstudantes() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("select count(e) from Estudante e", Long.class).uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
