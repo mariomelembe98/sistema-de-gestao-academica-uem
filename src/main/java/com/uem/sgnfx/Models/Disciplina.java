@@ -19,7 +19,7 @@ public class Disciplina {
     @Column(name = "designacao", nullable = false)
     private String designacao;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
@@ -60,6 +60,10 @@ public class Disciplina {
 
     public Curso getCurso() {
         return curso;
+    }
+
+    public String getCursoNome() {
+        return curso != null ? curso.getNome() : "Sem curso";
     }
 
     public void setCurso(Curso curso) {

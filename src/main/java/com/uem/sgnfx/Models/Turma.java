@@ -19,7 +19,7 @@ public class Turma {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
@@ -55,6 +55,10 @@ public class Turma {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public String getCursoNome() {
+        return curso != null ? curso.getNome() : "Sem curso";
     }
 
     public Instant getCreatedAt() {

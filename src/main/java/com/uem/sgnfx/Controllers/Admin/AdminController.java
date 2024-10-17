@@ -5,12 +5,8 @@ package com.uem.sgnfx.Controllers.Admin;
  */
 
 import com.jfoenix.controls.JFXButton;
-import com.uem.sgnfx.DAO.DocenteDAOImpl;
-import com.uem.sgnfx.DAO.EstudanteDAOImpl;
-import com.uem.sgnfx.DAO.UserDAOImpl;
-import com.uem.sgnfx.Models.Docente;
-import com.uem.sgnfx.Models.Estudante;
-import com.uem.sgnfx.Models.User;
+import com.uem.sgnfx.DAO.*;
+import com.uem.sgnfx.Models.*;
 import com.uem.sgnfx.Utils.HibernateUtil;
 
 import javafx.collections.FXCollections;
@@ -108,19 +104,7 @@ public class AdminController {
     private Button btnUtilizadores;
 
     @FXML
-    private TableColumn<?, ?> colUserEmail, colUserCreatedAt;
-
-    @FXML
-    private TableColumn<?, ?> colUserCreatedAt1;
-
-    @FXML
-    private TableColumn<?, ?> colUserCreatedAt11;
-
-    @FXML
-    private TableColumn<?, ?> colUserEmail1;
-
-    @FXML
-    private TableColumn<?, ?> colUserEmail11;
+    private TableColumn<?, ?> colUserEmail, colUserCreatedAt, colUserUpdatedAt;
 
     @FXML
     private TableColumn<?, ?> colUserId, colUserName, emailColumn;
@@ -129,16 +113,13 @@ public class AdminController {
     private TableColumn<?, ?> colDocenteId, colDocenteName, colDocenteEmail, colDocenteCreatedAt, colDocenteUpdatedAt, colDocenteIsActive;
 
     @FXML
-    private TableColumn<?, ?> colUserId1;
+    private TableColumn<?, ?> colCursoId, colCursoName, colCursoDepartamento, colCursoCreatedAt;
 
     @FXML
-    private TableColumn<?, ?> colUserId11;
+    private TableColumn<?, ?> colDisciplinaId, colDisciplinaName, colDisciplinaCurso, colDisciplinaCreatedAt;
 
     @FXML
-    private TableColumn<?, ?> colUserName1;
-
-    @FXML
-    private TableColumn<?, ?> colUserName11;
+    private TableColumn<?,?> colTurmaId, colTurmaName, colTurmaCurso, colTurmaCreatedAt;
 
     @FXML
     private TableView<Estudante> estudanteTable;
@@ -148,6 +129,15 @@ public class AdminController {
 
     @FXML
     private TableView<Docente> docenteTableView;
+
+    @FXML
+    private TableView<Disciplina> disciplinaTableView;
+
+    @FXML
+    private TableView<Curso> cursoTableView;
+
+    @FXML
+    private TableView<Turma> turmaTableView;
 
     @FXML
     private ImageView iconVoltarPanelDocentes;
@@ -267,6 +257,9 @@ public class AdminController {
     private Tab tabListarUlitizadores;
 
     @FXML
+    private Tab tabListarTurmas;
+
+    @FXML
     private TabPane tabPane;
 
     @FXML
@@ -293,23 +286,29 @@ public class AdminController {
     private UserDAOImpl userDAO;
     private DocenteDAOImpl docenteDAO;
     private EstudanteDAOImpl estudanteDAO;
+    private DisciplinaDAOImpl disciplinaDAO;
+    private CursoDAOImpl cursoDAO;
+    private TurmaDAOImpl turmaDAO;
+
 
     @FXML
     void initialize() {
-
         initPanels();
 
         // Use a implementação concreta do DAO
         this.userDAO = new UserDAOImpl(HibernateUtil.getSessionFactory());
         this.docenteDAO = new DocenteDAOImpl(HibernateUtil.getSessionFactory());
         this.estudanteDAO = new EstudanteDAOImpl(HibernateUtil.getSessionFactory());
-
+        this.disciplinaDAO = new DisciplinaDAOImpl(HibernateUtil.getSessionFactory());
+        this.cursoDAO = new CursoDAOImpl(HibernateUtil.getSessionFactory());
+        this.turmaDAO = new TurmaDAOImpl(HibernateUtil.getSessionFactory());
 
         // Configure as colunas da tabela
         colUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colUserEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colUserCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        colUserUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
 
         idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoestudante"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -324,11 +323,28 @@ public class AdminController {
         colDocenteUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
         colDocenteIsActive.setCellValueFactory(new PropertyValueFactory<>("isActive"));
 
+        colDisciplinaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colDisciplinaName.setCellValueFactory(new PropertyValueFactory<>("designacao"));
+        colDisciplinaCurso.setCellValueFactory(new PropertyValueFactory<>("CursoNome"));
+        colDisciplinaCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+
+        colCursoId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCursoName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCursoDepartamento.setCellValueFactory(new PropertyValueFactory<>("DepartamentoNome"));
+        colCursoCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+
+        colTurmaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTurmaName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colTurmaCurso.setCellValueFactory(new PropertyValueFactory<>("CursoNome"));
+        colTurmaCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+
         // Carregar os estudantes
         ListarUsers();
         ListarDocentes();
         listarEstudantes();
-
+        listarDisciplinas();
+        listarCursos();
+        listarTurmas();
     }
 
     @FXML
@@ -356,11 +372,13 @@ public class AdminController {
         btnCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabCursos));
         btnListarCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabCursos));
         btnRegistarCurso.setOnAction(event -> tabPane.getSelectionModel().select(tabAddCurso));
+        btnListarCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabListarCursos));
 
         // TODO: Turmas
         btnTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabTurmas));
         btnListarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabTurmas));
         btnRegistarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabAddTurma));
+        btnListarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabListarTurmas));
 
         // TODO: Disciplinas
         btnDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplinas));
@@ -396,6 +414,30 @@ public class AdminController {
         List<Estudante> estudantes = estudanteDAO.readAll();
         System.out.println("Número de estudantes encontrados: " + (estudantes != null ? estudantes.size() : 0));
         actualizarTabelaEstudantes(estudantes);
+    }
+
+    public void listarDisciplinas(){
+        List<Disciplina> disciplinas = disciplinaDAO.readAll();
+        for (Disciplina disciplina : disciplinas) {
+            disciplina.getCurso().getNome();
+        }
+        actualizarDisciplinas(disciplinas);
+    }
+
+    public void listarCursos(){
+        List<Curso> cursos = cursoDAO.readAll();
+        for (Curso curso : cursos) {
+            curso.getDepartamento().getNome();
+        }
+        actualizarCursos(cursos);
+    }
+
+    public void listarTurmas(){
+        List<Turma> turmas = turmaDAO.readAll();
+        for (Turma turma : turmas) {
+            turma.getCurso().getNome();
+        }
+        actualizarTurmasList(turmas);
     }
 
     public void listarEstudantesPorNome(String nome) {
@@ -447,6 +489,33 @@ public class AdminController {
         } else {
             estudanteTable.getItems().clear();
             System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
+        }
+    }
+
+    public void actualizarDisciplinas(List<Disciplina> disciplinas){
+        if (disciplinas != null && !disciplinas.isEmpty()) {
+            ObservableList<Disciplina> observableDisciplinas = FXCollections.observableArrayList(disciplinas);
+            disciplinaTableView.setItems(observableDisciplinas);
+        }else {
+            disciplinaTableView.getItems().clear();
+        }
+    }
+
+    public void actualizarCursos(List<Curso> cursos){
+        if (cursos != null && !cursos.isEmpty()) {
+            ObservableList<Curso> observableCursos = FXCollections.observableArrayList(cursos);
+            cursoTableView.setItems(observableCursos);
+        }else {
+            cursoTableView.getItems().clear();
+        }
+    }
+
+    public void actualizarTurmasList(List<Turma> turmaList){
+        if (turmaList != null && !turmaList.isEmpty()) {
+            ObservableList<Turma> observableTurmas = FXCollections.observableArrayList(turmaList);
+            turmaTableView.setItems(observableTurmas);
+        }else {
+            turmaTableView.getItems().clear();
         }
     }
 

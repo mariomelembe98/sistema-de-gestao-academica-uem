@@ -21,7 +21,7 @@ public class Curso {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;
@@ -62,6 +62,10 @@ public class Curso {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
+    }
+
+    public String getDepartamentoNome() {
+        return departamento != null ? departamento.getNome() : "Sem departamento";
     }
 
     public Instant getCreatedAt() {

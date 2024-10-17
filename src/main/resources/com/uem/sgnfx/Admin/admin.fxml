@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Admin.AdminController">
    <children>
@@ -367,7 +368,10 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnAddEstudante" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="723.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY" />
+                                          <Button fx:id="btnAddEstudante" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="723.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></Button>
                                           <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="820.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_add_32px.png" />
@@ -383,7 +387,10 @@
                                                 <Image url="@../../../../Images/icons8_search_32px.png" />
                                              </image>
                                           </ImageView>
-                                          <Button fx:id="btnCarregarEstudantes" alignment="BOTTOM_LEFT" layoutX="605.0" layoutY="74.0" mnemonicParsing="false" onAction="#listarEstudantes" prefHeight="25.0" prefWidth="89.0" text="Actualizar" />
+                                          <Button fx:id="btnCarregarEstudantes" alignment="BOTTOM_LEFT" layoutX="605.0" layoutY="74.0" mnemonicParsing="false" onAction="#listarEstudantes" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></Button>
                                           <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="668.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_refresh_32px.png" />
@@ -642,7 +649,7 @@
                                           <TableColumn fx:id="colDocenteEmail" prefWidth="200.0" text="Email" />
                                           <TableColumn fx:id="colDocenteCreatedAt" prefWidth="150.0" text="Criado em" />
                                           <TableColumn fx:id="colDocenteUpdatedAt" prefWidth="150.0" text="Actualizado em" />
-                                          <TableColumn fx:id="colDocenteIsActive" prefWidth="100.0" text="Estado"/>
+                                          <TableColumn fx:id="colDocenteIsActive" prefWidth="150.0" text="Estado" />
                                        </columns>
                                     </TableView>
                                  </children>
@@ -861,6 +868,7 @@
                                        <TableColumn fx:id="colUserName" prefWidth="150.0" text="Nome" />
                                        <TableColumn fx:id="colUserEmail" prefWidth="200.0" text="Email" />
                                        <TableColumn fx:id="colUserCreatedAt" prefWidth="150.0" text="Criado em" />
+                                       <TableColumn fx:id="colUserUpdatedAt" prefWidth="150.0" text="Actualizado em" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -869,7 +877,7 @@
                         </Tab>
                         <Tab fx:id="tabCursos" text="Tab Cursos">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="680.0">
                                  <children>
                                     <Pane fx:id="panelHomeCursos" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
                                        <children>
@@ -948,12 +956,12 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
-                                    <TableView fx:id="tableViewCursos" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
+                                    <TableView fx:id="cursoTableView" layoutX="67.0" layoutY="180.0" prefHeight="432.0" prefWidth="766.0">
                                        <columns>
-                                          <TableColumn fx:id="colUserId1" prefWidth="50.0" text="ID" />
-                                          <TableColumn fx:id="colUserName1" prefWidth="150.0" text="Nome" />
-                                          <TableColumn fx:id="colUserEmail1" prefWidth="200.0" text="Email" />
-                                          <TableColumn fx:id="colUserCreatedAt1" prefWidth="150.0" text="Criado em" />
+                                          <TableColumn fx:id="colCursoId" prefWidth="50.0" text="ID" />
+                                          <TableColumn fx:id="colCursoName" prefWidth="150.0" text="Nome" />
+                                          <TableColumn fx:id="colCursoDepartamento" prefWidth="200.0" text="Email" />
+                                          <TableColumn fx:id="colCursoCreatedAt" prefWidth="150.0" text="Criado em" />
                                        </columns>
                                     </TableView>
                                  </children>
@@ -1041,12 +1049,12 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
-                                    <TableView fx:id="tableViewDisciplinas" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
+                                    <TableView fx:id="disciplinaTableView" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
                                        <columns>
-                                          <TableColumn fx:id="colUserId11" prefWidth="50.0" text="ID" />
-                                          <TableColumn fx:id="colUserName11" prefWidth="150.0" text="Nome" />
-                                          <TableColumn fx:id="colUserEmail11" prefWidth="200.0" text="Email" />
-                                          <TableColumn fx:id="colUserCreatedAt11" prefWidth="150.0" text="Criado em" />
+                                          <TableColumn fx:id="colDisciplinaId" prefWidth="50.0" text="ID" />
+                                          <TableColumn fx:id="colDisciplinaName" prefWidth="150.0" text="Nome" />
+                                          <TableColumn fx:id="colDisciplinaCurso" prefWidth="200.0" text="Curso" />
+                                          <TableColumn fx:id="colDisciplinaCreatedAt" prefWidth="150.0" text="Criado em" />
                                        </columns>
                                     </TableView>
                                  </children>
@@ -1121,6 +1129,28 @@
                                           </Label>
                                        </children>
                                     </Pane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="tabListarTurmas" text="Tab Listar Turmas">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
+                                 <children>
+                                    <Label layoutX="67.0" layoutY="36.0" text="Turmas">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="turmaTableView" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
+                                       <columns>
+                                          <TableColumn fx:id="colTurmaId" prefWidth="50.0" text="ID" />
+                                          <TableColumn fx:id="colTurmaName" prefWidth="150.0" text="Nome" />
+                                          <TableColumn fx:id="colTurmaCurso" prefWidth="200.0" text="Curso" />
+                                          <TableColumn fx:id="colTurmaCreatedAt" prefWidth="150.0" text="Criado em" />
+                                       </columns>
+                                    </TableView>
+                                    <SearchableComboBox layoutX="268.0" layoutY="138.0" />
                                  </children>
                               </AnchorPane>
                            </content>
