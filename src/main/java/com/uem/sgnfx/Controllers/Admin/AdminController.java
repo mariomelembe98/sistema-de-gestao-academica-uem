@@ -5,8 +5,10 @@ package com.uem.sgnfx.Controllers.Admin;
  */
 
 import com.jfoenix.controls.JFXButton;
+import com.uem.sgnfx.DAO.DocenteDAOImpl;
 import com.uem.sgnfx.DAO.EstudanteDAOImpl;
 import com.uem.sgnfx.DAO.UserDAOImpl;
+import com.uem.sgnfx.Models.Docente;
 import com.uem.sgnfx.Models.Estudante;
 import com.uem.sgnfx.Models.User;
 import com.uem.sgnfx.Utils.HibernateUtil;
@@ -85,6 +87,9 @@ public class AdminController {
     private Button listarDocentebtn;
 
     @FXML
+    private Button btnCarregarEstudantes;
+
+    @FXML
     private JFXButton btnRegistarDocentes;
 
     @FXML
@@ -121,6 +126,9 @@ public class AdminController {
     private TableColumn<?, ?> colUserId, colUserName, emailColumn;
 
     @FXML
+    private TableColumn<?, ?> colDocenteId, colDocenteName, colDocenteEmail, colDocenteCreatedAt, colDocenteUpdatedAt, colDocenteIsActive;
+
+    @FXML
     private TableColumn<?, ?> colUserId1;
 
     @FXML
@@ -137,6 +145,9 @@ public class AdminController {
 
     @FXML
     private TableView<User> tableViewUsers;
+
+    @FXML
+    private TableView<Docente> docenteTableView;
 
     @FXML
     private ImageView iconVoltarPanelDocentes;
@@ -279,8 +290,9 @@ public class AdminController {
     @FXML
     private TextField txtPesquisarEstudante;
 
-    private EstudanteDAOImpl estudanteDAO;
     private UserDAOImpl userDAO;
+    private DocenteDAOImpl docenteDAO;
+    private EstudanteDAOImpl estudanteDAO;
 
     @FXML
     void initialize() {
@@ -288,26 +300,34 @@ public class AdminController {
         initPanels();
 
         // Use a implementação concreta do DAO
-        this.estudanteDAO = new EstudanteDAOImpl(HibernateUtil.getSessionFactory());
         this.userDAO = new UserDAOImpl(HibernateUtil.getSessionFactory());
+        this.docenteDAO = new DocenteDAOImpl(HibernateUtil.getSessionFactory());
+        this.estudanteDAO = new EstudanteDAOImpl(HibernateUtil.getSessionFactory());
 
 
         // Configure as colunas da tabela
+        colUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colUserEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colUserCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+
         idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoestudante"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
         createdAtEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
-        colUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colUserEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colUserCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-
+        colDocenteId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colDocenteName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colDocenteEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colDocenteCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        colDocenteUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
+        colDocenteIsActive.setCellValueFactory(new PropertyValueFactory<>("isActive"));
 
         // Carregar os estudantes
-        listarEstudantes();
         ListarUsers();
+        ListarDocentes();
+        listarEstudantes();
 
     }
 
@@ -356,13 +376,6 @@ public class AdminController {
     }
 
     @FXML
-    public void listarEstudantes() {
-        List<Estudante> estudantes = estudanteDAO.readAll();
-        System.out.println("Número de estudantes encontrados: " + (estudantes != null ? estudantes.size() : 0));
-        actualizarTabelaEstudantes(estudantes);
-    }
-
-    @FXML
     private void ListarUsers() {
         List<User> users = userDAO.readAll();
         ObservableList<User> observableUsers = FXCollections.observableArrayList(users);
@@ -370,14 +383,42 @@ public class AdminController {
         actualizarTabelaUsers(users);
     }
 
-    private void actualizarTabelaEstudantes(List<Estudante> estudantes) {
-        if (estudantes != null && !estudantes.isEmpty()) {
-            ObservableList<Estudante> observableEstudantes = FXCollections.observableArrayList(estudantes);
-            estudanteTable.setItems(observableEstudantes);
-        } else {
-            estudanteTable.getItems().clear();
-            System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
+    @FXML
+    private void ListarDocentes() {
+        List<Docente> docentes = docenteDAO.readAll();
+        ObservableList<Docente> observableDocentes = FXCollections.observableArrayList(docentes);
+        docenteTableView.setItems(observableDocentes);
+        actualizarTabelaDocentes(docentes);
+    }
+
+    @FXML
+    public void listarEstudantes() {
+        List<Estudante> estudantes = estudanteDAO.readAll();
+        System.out.println("Número de estudantes encontrados: " + (estudantes != null ? estudantes.size() : 0));
+        actualizarTabelaEstudantes(estudantes);
+    }
+
+    public void listarEstudantesPorNome(String nome) {
+        List<Estudante> estudantes = estudanteDAO.buscarPorNome(nome);
+        actualizarTabelaEstudantes(estudantes);
+    }
+
+    @FXML
+    public void buscarEstudantesPorCriterio() {
+        String criterio = txtPesquisarEstudante.getText();
+
+        if (criterio == null || criterio.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, insira um critério de pesquisa.");
+            alert.showAndWait();
+            return;
         }
+
+        List<Estudante> estudantes = estudanteDAO.buscarPorCriterioUnico(criterio);
+
+        actualizarTabelaEstudantes(estudantes);
     }
 
     private void actualizarTabelaUsers(List<User> users) {
@@ -390,5 +431,23 @@ public class AdminController {
         }
     }
 
+    private void actualizarTabelaDocentes(List<Docente> docentes) {
+        if (docentes != null && !docentes.isEmpty()) {
+            ObservableList<Docente> observableDocentes = FXCollections.observableArrayList(docentes);
+            docenteTableView.setItems(observableDocentes);
+        }else {
+            docenteTableView.getItems().clear();
+        }
+    }
+
+    private void actualizarTabelaEstudantes(List<Estudante> estudantes) {
+        if (estudantes != null && !estudantes.isEmpty()) {
+            ObservableList<Estudante> observableEstudantes = FXCollections.observableArrayList(estudantes);
+            estudanteTable.setItems(observableEstudantes);
+        } else {
+            estudanteTable.getItems().clear();
+            System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
+        }
+    }
 
 }

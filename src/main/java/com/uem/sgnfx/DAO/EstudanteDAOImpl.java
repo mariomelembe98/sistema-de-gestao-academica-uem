@@ -3,6 +3,7 @@ package com.uem.sgnfx.DAO;
 import com.uem.sgnfx.Models.Estudante;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -11,6 +12,31 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
 
     public EstudanteDAOImpl(SessionFactory sessionFactory) {
         super(Estudante.class, sessionFactory);
+        this.sessionFactory = sessionFactory;
+    }
+
+    public List<Estudante> buscarPorCriterioUnico(String criterio) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql;
+
+            if (criterio.contains("@")) {
+                // Se contiver "@" é um email
+                hql = "from Estudante where email like :criterio";
+            } else if (criterio.matches("\\d+")) {
+                // Se for numérico, é um código de estudante
+                hql = "from Estudante where codigoestudante like :criterio";
+            } else {
+                // Caso contrário, busque por nome ou apelido
+                hql = "from Estudante where nome like :criterio or apelido like :criterio";
+            }
+
+            Query<Estudante> query = session.createQuery(hql, Estudante.class);
+            query.setParameter("criterio", "%" + criterio + "%");
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // Todo: Método específico: Buscar estudantes por nome

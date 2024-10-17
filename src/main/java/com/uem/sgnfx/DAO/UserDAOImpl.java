@@ -12,5 +12,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
 
     public UserDAOImpl(SessionFactory sessionFactory){
         super(User.class, sessionFactory);
+        this.sessionFactory = sessionFactory;
     }
 }
