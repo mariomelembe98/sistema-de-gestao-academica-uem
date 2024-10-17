@@ -57,9 +57,7 @@ public class Turma {
         this.curso = curso;
     }
 
-    public String getCursoNome() {
-        return curso != null ? curso.getNome() : "Sem curso";
-    }
+    public String getCursoNome() { return curso != null ? curso.getNome() : "Sem curso"; }
 
     public Instant getCreatedAt() {
         return createdAt;
