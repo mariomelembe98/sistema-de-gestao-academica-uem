@@ -4,6 +4,8 @@ import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Disciplina;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import java.util.List;
 
 public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
@@ -22,6 +24,21 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
     @Override
     public Departamento read(Long id) {
         return null;
+    }
+
+    @Override
+    public void create(Disciplina disciplina) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.save(disciplina);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ package com.uem.sgnfx.Controllers.Admin;
  */
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.uem.sgnfx.DAO.*;
 import com.uem.sgnfx.Models.*;
 import com.uem.sgnfx.Utils.HibernateUtil;
@@ -58,15 +59,6 @@ public class AdminController {
     @FXML
     private TableColumn<?, ?> idEstudanteColumn, nomeColumn, telefoneColumn;
 
-
-    // TextFields
-    @FXML
-    private TextField txtNomeDepartamento;
-    @FXML
-    private TextField txtSiglaDepartamento;
-    @FXML
-    private TextField txtDescricaoDepartamento;
-
     // Tabelas
     @FXML
     private TableView<Estudante> estudanteTable;
@@ -110,8 +102,21 @@ public class AdminController {
     // Campos de Texto e Pesquisa
     @FXML
     private TextField txtPesquisarDocentes, txtPesquisarEstudante;
+
     @FXML
     private SearchableComboBox<Curso> txtLiveSearchEstudante;
+
+    @FXML
+    private JFXComboBox<Departamento> cbDepartamentoCurso;
+
+    @FXML
+    private JFXComboBox<Curso> cbCursoDisciplina;
+
+    @FXML
+    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina;
+
+    @FXML
+    private TextArea txtDescricaoDepartamento, txtDescricaoCurso, txtDescricaoDisciplina;
 
 
     private UserDAOImpl userDAO;
@@ -245,6 +250,7 @@ public class AdminController {
             disciplina.getCurso().getNome();
         }
         actualizarDisciplinas(disciplinas);
+        cursoDisciplina();
     }
 
     public void listarCursos(){
@@ -266,6 +272,32 @@ public class AdminController {
     public void listarDepartamentos(){
         List<Departamento> departamentos = departamentoDAO.readAll();
         actualizarDepartamentos(departamentos);
+
+        ObservableList<Departamento> observableCursos = FXCollections.observableArrayList(departamentos);
+        cbDepartamentoCurso.setItems(observableCursos);
+        cbDepartamentoCurso.setCellFactory(lv -> new ListCell<Departamento>() {
+            @Override
+            protected void updateItem(Departamento departamento, boolean empty) {
+                super.updateItem(departamento, empty);
+                if (empty || departamento == null) {
+                    setText(null);
+                } else {
+                    setText(departamento.getNome());
+                }
+            }
+        });
+
+        cbDepartamentoCurso.setButtonCell(new ListCell<Departamento>() {
+            @Override
+            protected void updateItem(Departamento departamento, boolean empty) {
+                super.updateItem(departamento, empty);
+                if (empty || departamento == null) {
+                    setText(null);
+                } else {
+                    setText(departamento.getNome());  // Exibe o nome do curso na seleção
+                }
+            }
+        });
     }
 
     public void listarEstudantesPorNome(String nome) {
@@ -333,6 +365,39 @@ public class AdminController {
         }
     }
 
+    public void cursoDisciplina(){
+
+        List<Curso> cursos = cursoDAO.readAll();
+        ObservableList<Curso> observableCursos = FXCollections.observableArrayList(cursos);
+        cbCursoDisciplina.setItems(observableCursos);
+
+        cbCursoDisciplina.setCellFactory(lv -> new ListCell<Curso>() {
+            @Override
+            protected void updateItem(Curso curso, boolean empty) {
+                super.updateItem(curso, empty);
+                if (empty || curso == null) {
+                    setText(null);
+                } else {
+                    setText(curso.getNome());  // Exibe o nome do curso
+                }
+            }
+        });
+
+        // Também exibe o nome do curso quando um item é selecionado
+        cbCursoDisciplina.setButtonCell(new ListCell<Curso>() {
+            @Override
+            protected void updateItem(Curso curso, boolean empty) {
+                super.updateItem(curso, empty);
+                if (empty || curso == null) {
+                    setText(null);
+                } else {
+                    setText(curso.getNome());  // Exibe o nome do curso na seleção
+                }
+            }
+        });
+
+    }
+
     private void actualizarTabelaUsers(List<User> users) {
         if (users != null && !users.isEmpty()) {
             ObservableList<User> observableUsers = FXCollections.observableArrayList(users);
@@ -397,6 +462,147 @@ public class AdminController {
             departementoTableView.getItems().clear();
         }
     }
+
+    @FXML
+    public void adicionarDepartamento() {
+        String nome = txtNomeDepartamento.getText();
+        String sigla = txtSiglaDepartamento.getText();
+        String descricao = txtDescricaoDepartamento.getText();
+
+        if (nome.isEmpty() || sigla.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText("Preencha todos os campos");
+            alert.showAndWait();
+            return;
+        }
+
+        Departamento departamento = new Departamento();
+        departamento.setNome(nome);
+        departamento.setSigla(sigla);
+        departamento.setDescricao(descricao);
+        departamento.setCreatedAt(Instant.now());
+        departamento.setUpdatedAt(Instant.now());
+
+        departamentoDAO.create(departamento);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sucesso");
+        alert.setHeaderText(null);
+        alert.setContentText("Departamento adicionado com sucesso!");
+        alert.showAndWait();
+
+        listarDepartamentos();
+        limparCamposDepartamento();
+    }
+
+    @FXML
+    public void adicionarCurso() {
+        String nome = txtNomeCurso.getText();
+        String descricao = txtDescricaoCurso.getText();
+        Departamento departamento = cbDepartamentoCurso.getValue();
+
+        if (nome.isEmpty() || departamento == null) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText("Preencha todos os campos obrigatórios!");
+            alert.showAndWait();
+            return;
+        }
+
+        Curso curso = new Curso();
+        curso.setNome(nome);
+        curso.setDescricao(descricao);
+        curso.setDepartamento(departamento);
+        curso.setCreatedAt(Instant.now());
+        curso.setUpdatedAt(Instant.now());
+
+        cursoDAO.create(curso);  // Chamar o método de criação do DAO
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sucesso");
+        alert.setHeaderText(null);
+        alert.setContentText("Curso adicionado com sucesso!");
+        alert.showAndWait();
+
+        listarCursos();
+        limparCamposCurso();
+    }
+
+    public void adicionarDisciplina(){
+        String nome = txtNomeDisciplina.getText();
+        String descricao = txtDescricaoDisciplina.getText();
+        Curso curso = cbCursoDisciplina.getValue();
+
+        if (nome.isEmpty() || curso == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText("Preencha todos os campos");
+            alert.showAndWait();
+        }
+
+        Disciplina disciplina = new Disciplina();
+        disciplina.setDesignacao(nome);
+        disciplina.setCreatedAt(Instant.now());
+        disciplina.setUpdatedAt(Instant.now());
+        disciplina.setCurso(curso);
+        disciplinaDAO.create(disciplina);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sucesso");
+        alert.setHeaderText(null);
+        alert.setContentText("Disciplina adicionado com sucesso!");
+        alert.showAndWait();
+
+        listarDisciplinas();
+        limparCamposDisciplina();
+
+    }
+
+    // TODO: Método para limpar os campos de texto
+    private void limparCamposDepartamento() {
+        txtNomeDepartamento.clear();
+        txtSiglaDepartamento.clear();
+        txtDescricaoDepartamento.clear();
+    }
+
+    private void limparCamposCurso() {
+        txtNomeCurso.clear();
+        txtDescricaoCurso.clear();
+        cbDepartamentoCurso.setValue(null);
+    }
+
+    private void limparCamposDisciplina(){
+        txtNomeDisciplina.clear();
+        txtDescricaoDisciplina.clear();
+        cbCursoDisciplina.setValue(null);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // TODO: Estudantes

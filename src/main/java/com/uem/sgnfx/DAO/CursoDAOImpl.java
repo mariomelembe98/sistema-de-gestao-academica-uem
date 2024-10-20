@@ -4,6 +4,7 @@ import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Departamento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import java.util.List;
 
@@ -23,6 +24,21 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
     @Override
     public Departamento read(Long id) {
         return null;
+    }
+
+    @Override
+    public void create(Curso curso) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.save(curso);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
