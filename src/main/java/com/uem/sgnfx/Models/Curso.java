@@ -5,6 +5,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "cursos", schema = "gestao_academica")
@@ -31,6 +33,15 @@ public class Curso {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "curso")
+    private Set<Disciplina> disciplinas = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "curso")
+    private Set<Estudante> estudantes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "curso")
+    private Set<Turma> turmas = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -82,6 +93,30 @@ public class Curso {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(Set<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+
+    public Set<Estudante> getEstudantes() {
+        return estudantes;
+    }
+
+    public void setEstudantes(Set<Estudante> estudantes) {
+        this.estudantes = estudantes;
+    }
+
+    public Set<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(Set<Turma> turmas) {
+        this.turmas = turmas;
     }
 
 }

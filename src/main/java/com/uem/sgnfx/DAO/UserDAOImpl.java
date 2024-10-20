@@ -1,5 +1,6 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.User;
 import org.hibernate.SessionFactory;
 
@@ -13,5 +14,14 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
     public UserDAOImpl(SessionFactory sessionFactory){
         super(User.class, sessionFactory);
         this.sessionFactory = sessionFactory;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Departamento read(Long id) {
+        return null;
     }
 }

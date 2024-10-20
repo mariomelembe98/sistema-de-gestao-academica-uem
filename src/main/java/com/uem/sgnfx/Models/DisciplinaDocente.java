@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.Instant;
 
 @Entity
-@Table(name = "disciplina_docente", schema = "gestao_academica")
+@Table(name = "disciplina_docentes", schema = "gestao_academica")
 public class DisciplinaDocente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

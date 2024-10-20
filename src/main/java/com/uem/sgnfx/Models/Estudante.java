@@ -84,10 +84,7 @@ public class Estudante {
     private Instant updatedAt;
 
     @OneToMany(mappedBy = "estudante")
-    private Set<DisciplinaEstudante> disciplinaEstudantes = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "estudante")
-    private Set<Inscricao> inscricoes = new LinkedHashSet<>();
+    private Set<Inscricao> inscricaos = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "estudante")
     private Set<Nota> notas = new LinkedHashSet<>();
@@ -252,20 +249,12 @@ public class Estudante {
         this.updatedAt = updatedAt;
     }
 
-    public Set<DisciplinaEstudante> getDisciplinaEstudantes() {
-        return disciplinaEstudantes;
+    public Set<Inscricao> getInscricaos() {
+        return inscricaos;
     }
 
-    public void setDisciplinaEstudantes(Set<DisciplinaEstudante> disciplinaEstudantes) {
-        this.disciplinaEstudantes = disciplinaEstudantes;
-    }
-
-    public Set<Inscricao> getInscricoes() {
-        return inscricoes;
-    }
-
-    public void setInscricoes(Set<Inscricao> inscricoes) {
-        this.inscricoes = inscricoes;
+    public void setInscricaos(Set<Inscricao> inscricaos) {
+        this.inscricaos = inscricaos;
     }
 
     public Set<Nota> getNotas() {

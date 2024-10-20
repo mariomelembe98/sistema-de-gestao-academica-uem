@@ -28,10 +28,7 @@
         <mapping class="com.uem.sgnfx.Models.Estudante"/>
         <mapping class="com.uem.sgnfx.Models.User"/>
         <mapping class="com.uem.sgnfx.Models.Curso"/>
-        <mapping class="com.uem.sgnfx.Models.Curso"/>
-        <mapping class="com.uem.sgnfx.Models.Curso"/>
         <mapping class="com.uem.sgnfx.Models.User"/>
-        <mapping class="com.uem.sgnfx.Models.DisciplinaEstudante"/>
         <mapping class="com.uem.sgnfx.Models.Inscricao"/>
         <mapping class="com.uem.sgnfx.Models.Disciplina"/>
         <mapping class="com.uem.sgnfx.Models.Nota"/>
@@ -41,5 +38,6 @@
         <mapping class="com.uem.sgnfx.Models.Pessoa"/>
         <mapping class="com.uem.sgnfx.Models.DisciplinaDocente"/>
         <mapping class="com.uem.sgnfx.Models.Docente"/>
+        <mapping class="com.uem.sgnfx.Models.Avaliacao"/>
     </session-factory>
 </hibernate-configuration>

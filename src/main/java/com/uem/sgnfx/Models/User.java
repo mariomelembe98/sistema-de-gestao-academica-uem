@@ -37,11 +37,17 @@ public class User {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
+    @OneToMany(mappedBy = "updatedBy")
+    private Set<Avaliacao> avaliacaos = new LinkedHashSet<>();
+
     @OneToMany(mappedBy = "user")
     private Set<Docente> docentes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Estudante> estudantes = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "updatedBy")
+    private Set<Nota> notas = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Pessoa> pessoas = new LinkedHashSet<>();
@@ -110,6 +116,14 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Avaliacao> getAvaliacaos() {
+        return avaliacaos;
+    }
+
+    public void setAvaliacaos(Set<Avaliacao> avaliacaos) {
+        this.avaliacaos = avaliacaos;
+    }
+
     public Set<Docente> getDocentes() {
         return docentes;
     }
@@ -124,6 +138,14 @@ public class User {
 
     public void setEstudantes(Set<Estudante> estudantes) {
         this.estudantes = estudantes;
+    }
+
+    public Set<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(Set<Nota> notas) {
+        this.notas = notas;
     }
 
     public Set<Pessoa> getPessoas() {

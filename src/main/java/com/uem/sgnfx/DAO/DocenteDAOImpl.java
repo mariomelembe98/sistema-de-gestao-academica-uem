@@ -1,5 +1,6 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Docente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,5 +39,14 @@ public class DocenteDAOImpl extends GenericDAOImpl<Docente> {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Departamento read(Long id) {
+        return null;
     }
 }

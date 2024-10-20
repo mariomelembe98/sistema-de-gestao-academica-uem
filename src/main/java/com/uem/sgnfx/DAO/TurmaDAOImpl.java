@@ -1,5 +1,6 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Disciplina;
 import com.uem.sgnfx.Models.Turma;
 import org.hibernate.Session;
@@ -14,6 +15,15 @@ public class TurmaDAOImpl extends GenericDAOImpl<Turma> {
     public TurmaDAOImpl(SessionFactory sessionFactory) {
         super(Turma.class, sessionFactory);
         this.sessionFactory = sessionFactory;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Departamento read(Long id) {
+        return null;
     }
 
     @Override

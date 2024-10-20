@@ -16,272 +16,103 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.SearchableComboBox;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AdminController {
 
+    // Botões
     @FXML
-    private Button btnAddDocente;
-
+    private Button btnAddDocente, btnAddEstudante, btnBuscaDocente, btnBuscarEstudantes, btnCursos, btnDocentes;
     @FXML
-    private Button btnAddEstudante;
-
+    private Button btnEstudantes, btnDepartamentos, btnRegistarDocente, btnRegistarDocente1, btnListarDocente, listarDocentebtn, btnCarregarEstudantes, btnUtilizadores;
     @FXML
-    private Button btnBuscaDocente;
-
+    private JFXButton btnDisciplinas, btnRegistarDepartemento, btnListarCursos, btnListarDisciplinas, btnListarDocentes, btnListarEstudantes, btnListarTurmas, btnListarUtilizadores;
     @FXML
-    private Button btnBuscarEstudantes;
+    private JFXButton btnListarDepartementos, btnRegistarCurso, btnRegistarDisciplina, btnRegistarDocentes, btnRegistarEstudante, btnRegistarTurmas, btnRegistarUtilizador, btnRegistarDepartamento, btnTurmas;
 
+    // Colunas das Tabelas
     @FXML
-    private Button btnCursos;
-
-    @FXML
-    private JFXButton btnDisciplinas;
-
-    @FXML
-    private Button btnDocentes;
-
-    @FXML
-    private Button btnEstudantes;
-
-    @FXML
-    private JFXButton btnListarCursos;
-
-    @FXML
-    private JFXButton btnListarDisciplinas;
-
-    @FXML
-    private JFXButton btnListarDocentes;
-
-    @FXML
-    private JFXButton btnListarEstudantes;
-
-    @FXML
-    private JFXButton btnListarTurmas;
-
-    @FXML
-    private JFXButton btnListarUtilizadores;
-
-    @FXML
-    private JFXButton btnRegistarCurso;
-
-    @FXML
-    private JFXButton btnRegistarDisciplina;
-
-    @FXML
-    private Button btnRegistarDocente;
-
-    @FXML
-    private Button btnRegistarDocente1;
-
-    @FXML
-    private Button btnListarDocente;
-
-    @FXML
-    private Button listarDocentebtn;
-
-    @FXML
-    private Button btnCarregarEstudantes;
-
-    @FXML
-    private JFXButton btnRegistarDocentes;
-
-    @FXML
-    private JFXButton btnRegistarEstudante;
-
-    @FXML
-    private JFXButton btnRegistarTurmas;
-
-    @FXML
-    private JFXButton btnRegistarUtilizador;
-
-    @FXML
-    private JFXButton btnTurmas;
-
-    @FXML
-    private Button btnUtilizadores;
-
-    @FXML
-    private TableColumn<?, ?> colUserEmail, colUserCreatedAt, colUserUpdatedAt;
-
-    @FXML
-    private TableColumn<?, ?> colUserId, colUserName, emailColumn;
-
+    private TableColumn<?, ?> colUserEmail, colUserId, colUserName, emailColumn;
     @FXML
     private TableColumn<?, ?> colDocenteId, colDocenteName, colDocenteEmail, colDocenteCreatedAt, colDocenteUpdatedAt, colDocenteIsActive;
-
     @FXML
     private TableColumn<?, ?> colCursoId, colCursoName, colCursoDepartamento, colCursoCreatedAt;
-
     @FXML
     private TableColumn<?, ?> colDisciplinaId, colDisciplinaName, colDisciplinaCurso, colDisciplinaCreatedAt;
+    @FXML
+    private TableColumn<?, ?> colTurmaId, colTurmaName, colTurmaCurso, colTurmaCreatedAt;
+    @FXML
+    private TableColumn<?, ?> colDepartamentoCreatedAt, colDepartamentoSigla, colDepartamentoId, colDepartementoName;
+    @FXML
+    private TableColumn<Estudante, Instant> createdAtEstudanteColumn;
 
     @FXML
-    private TableColumn<?,?> colTurmaId, colTurmaName, colTurmaCurso, colTurmaCreatedAt;
+    private TableColumn<User, Instant> colUserCreatedAt, colUserUpdatedAt;
 
+    @FXML
+    private TableColumn<?, ?> idEstudanteColumn, nomeColumn, telefoneColumn;
+
+
+    // TextFields
+    @FXML
+    private TextField txtNomeDepartamento;
+    @FXML
+    private TextField txtSiglaDepartamento;
+    @FXML
+    private TextField txtDescricaoDepartamento;
+
+    // Tabelas
     @FXML
     private TableView<Estudante> estudanteTable;
-
     @FXML
     private TableView<User> tableViewUsers;
-
     @FXML
     private TableView<Docente> docenteTableView;
-
     @FXML
     private TableView<Disciplina> disciplinaTableView;
-
     @FXML
     private TableView<Curso> cursoTableView;
-
     @FXML
     private TableView<Turma> turmaTableView;
-
     @FXML
-    private ImageView iconVoltarPanelDocentes;
-
+    private TableView<Departamento> departementoTableView;
     @FXML
-    private ImageView iconVoltarPanelEstudantes;
+    private TableView<?> tableViewCursos, tableViewDisciplinas;
 
+    // Imagens
     @FXML
-    private ImageView iconVoltarPanelEstudantes1;
+    private ImageView iconVoltarPanelDocentes, iconVoltarPanelEstudantes, iconVoltarPanelEstudantes1, iconVoltarPanelUtilizadores, imgBackDocente;
 
+    // Labels
     @FXML
-    private ImageView iconVoltarPanelUtilizadores;
+    private Label lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
 
+    // Panes
     @FXML
-    private Label lblCursosDashboard;
-
+    private Pane panelAddDocentes, panelAddUtilizadores, panelHomeCursos, panelHomeDisciplinas, panelHomeDocentes, panelHomeEstudante, panelHomeEstudante11;
     @FXML
-    private Label lblDisciplinasDashboard;
+    private Pane panelHomeHome, panelHomeTurmas, panelHomeUtilizadores, panelListarDocentes, panelListarEstudantes;
 
+    // Abas (Tabs)
     @FXML
-    private Label lblDisciplinasDashboard1;
-
+    private Tab tabAddCurso, tabAddDisciplina, tabAddTurma, tabAdicionarDocentes, tabAdicionarEstudantes, tabAdicionarUtilizadores, tabAddDepartamento;
     @FXML
-    private Label lblDocenteDashboard;
-
-    @FXML
-    private Label lblEstudanteDashboard;
-
-    @FXML
-    private Label lblHome;
-
-    @FXML
-    private Label lblUtilizadorDashboard;
-
-    @FXML
-    private ImageView imgBackDocente;
-
-    @FXML
-    private TableColumn<?, ?> idEstudanteColumn;
-
-    @FXML
-    private TableColumn<?, ?> nomeColumn;
-
-    @FXML
-    private TableColumn<Estudante, LocalDateTime> createdAtEstudanteColumn;
-
-    @FXML
-    private Pane panelAddDocentes;
-
-    @FXML
-    private Pane panelAddUtilizadores;
-
-    @FXML
-    private Pane panelHomeCursos;
-
-    @FXML
-    private Pane panelHomeDisciplinas;
-
-    @FXML
-    private Pane panelHomeDocentes;
-
-    @FXML
-    private Pane panelHomeEstudante;
-
-    @FXML
-    private Pane panelHomeEstudante11;
-
-    @FXML
-    private Pane panelHomeHome;
-
-    @FXML
-    private Pane panelHomeTurmas;
-
-    @FXML
-    private Pane panelHomeUtilizadores;
-
-    @FXML
-    private Pane panelListarDocentes;
-
-    @FXML
-    private Pane panelListarEstudantes;
-
-    @FXML
-    private Tab tabAddCurso, tabAddDisciplina, tabAddTurma, tabAdicionarDocentes, tabAdicionarEstudantes;
-
-    @FXML
-    private Tab tabAdicionarUtilizadores;
-
-    @FXML
-    private Tab tabCursos;
-
-    @FXML
-    private Tab tabDisciplinas;
-
-    @FXML
-    private Tab tabDocentes;
-
-    @FXML
-    private Tab tabEstudantes;
-
-    @FXML
-    private Tab tabHome;
-
-    @FXML
-    private Tab tabListarCursos;
-
-    @FXML
-    private Tab tabListarDisciplinas;
-
-    @FXML
-    private Tab tabListarDocentes;
-
-    @FXML
-    private Tab tabListarEstudantes;
-
-    @FXML
-    private Tab tabListarUlitizadores;
-
-    @FXML
-    private Tab tabListarTurmas;
-
+    private Tab tabCursos, tabDisciplinas, tabDocentes, tabEstudantes, tabHome, tabListarCursos, tabListarDisciplinas, tabListarDocentes, tabListarEstudantes, tabListarUlitizadores, tabListarTurmas, tabListarDepartamentos, tabTurmas, tabUtilizadores, tabTabDepartemento, tabDepartemento;
     @FXML
     private TabPane tabPane;
 
+    // Campos de Texto e Pesquisa
     @FXML
-    private Tab tabTurmas;
+    private TextField txtPesquisarDocentes, txtPesquisarEstudante;
+    @FXML
+    private SearchableComboBox<Curso> txtLiveSearchEstudante;
 
-    @FXML
-    private Tab tabUtilizadores;
-
-    @FXML
-    private TableView<?> tableViewCursos;
-
-    @FXML
-    private TableView<?> tableViewDisciplinas;
-
-    @FXML
-    private TableColumn<?, ?> telefoneColumn;
-
-    @FXML
-    private TextField txtPesquisarDocentes;
-
-    @FXML
-    private TextField txtPesquisarEstudante;
 
     private UserDAOImpl userDAO;
     private DocenteDAOImpl docenteDAO;
@@ -289,11 +120,18 @@ public class AdminController {
     private DisciplinaDAOImpl disciplinaDAO;
     private CursoDAOImpl cursoDAO;
     private TurmaDAOImpl turmaDAO;
+    private DepartamentoDAOImpl departamentoDAO;
 
 
     @FXML
     void initialize() {
-        initPanels();
+        setupEstudantesActions();
+        setupDocentesActions();
+        setupCursosActions();
+        setupTurmasActions();
+        setupDisciplinasActions();
+        setupUtilizadoresActions();
+        setupDepartamentosActions();
 
         // Use a implementação concreta do DAO
         this.userDAO = new UserDAOImpl(HibernateUtil.getSessionFactory());
@@ -302,19 +140,43 @@ public class AdminController {
         this.disciplinaDAO = new DisciplinaDAOImpl(HibernateUtil.getSessionFactory());
         this.cursoDAO = new CursoDAOImpl(HibernateUtil.getSessionFactory());
         this.turmaDAO = new TurmaDAOImpl(HibernateUtil.getSessionFactory());
+        this.departamentoDAO = new DepartamentoDAOImpl(HibernateUtil.getSessionFactory());
 
         // Configure as colunas da tabela
         colUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colUserEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colUserCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-        colUserUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
+        colUserCreatedAt.setCellFactory(column -> new TableCell<User, Instant>() {
+            @Override
+            protected void updateItem(Instant item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    LocalDateTime localDateTime = LocalDateTime.ofInstant(item, ZoneId.systemDefault());
+                    setText(localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                }
+            }
+        });
 
         idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoestudante"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-        createdAtEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        createdAtEstudanteColumn.setCellFactory(column -> new TableCell<Estudante, Instant>() {
+            @Override
+            protected void updateItem(Instant item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    LocalDateTime localDateTime = LocalDateTime.ofInstant(item, ZoneId.systemDefault());
+                    setText(localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                }
+            }
+        });
+
 
         colDocenteId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colDocenteName.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -338,6 +200,11 @@ public class AdminController {
         colTurmaCurso.setCellValueFactory(new PropertyValueFactory<>("CursoNome"));
         colTurmaCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
+        colDepartamentoId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colDepartementoName.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colDepartamentoSigla.setCellValueFactory(new PropertyValueFactory<>("sigla"));
+        colDepartamentoCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+
         // Carregar os estudantes
         ListarUsers();
         ListarDocentes();
@@ -345,52 +212,8 @@ public class AdminController {
         listarDisciplinas();
         listarCursos();
         listarTurmas();
-    }
-
-    @FXML
-    public void initPanels(){
-
-        // TODO: Estudantes
-        btnEstudantes.setOnAction(event -> tabPane.getSelectionModel().select(tabEstudantes));
-        btnRegistarEstudante.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarEstudantes));
-        btnListarEstudantes.setOnAction(event -> tabPane.getSelectionModel().select(tabListarEstudantes));
-        lblEstudanteDashboard.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
-        btnAddEstudante.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarEstudantes));
-        iconVoltarPanelEstudantes.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabEstudantes));
-        iconVoltarPanelEstudantes1.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabEstudantes));
-
-        // TODO: Docentes
-        btnDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabDocentes));
-        btnRegistarDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarDocentes));
-        btnListarDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDocentes));
-        lblDocenteDashboard.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
-        btnAddDocente.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarDocentes));
-        imgBackDocente.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabDocentes));
-        btnListarDocente.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDocentes));
-
-        // TODO: Cursos
-        btnCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabCursos));
-        btnListarCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabCursos));
-        btnRegistarCurso.setOnAction(event -> tabPane.getSelectionModel().select(tabAddCurso));
-        btnListarCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabListarCursos));
-
-        // TODO: Turmas
-        btnTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabTurmas));
-        btnListarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabTurmas));
-        btnRegistarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabAddTurma));
-        btnListarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabListarTurmas));
-
-        // TODO: Disciplinas
-        btnDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplinas));
-        btnListarDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDisciplinas));
-        btnRegistarDisciplina.setOnAction(event -> tabPane.getSelectionModel().select(tabAddDisciplina));
-
-        // TODO: Utilizadores
-        btnUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabUtilizadores));
-        btnListarUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
-        btnRegistarUtilizador.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarUtilizadores));
-        listarDocentebtn.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
-
+        listarDepartamentos();
+        buscarEstudantesPorCurso();
     }
 
     @FXML
@@ -440,6 +263,11 @@ public class AdminController {
         actualizarTurmasList(turmas);
     }
 
+    public void listarDepartamentos(){
+        List<Departamento> departamentos = departamentoDAO.readAll();
+        actualizarDepartamentos(departamentos);
+    }
+
     public void listarEstudantesPorNome(String nome) {
         List<Estudante> estudantes = estudanteDAO.buscarPorNome(nome);
         actualizarTabelaEstudantes(estudantes);
@@ -461,6 +289,48 @@ public class AdminController {
         List<Estudante> estudantes = estudanteDAO.buscarPorCriterioUnico(criterio);
 
         actualizarTabelaEstudantes(estudantes);
+    }
+
+    @FXML
+    public void buscarEstudantesPorCurso(){
+        // Carregar opções de cursos no SearchableComboBox
+        List<Curso> cursos = cursoDAO.readAll();
+        ObservableList<Curso> observableCursos = FXCollections.observableArrayList(cursos);
+        txtLiveSearchEstudante.setItems(observableCursos);
+
+        // Configurar a CellFactory para exibir o nome dos cursos
+        txtLiveSearchEstudante.setCellFactory(lv -> new ListCell<Curso>() {
+            @Override
+            protected void updateItem(Curso curso, boolean empty) {
+                super.updateItem(curso, empty);
+                if (empty || curso == null) {
+                    setText(null);
+                } else {
+                    setText(curso.getNome());  // Exibe o nome do curso
+                }
+            }
+        });
+
+        // Também exibe o nome do curso quando um item é selecionado
+        txtLiveSearchEstudante.setButtonCell(new ListCell<Curso>() {
+            @Override
+            protected void updateItem(Curso curso, boolean empty) {
+                super.updateItem(curso, empty);
+                if (empty || curso == null) {
+                    setText(null);
+                } else {
+                    setText(curso.getNome());  // Exibe o nome do curso na seleção
+                }
+            }
+        });
+
+        Curso cursoSelecionado = txtLiveSearchEstudante.getValue();
+        if (cursoSelecionado != null) {
+            List<Estudante> estudantes = estudanteDAO.buscarPorCriterioCurso(cursoSelecionado.getId());
+            actualizarTabelaEstudantes(estudantes);
+        } else {
+            System.out.println("Nenhum curso selecionado");
+        }
     }
 
     private void actualizarTabelaUsers(List<User> users) {
@@ -518,5 +388,75 @@ public class AdminController {
             turmaTableView.getItems().clear();
         }
     }
+
+    public void actualizarDepartamentos(List<Departamento> departamentos){
+        if (departamentos != null && !departamentos.isEmpty()) {
+            ObservableList<Departamento> observableDepartamentos = FXCollections.observableArrayList(departamentos);
+            departementoTableView.setItems(observableDepartamentos);
+        }else {
+            departementoTableView.getItems().clear();
+        }
+    }
+
+
+    // TODO: Estudantes
+    private void setupEstudantesActions() {
+        btnEstudantes.setOnAction(event -> tabPane.getSelectionModel().select(tabEstudantes));
+        btnRegistarEstudante.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarEstudantes));
+        btnListarEstudantes.setOnAction(event -> tabPane.getSelectionModel().select(tabListarEstudantes));
+        lblEstudanteDashboard.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
+        btnAddEstudante.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarEstudantes));
+        iconVoltarPanelEstudantes.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabEstudantes));
+        iconVoltarPanelEstudantes1.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabEstudantes));
+    }
+
+    // TODO: Docentes
+    private void setupDocentesActions() {
+        btnDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabDocentes));
+        btnRegistarDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarDocentes));
+        btnListarDocentes.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDocentes));
+        lblDocenteDashboard.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
+        btnAddDocente.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarDocentes));
+        iconVoltarPanelDocentes.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabDocentes));
+        imgBackDocente.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabDocentes));
+        btnListarDocente.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDocentes));
+    }
+
+    // TODO: Cursos
+    private void setupCursosActions() {
+        btnCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabCursos));
+        btnListarCursos.setOnAction(event -> tabPane.getSelectionModel().select(tabListarCursos));
+        btnRegistarCurso.setOnAction(event -> tabPane.getSelectionModel().select(tabAddCurso));
+    }
+
+    // TODO: Turmas
+    private void setupTurmasActions() {
+        btnTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabTurmas));
+        btnListarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabListarTurmas));
+        btnRegistarTurmas.setOnAction(event -> tabPane.getSelectionModel().select(tabAddTurma));
+    }
+
+    // TODO: Disciplinas
+    private void setupDisciplinasActions() {
+        btnDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplinas));
+        btnListarDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDisciplinas));
+        btnRegistarDisciplina.setOnAction(event -> tabPane.getSelectionModel().select(tabAddDisciplina));
+    }
+
+    // TODO: Utilizadores
+    private void setupUtilizadoresActions() {
+        btnUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabUtilizadores));
+        btnListarUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
+        btnRegistarUtilizador.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarUtilizadores));
+        listarDocentebtn.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
+    }
+
+    // TODO: Departamentos
+    private void setupDepartamentosActions() {
+        btnDepartamentos.setOnAction(event -> tabPane.getSelectionModel().select(tabDepartemento));
+        btnListarDepartementos.setOnAction(event -> tabPane.getSelectionModel().select(tabListarDepartamentos));
+        btnRegistarDepartamento.setOnAction(event -> tabPane.getSelectionModel().select(tabAddDepartamento));
+    }
+
 
 }

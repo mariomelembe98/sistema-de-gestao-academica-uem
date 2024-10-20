@@ -7,7 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "departamentos", schema = "gestao_academica")
+@Table(name = "departamentos", schema = "gestao_academica", uniqueConstraints = {
+        @UniqueConstraint(name = "departamentos_sigla_unique", columnNames = {"sigla"})
+})
 public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,9 @@ public class Departamento {
     @Lob
     @Column(name = "descricao")
     private String descricao;
+
+    @Column(name = "sigla", nullable = false, length = 10)
+    private String sigla;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -55,6 +60,14 @@ public class Departamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
     public Instant getCreatedAt() {

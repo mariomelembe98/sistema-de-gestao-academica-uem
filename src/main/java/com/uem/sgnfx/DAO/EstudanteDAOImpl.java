@@ -1,5 +1,6 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Estudante;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,6 +33,17 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
 
             Query<Estudante> query = session.createQuery(hql, Estudante.class);
             query.setParameter("criterio", "%" + criterio + "%");
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Estudante> buscarPorCriterioCurso(Long cursoID) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Estudante> query = session.createQuery("FROM Estudante WHERE curso.id = :cursoID", Estudante.class);
+            query.setParameter("cursoID", cursoID);
             return query.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,4 +95,12 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
         }
     }
 
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Departamento read(Long id) {
+        return null;
+    }
 }

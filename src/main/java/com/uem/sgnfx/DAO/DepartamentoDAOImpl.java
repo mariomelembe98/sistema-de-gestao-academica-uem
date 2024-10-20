@@ -2,27 +2,29 @@ package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Departamento;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import java.util.List;
 
-public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
+/**
+ * Created by USER on 19/10/2024.
+ */
 
-    private Class<T> entityClass;
+public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
     private SessionFactory sessionFactory;
 
-    // Construtor que recebe a classe da entidade e a SessionFactory do Hibernate
-    public GenericDAOImpl(Class<T> entityClass, SessionFactory sessionFactory) {
-        this.entityClass = entityClass;
+    public DepartamentoDAOImpl(SessionFactory sessionFactory) {
+        super(Departamento.class, sessionFactory);
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void create(T entity) {
+    public void create(Departamento departamento) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.save(entity);  // Hibernate salva a entidade no banco de dados
+            session.save(departamento);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -32,13 +34,10 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         }
     }
 
-    public abstract Departamento read(Long id);
-
     @Override
-    public List<T> readAll() {
+    public Departamento read(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            // Usa HQL para buscar todas as entidades
-            return session.createQuery("from " + entityClass.getName(), entityClass).list();
+            return session.get(Departamento.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -46,11 +45,21 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     @Override
-    public void update(T entity) {
+    public List<Departamento> readAll() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Departamento", Departamento.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void update(Departamento departamento) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.update(entity);  // Hibernate atualiza a entidade no banco de dados
+            session.update(departamento);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -65,12 +74,11 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            // Busca a entidade pelo ID e a remove
-            T entity = session.find(entityClass, id);
-            if (entity != null) {
-                session.delete(entity);
+            Departamento departamento = session.get(Departamento.class, id);
+            if (departamento != null) {
+                session.delete(departamento);
+                transaction.commit();
             }
-            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -78,4 +86,5 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             e.printStackTrace();
         }
     }
+
 }

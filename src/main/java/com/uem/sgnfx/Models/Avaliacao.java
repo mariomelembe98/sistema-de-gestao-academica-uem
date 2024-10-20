@@ -5,27 +5,28 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "notas", schema = "gestao_academica")
-public class Nota {
+@Table(name = "avaliacaos", schema = "gestao_academica")
+public class Avaliacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "estudante_id", nullable = false)
-    private Estudante estudante;
+    @Column(name = "descricao", nullable = false)
+    private String descricao;
+
+    @Column(name = "data_realizacao", nullable = false)
+    private LocalDate dataRealizacao;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "avaliacao_id", nullable = false)
-    private Avaliacao avaliacao;
-
-    @Column(name = "nota", nullable = false)
-    private Double nota;
+    @JoinColumn(name = "disciplina_id", nullable = false)
+    private Disciplina disciplina;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -37,17 +38,14 @@ public class Nota {
     @JoinColumn(name = "updated_by", nullable = false)
     private User updatedBy;
 
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
     @Column(name = "created_at")
     private Instant createdAt;
 
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @Column(name = "disciplina_id", nullable = false)
-    private Long disciplinaId;
+    @OneToMany(mappedBy = "avaliacao")
+    private Set<Nota> notas = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -57,28 +55,28 @@ public class Nota {
         this.id = id;
     }
 
-    public Estudante getEstudante() {
-        return estudante;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setEstudante(Estudante estudante) {
-        this.estudante = estudante;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
+    public LocalDate getDataRealizacao() {
+        return dataRealizacao;
     }
 
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
+    public void setDataRealizacao(LocalDate dataRealizacao) {
+        this.dataRealizacao = dataRealizacao;
     }
 
-    public Double getNota() {
-        return nota;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public User getCreatedBy() {
@@ -97,14 +95,6 @@ public class Nota {
         this.updatedBy = updatedBy;
     }
 
-    public Instant getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(Instant deletedAt) {
-        this.deletedAt = deletedAt;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -121,12 +111,12 @@ public class Nota {
         this.updatedAt = updatedAt;
     }
 
-    public Long getDisciplinaId() {
-        return disciplinaId;
+    public Set<Nota> getNotas() {
+        return notas;
     }
 
-    public void setDisciplinaId(Long disciplinaId) {
-        this.disciplinaId = disciplinaId;
+    public void setNotas(Set<Nota> notas) {
+        this.notas = notas;
     }
 
 }
