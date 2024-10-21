@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,13 +16,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Professor.ProfessorController">
+<AnchorPane prefHeight="600.0" prefWidth="1100.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Professor.ProfessorController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="1000.0">
          <left>
             <Pane prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnTurmas" alignment="BOTTOM_LEFT" layoutX="25.0" layoutY="166.0" prefHeight="50.0" prefWidth="200.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
+                  <JFXButton fx:id="btnTurmas" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="6.0" layoutY="174.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Turmas" textAlignment="JUSTIFY" textFill="#fff9f9">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -29,7 +30,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnDisciplinas" alignment="BOTTOM_LEFT" layoutX="25.0" layoutY="216.0" prefHeight="50.0" prefWidth="200.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
+                  <JFXButton fx:id="btnDisciplinas" alignment="BASELINE_LEFT" layoutX="6.0" layoutY="224.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Disciplinas" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -57,33 +58,18 @@
             </Pane>
          </left>
          <top>
-            <Pane prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="826.0" layoutY="17.0" text="Ola, Professor">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="921.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Images/icons8_male_user_50px.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </children></Pane>
+            <Pane prefHeight="50.0" prefWidth="1100.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TabPane fx:id="tabPane" prefHeight="550.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPane" prefHeight="550.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="tabHome" text="Tab Home">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label layoutX="201.0" layoutY="168.0" text="Painel Inicial" textFill="#4d5b4f">
+                                    <Label layoutX="235.0" layoutY="167.0" text="Painel Inicial" textFill="#4d5b4f">
                                        <font>
                                           <Font name="System Bold" size="64.0" />
                                        </font>
@@ -299,22 +285,30 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ImageView>
-                                    <Label layoutX="28.0" layoutY="61.0" text="Disciplina de: ">
+                                    <Label layoutX="55.0" layoutY="55.0" text="Disciplina de: ">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="185.0" layoutY="61.0" text="Matematica Discreta I" textFill="#38613f">
+                                    <Label layoutX="189.0" layoutY="55.0" text="Matematica Discreta I" textFill="#38613f">
                                        <font>
-                                          <Font name="System Bold" size="24.0" />
+                                          <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <JFXTreeTableView layoutX="28.0" layoutY="156.0" prefHeight="330.0" prefWidth="700.0" />
-                                    <Label layoutX="43.0" layoutY="121.0" text="Lista de Estudantes" textFill="#38613f">
+                                    <Label layoutX="64.0" layoutY="96.0" text="Lista de Estudantes" textFill="#38613f">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
+                                    <TableView fx:id="inscricaoTableView" layoutX="55.0" layoutY="149.0" prefHeight="342.0" prefWidth="740.0">
+                                      <columns>
+                                         <TableColumn fx:id="inscricaoNumeroEstudanteColumn" prefWidth="132.00000762939453" text="Nr. Estudante" />
+                                         <TableColumn fx:id="inscricaoEstudanteColumn" prefWidth="181.60006713867188" text="Estudante" />
+                                         <TableColumn fx:id="inscricaoDisciplinaColumn" prefWidth="112.0" text="Curso" />
+                                         <TableColumn fx:id="inscricaoCreatedAtColumn" prefWidth="155.99996948242188" text="Criado em" />
+                                         <TableColumn fx:id="inscricaoUpdatedAtColumn" prefWidth="158.4000244140625" text="Actualizado em" />
+                                      </columns>
+                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -326,10 +320,23 @@
                         </Tab>
                     </tabs>
                   </TabPane>
-                  <Pane layoutY="1.0" prefHeight="30.0" prefWidth="750.0" style="-fx-background-color: whitesmoke;" />
+                  <Pane layoutY="1.0" prefHeight="30.0" prefWidth="850.0" style="-fx-background-color: whitesmoke;" />
                </children>
             </Pane>
          </center>
       </BorderPane>
+      <Label layoutX="950.0" layoutY="17.0" text="Ola, Professor">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="1045.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Images/icons8_male_user_50px.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>

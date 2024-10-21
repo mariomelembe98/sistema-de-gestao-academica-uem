@@ -34,15 +34,15 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
         }
     }
 
-    @Override
-    public Departamento read(Long id) {
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(Departamento.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    @Override
+//    public Departamento read(Long id) {
+//        try (Session session = sessionFactory.openSession()) {
+//            return session.get(Departamento.class, id);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     @Override
     public List<Departamento> readAll() {
@@ -52,6 +52,14 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void read(Long id) {
+
     }
 
     @Override

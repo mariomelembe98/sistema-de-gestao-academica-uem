@@ -1,6 +1,5 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Docente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -31,7 +30,7 @@ public class DocenteDAOImpl extends GenericDAOImpl<Docente> {
         }
     }
 
-    // Método específico: Listar docentes ativos
+    // Método específico: Listar docentes activos
     public List<Docente> listarAtivos() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Docente where isActive = true", Docente.class).list();
@@ -43,10 +42,9 @@ public class DocenteDAOImpl extends GenericDAOImpl<Docente> {
 
     /**
      * @param id
-     * @return
      */
     @Override
-    public Departamento read(Long id) {
-        return null;
+    public void read(Long id) {
+
     }
 }

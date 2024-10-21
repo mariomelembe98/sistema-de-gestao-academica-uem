@@ -1,7 +1,6 @@
 package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Curso;
-import com.uem.sgnfx.Models.Departamento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,15 +14,6 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
     public CursoDAOImpl(SessionFactory sessionFactory) {
         super(Curso.class, sessionFactory);
         this.sessionFactory = sessionFactory;
-    }
-
-    /**
-     * @param id
-     * @return
-     */
-    @Override
-    public Departamento read(Long id) {
-        return null;
     }
 
     @Override
@@ -49,6 +39,14 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void read(Long id) {
+
     }
 
     // TODO: Exemplo de um método específico para buscar cursos por nome

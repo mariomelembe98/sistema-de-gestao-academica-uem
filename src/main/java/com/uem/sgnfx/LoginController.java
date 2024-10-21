@@ -1,8 +1,13 @@
 package com.uem.sgnfx;
 
 import com.uem.sgnfx.Controllers.Admin.AdminApplication;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.uem.sgnfx.DAO.UserDAOImpl;
+import com.uem.sgnfx.Models.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.hibernate.SessionFactory;
 
 import javax.swing.*;
 
@@ -53,29 +59,35 @@ public class LoginController {
     private PasswordField txtSenha;
 
     @FXML
-    private TextField txtUsuario;
+    private Label lblMessage;
 
     @FXML
-    void handleLogin(MouseEvent event) {
-        String usuario = txtUsuario.getText();
-        String senha = txtSenha.getText();
+    private TextField txtUsuario;
+    private SessionFactory sessionFactory;
 
-        if (usuario.isEmpty() && senha.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!");
+    private final UserDAOImpl userDAO = new UserDAOImpl(this.sessionFactory);
+
+    @FXML
+    public void handleLogin(MouseEvent event) {
+        String email = txtUsuario.getText();
+        String password = txtSenha.getText();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            lblMessage.setText("Preencha todos os campos.");
             return;
         }
 
-        // TODO: Lógica para verificar credenciais de login
-        if (usuario.equals("admin") || usuario.equals("email@gmail.com") && senha.equals("12345")) {
-            System.out.println("Login bem-sucedido! " + txtUsuario.getText());
+        User user = userDAO.login(email, password);
+
+        if (user != null) {
+            lblMessage.setText("Login bem-sucedido!");
+            // Carregar uma nova cena
             abrirAdminPanel();
         } else {
-            //Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, "Credenciais inválidas. Tente novamente.");
-
-            JOptionPane.showMessageDialog(null, "Usuario ou senha incorreto!");
-            //System.out.println("Nome de usuário ou senha incorretos!");
+            lblMessage.setText("Credenciais inválidas!");
         }
     }
+
 
     // TODO: Método para abrir a aplicação AdminApplication
     private void abrirAdminPanel() {

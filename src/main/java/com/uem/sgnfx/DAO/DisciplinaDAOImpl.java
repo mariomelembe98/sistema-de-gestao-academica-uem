@@ -1,6 +1,5 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Disciplina;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,15 +14,6 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
     public DisciplinaDAOImpl(SessionFactory sessionFactory) {
         super(Disciplina.class, sessionFactory);
         this.sessionFactory = sessionFactory;
-    }
-
-    /**
-     * @param id
-     * @return
-     */
-    @Override
-    public Departamento read(Long id) {
-        return null;
     }
 
     @Override
@@ -49,6 +39,14 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void read(Long id) {
+
     }
 
     public List<Disciplina> buscarPorNome(String designacao) {

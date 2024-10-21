@@ -1,6 +1,5 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Estudante;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,7 +20,7 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
             String hql;
 
             if (criterio.contains("@")) {
-                // Se contiver "@" é um email
+                // Se contiver "@" é um endereço eletrónico
                 hql = "from Estudante where email like :criterio";
             } else if (criterio.matches("\\d+")) {
                 // Se for numérico, é um código de estudante
@@ -64,7 +63,7 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
     }
 
     // TODO: Método específico: Listar estudantes activos
-    public List<Estudante> listarAtivos() {
+    public List<Estudante> listarActivos() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Estudante where isActive = true", Estudante.class).list();
         } catch (Exception e) {
@@ -97,10 +96,9 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
 
     /**
      * @param id
-     * @return
      */
     @Override
-    public Departamento read(Long id) {
-        return null;
+    public void read(Long id) {
+
     }
 }

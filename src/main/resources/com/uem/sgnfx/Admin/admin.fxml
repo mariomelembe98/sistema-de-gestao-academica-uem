@@ -26,7 +26,7 @@
    <children>
       <BorderPane prefHeight="700.0" prefWidth="1200.0">
          <left>
-            <Pane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: ddeaee;" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #008B8B;">
                      <children>
@@ -42,7 +42,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEstudantes" layoutX="40.0" layoutY="135.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" styleClass="itemButtons" text="Estudantes">
+                  <Button fx:id="btnEstudantes" layoutX="14.0" layoutY="133.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="286.0" styleClass="itemButtons" text="Estudantes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -64,7 +64,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="45.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="19.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_student_male_64px.png" />
                      </image>

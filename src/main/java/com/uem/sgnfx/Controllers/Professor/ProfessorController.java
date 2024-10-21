@@ -5,11 +5,20 @@ package com.uem.sgnfx.Controllers.Professor;
  */
 
 import com.jfoenix.controls.JFXButton;
+import com.uem.sgnfx.DAO.InscricaoDAOImpl;
+import com.uem.sgnfx.Models.Inscricao;
+import com.uem.sgnfx.Utils.HibernateUtil;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.util.Callback;
+
+import java.time.Instant;
 
 public class ProfessorController {
 
@@ -68,7 +77,21 @@ public class ProfessorController {
     private Tab tabTurmas1;
 
     @FXML
+    private TableView<Inscricao> inscricaoTableView;
+
+    @FXML
+    private TableColumn<Inscricao, String> inscricaoNumeroEstudanteColumn, inscricaoEstudanteColumn, inscricaoDisciplinaColumn;
+
+    @FXML
+    private TableColumn<Inscricao, Instant> inscricaoCreatedAtColumn, inscricaoUpdatedAtColumn;
+
+    private InscricaoDAOImpl inscricaoDAO;
+
+    @FXML
     void initialize() {
+
+        this.inscricaoDAO = new InscricaoDAOImpl(HibernateUtil.getSessionFactory());
+
         btnDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplinas));
         panelDisciplinas.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
         arrowDisciplinas.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));
@@ -78,6 +101,34 @@ public class ProfessorController {
         btnDisciplina.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplina));
         arrowDisciplina.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabDisciplinas));
 
+        inscricaoNumeroEstudanteColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
+                return new SimpleStringProperty(cellData.getValue().getEstudante().getCodigoestudante());
+            }
+        });
+        inscricaoEstudanteColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
+                return new SimpleStringProperty(cellData.getValue().getEstudante().getNome() + "   " + cellData.getValue().getEstudante().getApelido());
+            }
+        });
+        inscricaoDisciplinaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
+                return new SimpleStringProperty(cellData.getValue().getDisciplina().getCursoNome());
+            }
+        });
+        inscricaoCreatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        inscricaoUpdatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
+
+        carregarInscricoes();
     }
+
+    private void carregarInscricoes() {
+        ObservableList<Inscricao> inscricoes = FXCollections.observableArrayList(inscricaoDAO.readAll());
+        inscricaoTableView.setItems(inscricoes);
+    }
+
 
 }

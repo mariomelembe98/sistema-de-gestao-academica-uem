@@ -1,6 +1,5 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
@@ -31,8 +30,6 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             e.printStackTrace();
         }
     }
-
-    public abstract Departamento read(Long id);
 
     @Override
     public List<T> readAll() {
