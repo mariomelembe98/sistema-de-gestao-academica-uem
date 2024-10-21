@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.uem.sgnfx.DAO.UserDAOImpl;
 import com.uem.sgnfx.Models.User;
+import com.uem.sgnfx.Services.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -81,6 +82,10 @@ public class LoginController {
 
         if (user != null) {
             lblMessage.setText("Login bem-sucedido!");
+
+            // Armazenar o utilizador logado na sessão
+            SessionManager.setLoggedInUser(user);
+
             // Carregar uma nova cena
             abrirAdminPanel();
         } else {
