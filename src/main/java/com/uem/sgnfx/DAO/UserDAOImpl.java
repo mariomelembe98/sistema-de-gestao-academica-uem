@@ -1,67 +1,81 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.User;
 import com.uem.sgnfx.Utils.HibernateUtil;
+import javafx.scene.control.Alert;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.List;
-
-/**
- * Created by USER on 16/10/2024.
- */
 
 public class UserDAOImpl extends GenericDAOImpl<User> {
     private SessionFactory sessionFactory;
 
-    public UserDAOImpl(SessionFactory sessionFactory){
+    public UserDAOImpl(SessionFactory sessionFactory) {
         super(User.class, sessionFactory);
         this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public void create(User user) {
+        Transaction tx = null;
+        try (Session session = sessionFactory.openSession()){
+            tx = session.beginTransaction();
+            session.save(user);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     public User login(String email, String password) {
         Transaction transaction = null;
         User user = null;
+
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            String hashedPassword = hashPassword(password);
-
-            Query<User> query = session.createQuery("FROM User WHERE email = :email AND password = :password", User.class);
+            // Busca o usuário pelo email
+            Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
             query.setParameter("email", email);
-            query.setParameter("password", hashedPassword);
-
             List<User> users = query.list();
+
+            // Se encontrar o usuário, verifica a senha
             if (!users.isEmpty()) {
                 user = users.get(0);
+
+                // Verifica se a senha informada corresponde ao hash armazenado no banco
+                if (BCrypt.checkpw(password, user.getPassword())) {
+                    transaction.commit();
+                    return user; // Login bem-sucedido
+                } else {
+                    // Senha incorreta
+                    user = null; // Define como null se a senha não corresponder
+                }
             }
 
-            transaction.commit();
+            transaction.commit(); // Commit da transação
+
         } catch (Exception e) {
             if (transaction != null) {
-                transaction.rollback();
+                transaction.rollback(); // Rollback em caso de erro
             }
             e.printStackTrace();
         }
-        return user;
+
+        return user; // Retorna null se as credenciais forem inválidas
     }
 
-    // Método de hashing de senha (igual ao anterior)
-    private String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(encodedHash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Erro ao gerar hash de senha", e);
-        }
+
+    // Método para gerar o hash da senha usando bcrypt
+    public String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     /**
@@ -71,4 +85,17 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
     public void read(Long id) {
 
     }
+
+
+    public void createUser(String name, String email, String password) {
+
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+
+        create(user);
+
+    }
+
 }
