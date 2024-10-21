@@ -8,8 +8,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.uem.sgnfx.DAO.*;
 import com.uem.sgnfx.Models.*;
+import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
 
+import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -83,7 +85,7 @@ public class AdminController {
 
     // Labels
     @FXML
-    private Label lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
+    private Label lblLoggedUserName, lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
 
     // Panes
     @FXML
@@ -113,10 +115,12 @@ public class AdminController {
     private JFXComboBox<Curso> cbCursoDisciplina;
 
     @FXML
-    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina;
+    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina, txtUserName, txtUserEmail, txtUserPassword;
 
     @FXML
     private TextArea txtDescricaoDepartamento, txtDescricaoCurso, txtDescricaoDisciplina;
+
+    private AlertMessage alertMessage;
 
 
     private UserDAOImpl userDAO;
@@ -137,6 +141,15 @@ public class AdminController {
         setupDisciplinasActions();
         setupUtilizadoresActions();
         setupDepartamentosActions();
+
+        this.alertMessage = new AlertMessage();
+
+        User loggedInUser = SessionManager.getLoggedInUser();
+        if (loggedInUser != null) {
+            lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getName());
+        }else {
+            lblLoggedUserName.textProperty().setValue("Bem-vindo");
+        }
 
         // Use a implementação concreta do DAO
         this.userDAO = new UserDAOImpl(HibernateUtil.getSessionFactory());
@@ -464,6 +477,20 @@ public class AdminController {
     }
 
     @FXML
+    public void adicionarUtilizadores(){
+        String nome = txtUserName.getText();
+        String email = txtUserEmail.getText();
+        String password = txtUserPassword.getText();
+
+        if (nome != null && !nome.isEmpty()) {
+            userDAO.createUser(nome, email, password);
+        }else {
+            alertMessage.showAlertInfo("Por favor, preecha todos os campos!");
+        }
+
+    }
+
+    @FXML
     public void adicionarDepartamento() {
         String nome = txtNomeDepartamento.getText();
         String sigla = txtSiglaDepartamento.getText();
@@ -654,7 +681,7 @@ public class AdminController {
         btnUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabUtilizadores));
         btnListarUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
         btnRegistarUtilizador.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarUtilizadores));
-        listarDocentebtn.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
+        //listarDocentebtn.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
     }
 
     // TODO: Departamentos
