@@ -323,11 +323,7 @@ public class AdminController {
         String criterio = txtPesquisarEstudante.getText();
 
         if (criterio == null || criterio.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aviso");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, insira um critério de pesquisa.");
-            alert.showAndWait();
+            alertMessage.showAlertWarning("Por favor, insira um critério de pesquisa.");
             return;
         }
 
@@ -486,6 +482,7 @@ public class AdminController {
             userDAO.createUser(nome, email, password);
         }else {
             alertMessage.showAlertInfo("Por favor, preecha todos os campos!");
+            return;
         }
 
     }
@@ -497,28 +494,13 @@ public class AdminController {
         String descricao = txtDescricaoDepartamento.getText();
 
         if (nome.isEmpty() || sigla.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Preencha todos os campos");
-            alert.showAndWait();
+            alertMessage.showAlertInfo("Por favor, preecha todos os campos!");
             return;
+        }else {
+            departamentoDAO.createDepartamento(nome, sigla, descricao);
         }
 
-        Departamento departamento = new Departamento();
-        departamento.setNome(nome);
-        departamento.setSigla(sigla);
-        departamento.setDescricao(descricao);
-        departamento.setCreatedAt(Instant.now());
-        departamento.setUpdatedAt(Instant.now());
-
-        departamentoDAO.create(departamento);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText("Departamento adicionado com sucesso!");
-        alert.showAndWait();
+        alertMessage.showAlertSuccess("Departamento criado com sucesso!");
 
         listarDepartamentos();
         limparCamposDepartamento();
@@ -530,30 +512,14 @@ public class AdminController {
         String descricao = txtDescricaoCurso.getText();
         Departamento departamento = cbDepartamentoCurso.getValue();
 
-        if (nome.isEmpty() || departamento == null) {
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Preencha todos os campos obrigatórios!");
-            alert.showAndWait();
+        if (nome.isEmpty()){
+            alertMessage.showAlertWarning("Por favor, preecha todos os campos!");
             return;
+        }else {
+            cursoDAO.createCurso(nome, descricao, departamento);
         }
 
-        Curso curso = new Curso();
-        curso.setNome(nome);
-        curso.setDescricao(descricao);
-        curso.setDepartamento(departamento);
-        curso.setCreatedAt(Instant.now());
-        curso.setUpdatedAt(Instant.now());
-
-        cursoDAO.create(curso);  // Chamar o método de criação do DAO
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText("Curso adicionado com sucesso!");
-        alert.showAndWait();
+        alertMessage.showAlertSuccess("Curso criado com sucesso!");
 
         listarCursos();
         limparCamposCurso();
@@ -565,25 +531,13 @@ public class AdminController {
         Curso curso = cbCursoDisciplina.getValue();
 
         if (nome.isEmpty() || curso == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Preencha todos os campos");
-            alert.showAndWait();
+            alertMessage.showAlertWarning("Por favor, preecha todos os campos!");
+            return;
+        }else {
+            disciplinaDAO.createDisciplina(nome, curso);
         }
 
-        Disciplina disciplina = new Disciplina();
-        disciplina.setDesignacao(nome);
-        disciplina.setCreatedAt(Instant.now());
-        disciplina.setUpdatedAt(Instant.now());
-        disciplina.setCurso(curso);
-        disciplinaDAO.create(disciplina);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText("Disciplina adicionado com sucesso!");
-        alert.showAndWait();
+        alertMessage.showAlertSuccess("Disciplina criado com sucesso!");
 
         listarDisciplinas();
         limparCamposDisciplina();

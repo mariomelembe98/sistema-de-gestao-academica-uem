@@ -1,10 +1,12 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Disciplina;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.time.Instant;
 import java.util.List;
 
 public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
@@ -59,4 +61,14 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
             return null;
         }
     }
+
+    public void createDisciplina(String designacao, Curso curso) {
+        Disciplina disciplina = new Disciplina();
+        disciplina.setDesignacao(designacao);
+        disciplina.setCreatedAt(Instant.now());
+        disciplina.setUpdatedAt(Instant.now());
+        disciplina.setCurso(curso);
+        create(disciplina);
+    }
+
 }

@@ -34,16 +34,6 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
         }
     }
 
-//    @Override
-//    public Departamento read(Long id) {
-//        try (Session session = sessionFactory.openSession()) {
-//            return session.get(Departamento.class, id);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     @Override
     public List<Departamento> readAll() {
         try (Session session = sessionFactory.openSession()) {
@@ -94,5 +84,14 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
             e.printStackTrace();
         }
     }
+
+    public void createDepartamento(String nome, String sigla,  String descricao) {
+        Departamento departamento = new Departamento();
+        departamento.setNome(nome);
+        departamento.setSigla(sigla);
+        departamento.setDescricao(descricao);
+        create(departamento);
+    }
+
 
 }
