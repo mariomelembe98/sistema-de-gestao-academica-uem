@@ -7,8 +7,11 @@ package com.uem.sgnfx.Controllers.Estudante;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.uem.sgnfx.Models.Estudante;
+import com.uem.sgnfx.Services.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.hibernate.SessionFactory;
@@ -35,6 +38,9 @@ public class EstudanteController {
     @FXML // fx:id="btnMensalidades"
     private Button btnMensalidades; // Value injected by FXMLLoader
 
+    @FXML
+    private Label lblLoggedUserName;
+
     @FXML // fx:id="tabAvaliacoes"
     private Tab tabAvaliacoes; // Value injected by FXMLLoader
 
@@ -52,6 +58,14 @@ public class EstudanteController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
+//        Estudante loggedInUser = SessionManager.getLoggedInEntity();
+//
+//        if (loggedInUser != null) {
+//            lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getNome());
+//        }else {
+//            lblLoggedUserName.textProperty().setValue("Bem-vindo");
+//        }
 
         // Adicionando manipuladores de eventos para os botões
         btnAvaliacoes.setOnAction(event -> tabPane.getSelectionModel().select(tabAvaliacoes));

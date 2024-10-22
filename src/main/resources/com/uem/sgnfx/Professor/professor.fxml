@@ -325,7 +325,7 @@
             </Pane>
          </center>
       </BorderPane>
-      <Label layoutX="950.0" layoutY="17.0" text="Ola, Professor">
+      <Label fx:id="lblLoggedUserName" layoutX="950.0" layoutY="17.0" text="Ola, Professor">
          <font>
             <Font size="14.0" />
          </font>

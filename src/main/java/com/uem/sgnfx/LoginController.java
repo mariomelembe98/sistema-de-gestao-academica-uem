@@ -2,13 +2,18 @@ package com.uem.sgnfx;
 
 import com.uem.sgnfx.Controllers.Admin.AdminApplication;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.uem.sgnfx.Controllers.Estudante.EstudanteApplication;
+import com.uem.sgnfx.Controllers.Professor.ProfessorApplication;
 import com.uem.sgnfx.DAO.UserDAOImpl;
+import com.uem.sgnfx.Models.Docente;
+import com.uem.sgnfx.Models.Estudante;
 import com.uem.sgnfx.Models.User;
+import com.uem.sgnfx.Services.LoginService;
 import com.uem.sgnfx.Services.SessionManager;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,8 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
-
-import javax.swing.*;
 
 public class LoginController {
 
@@ -78,33 +81,51 @@ public class LoginController {
             return;
         }
 
-        User user = userDAO.login(email, password);
+        // Instancia o serviço de ‘login’
+        LoginService loginService = new LoginService();
 
+        // Tentativa de login para diferentes tipos de utilizadores
+        User user = loginService.login(User.class, email, password);
+        Estudante estudante = loginService.login(Estudante.class, email, password);
+        Docente docente = loginService.login(Docente.class, email, password);
+
+        // Verifica o tipo de utilizador logado e abre o painel correspondente
         if (user != null) {
+            // Se for um utilizador geral (Admin)
+            abrirPainel(AdminApplication.class);
+            SessionManager.setLoggedInEntity(user);
             lblMessage.setText("Login bem-sucedido!");
 
-            // Armazenar o utilizador logado na sessão
-            SessionManager.setLoggedInUser(user);
+        } else if (docente != null) {
+            // Se for um Docente
+            abrirPainel(ProfessorApplication.class);
+            SessionManager.setLoggedInEntity(docente);
+            lblMessage.setText("Login bem-sucedido!");
 
-            // Carregar uma nova cena
-            abrirAdminPanel();
+        } else if (estudante != null) {
+            // Se for um Estudante
+            abrirPainel(EstudanteApplication.class);
+            SessionManager.setLoggedInEntity(estudante);
+            lblMessage.setText("Login bem-sucedido!");
+
         } else {
+            // Caso as credenciais sejam inválidas
             lblMessage.setText("Credenciais inválidas!");
         }
     }
 
 
     // TODO: Método para abrir a aplicação AdminApplication
-    private void abrirAdminPanel() {
+    private <T extends Application> void abrirPainel(Class<T> applicationClass) {
         try {
-            // TODO: Fechar a janela de login
+            // Fechar a janela de login
             Stage stageAtual = (Stage) btnLogin.getScene().getWindow();
             stageAtual.close();
 
-            // TODO: Iniciar a aplicação AdminApplication
-            AdminApplication adminApp = new AdminApplication();
-            Stage novaStage = new Stage(); // TODO: Nova stage para a aplicação Admin
-            adminApp.start(novaStage);
+            // Iniciar a aplicação passada como parâmetro
+            T appInstance = applicationClass.getDeclaredConstructor().newInstance(); // Instancia a classe passada
+            Stage novaStage = new Stage(); // Nova stage para a aplicação genérica
+            appInstance.start(novaStage);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -41,7 +41,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            // Busca o usuário pelo email
+            // Busca o utilizador pelo endereço eletrónico
             Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
             query.setParameter("email", email);
             List<User> users = query.list();
@@ -70,12 +70,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
         }
 
         return user; // Retorna null se as credenciais forem inválidas
-    }
-
-
-    // Método para gerar o hash da senha usando bcrypt
-    public String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     /**

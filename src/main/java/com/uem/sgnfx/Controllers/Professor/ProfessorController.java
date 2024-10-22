@@ -6,7 +6,9 @@ package com.uem.sgnfx.Controllers.Professor;
 
 import com.jfoenix.controls.JFXButton;
 import com.uem.sgnfx.DAO.InscricaoDAOImpl;
+import com.uem.sgnfx.Models.Docente;
 import com.uem.sgnfx.Models.Inscricao;
+import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -47,7 +49,7 @@ public class ProfessorController {
     private JFXButton btnTurmas;
 
     @FXML
-    private Label panelDisciplinas;
+    private Label lblLoggedUserName, panelDisciplinas;
 
     @FXML
     private Label panelDisciplinas1;
@@ -91,6 +93,14 @@ public class ProfessorController {
     void initialize() {
 
         this.inscricaoDAO = new InscricaoDAOImpl(HibernateUtil.getSessionFactory());
+
+        Docente loggedInUser = SessionManager.getLoggedInEntity();
+
+        if (loggedInUser != null) {
+            lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getNome());
+        }else {
+            lblLoggedUserName.textProperty().setValue("Bem-vindo logado");
+        }
 
         btnDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplinas));
         panelDisciplinas.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabHome));

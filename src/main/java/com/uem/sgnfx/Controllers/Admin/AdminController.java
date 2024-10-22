@@ -144,11 +144,12 @@ public class AdminController {
 
         this.alertMessage = new AlertMessage();
 
-        User loggedInUser = SessionManager.getLoggedInUser();
+        User loggedInUser = SessionManager.getLoggedInEntity();
+
         if (loggedInUser != null) {
             lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getName());
         }else {
-            lblLoggedUserName.textProperty().setValue("Bem-vindo");
+            lblLoggedUserName.textProperty().setValue("Bem-vindo logado");
         }
 
         // Use a implementação concreta do DAO
@@ -387,7 +388,8 @@ public class AdminController {
                 if (empty || curso == null) {
                     setText(null);
                 } else {
-                    setText(curso.getNome());  // Exibe o nome do curso
+                    // Exibe o nome do curso
+                    setText(curso.getNome());
                 }
             }
         });
@@ -413,7 +415,7 @@ public class AdminController {
             tableViewUsers.setItems(observableUsers);
         } else {
             tableViewUsers.getItems().clear();
-            System.out.println("Nenhum utilizador encontrado ou lista de utilizadores está vazia.");
+            //System.out.println("Nenhum utilizador encontrado ou lista de utilizadores está vazia.");
         }
     }
 
@@ -432,7 +434,7 @@ public class AdminController {
             estudanteTable.setItems(observableEstudantes);
         } else {
             estudanteTable.getItems().clear();
-            System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
+            //System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
         }
     }
 

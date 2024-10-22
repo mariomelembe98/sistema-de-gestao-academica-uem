@@ -21,7 +21,7 @@ public class AlertMessage {
 
     public void showAlertWarning(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Erro");
+        alert.setTitle("Aviso");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -37,7 +37,7 @@ public class AlertMessage {
 
     public void showAlertConfirmation(String message, ButtonType buttonType) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
+        alert.setTitle("Confirmação");
         alert.setHeaderText(null);
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();

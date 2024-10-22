@@ -1,25 +1,22 @@
 package com.uem.sgnfx.Services;
 
-import com.uem.sgnfx.Models.User;
+public class SessionManager<T> {
 
-/**
- * Created by USER on 21/10/2024.
- */
+    private static Object loggedInEntity;
 
-public class SessionManager {
-
-    private static User loggedInUser;
-
-    public static void setLoggedInUser(User user) {
-        loggedInUser = user;
+    // Define a entidade logada
+    public static <T> void setLoggedInEntity(T entity) {
+        loggedInEntity = entity;
     }
 
-    public static User getLoggedInUser() {
-        return loggedInUser;
+    // Retorna a entidade logada
+    @SuppressWarnings("unchecked")
+    public static <T> T getLoggedInEntity() {
+        return (T) loggedInEntity;
     }
 
+    // Limpa a sessão
     public static void clearSession() {
-        loggedInUser = null;
+        loggedInEntity = null;
     }
-
 }
