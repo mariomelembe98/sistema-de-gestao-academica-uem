@@ -104,4 +104,56 @@ public class InscricaoDAOImpl implements GenericDAO<Inscricao> {
             return query.list();
         }
     }
+
+    public List<Inscricao> getInscricoesPorDocente(Long docenteId) {
+        List<Inscricao> inscricoes = null;
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "SELECT i FROM Inscricao i " +
+                    "JOIN i.disciplina d " +
+                    "JOIN DisciplinaDocente dd ON d.id = dd.disciplina.id " +
+                    "WHERE dd.docente.id = :docenteId";
+
+            Query<Inscricao> query = session.createQuery(hql, Inscricao.class);
+            query.setParameter("docenteId", docenteId);
+
+            inscricoes = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return inscricoes;
+    }
+
+    public List<Inscricao> getInscricoesPorDisciplina(Long disciplinaId) {
+        List<Inscricao> inscricoes = null;
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "FROM Inscricao WHERE disciplina.id = :disciplinaId";
+            Query<Inscricao> query = session.createQuery(hql, Inscricao.class);
+            query.setParameter("disciplinaId", disciplinaId);
+
+            inscricoes = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return inscricoes;
+    }
+
+
 }

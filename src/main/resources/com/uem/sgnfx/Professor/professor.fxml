@@ -58,7 +58,14 @@
             </Pane>
          </left>
          <top>
-            <Pane prefHeight="50.0" prefWidth="1100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="50.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblLoggedUserName" layoutX="894.0" layoutY="15.0" text="Ola, Professor">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
          </top>
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -194,72 +201,13 @@
                         </Tab>
                       <Tab fx:id="tabDisciplinas" text="Tab Displinas">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <AnchorPane fx:id="disciplinasPane" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="750.0">
                                  <children>
-                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="125.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_book_96px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton fx:id="btnDisciplina" layoutX="125.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></JFXButton>
-                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="310.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_book_96px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="310.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></JFXButton>
-                                    <ImageView fitHeight="120.0" fitWidth="130.0" layoutX="497.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_book_96px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton layoutX="497.0" layoutY="120.0" prefHeight="120.0" prefWidth="130.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></JFXButton>
-                                    <Label layoutX="122.0" layoutY="240.0" text="Matematica Discreta I">
+                                    <Label layoutX="70.0" prefHeight="20.0" prefWidth="98.0" text="Disciplinas">
                                        <font>
-                                          <Font name="System Bold" size="13.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="301.0" layoutY="240.0" text="Matematica Discreta II">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="477.0" layoutY="240.0" text="Fundamentos de Geometria">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <Separator prefWidth="750.0" />
-                                    <Label fx:id="panelDisciplinas" layoutX="64.0" text="Painel &gt;">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Label>
-                                    <Label layoutX="125.0" text="Disciplinas">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <ImageView fx:id="arrowDisciplinas" fitHeight="30.0" fitWidth="30.0" layoutX="28.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_left_32px.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
                                  </children></AnchorPane>
                         </content>
                       </Tab>
@@ -329,11 +277,6 @@
             </Pane>
          </center>
       </BorderPane>
-      <Label fx:id="lblLoggedUserName" layoutX="950.0" layoutY="17.0" text="Ola, Professor">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
       <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="1045.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Images/icons8_male_user_50px.png" />
