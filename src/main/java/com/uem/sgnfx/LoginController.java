@@ -90,28 +90,24 @@ public class LoginController {
         Docente docente = loginService.login(Docente.class, email, password);
 
         // Verifica o tipo de utilizador logado e abre o painel correspondente
-        if (user != null) {
-            // Se for um utilizador geral (Admin)
-            abrirPainel(AdminApplication.class);
-            SessionManager.setLoggedInEntity(user);
-            lblMessage.setText("Login bem-sucedido!");
-
-        } else if (docente != null) {
-            // Se for um Docente
-            abrirPainel(ProfessorApplication.class);
-            SessionManager.setLoggedInEntity(docente);
-            lblMessage.setText("Login bem-sucedido!");
-
-        } else if (estudante != null) {
-            // Se for um Estudante
-            abrirPainel(EstudanteApplication.class);
-            SessionManager.setLoggedInEntity(estudante);
-            lblMessage.setText("Login bem-sucedido!");
-
+        if (user != null || estudante != null || docente != null) {
+            if (user instanceof User) {
+                // Armazena o usuário na sessão
+                SessionManager.setLoggedInEntity(user);
+                abrirPainel(AdminApplication.class);
+            } else if (docente instanceof Docente) {
+                // Armazena o docente na sessão
+                SessionManager.setLoggedInEntity(docente);
+                abrirPainel(ProfessorApplication.class);
+            } else {
+                // Armazena o estudante na sessão
+                SessionManager.setLoggedInEntity(estudante);
+                abrirPainel(EstudanteApplication.class);
+            }
         } else {
-            // Caso as credenciais sejam inválidas
             lblMessage.setText("Credenciais inválidas!");
         }
+
     }
 
 

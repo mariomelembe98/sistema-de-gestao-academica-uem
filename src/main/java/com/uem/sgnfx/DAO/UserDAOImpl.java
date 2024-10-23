@@ -2,7 +2,6 @@ package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.User;
 import com.uem.sgnfx.Utils.HibernateUtil;
-import javafx.scene.control.Alert;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

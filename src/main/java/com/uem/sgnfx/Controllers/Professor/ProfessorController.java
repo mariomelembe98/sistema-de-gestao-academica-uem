@@ -99,7 +99,7 @@ public class ProfessorController {
         if (loggedInUser != null) {
             lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getNome());
         }else {
-            lblLoggedUserName.textProperty().setValue("Bem-vindo logado");
+            lblLoggedUserName.textProperty().setValue("Bem-vindo");
         }
 
         btnDisciplinas.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplinas));
@@ -111,6 +111,10 @@ public class ProfessorController {
         btnDisciplina.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplina));
         arrowDisciplina.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabDisciplinas));
 
+        listarInscricoesNaTabela();
+    }
+
+    private void listarInscricoesNaTabela() {
         inscricaoNumeroEstudanteColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
