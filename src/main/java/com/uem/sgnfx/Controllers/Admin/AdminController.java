@@ -149,7 +149,7 @@ public class AdminController {
         if (loggedInUser != null) {
             lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getName());
         }else {
-            lblLoggedUserName.textProperty().setValue("Bem-vindo logado");
+            lblLoggedUserName.textProperty().setValue("Bem-vindo, null");
         }
 
         // Use a implementação concreta do DAO

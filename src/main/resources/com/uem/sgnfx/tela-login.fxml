@@ -104,17 +104,33 @@
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="1.0" green="1.0" blue="1.0" />
+                              <Color red="0.9098039269447327" green="0.9098039269447327" blue="0.9098039269447327" />
                            </color>
                         </Stop>
                      </stops>
                   </LinearGradient>
                </textFill>
             </Label>
-            <Label layoutX="64.0" layoutY="314.0" text="SISTEMA DE GESTÃO ACADÉMICA" textFill="#e8e8e8">
+            <Label layoutX="64.0" layoutY="314.0" text="SISTEMA DE GESTÃO ACADÉMICA">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.3073830306529999" green="0.747965395450592" blue="0.7631579041481018" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.9098039269447327" green="0.9098039269447327" blue="0.9098039269447327" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
             </Label>
          </children></Pane>
    </children>

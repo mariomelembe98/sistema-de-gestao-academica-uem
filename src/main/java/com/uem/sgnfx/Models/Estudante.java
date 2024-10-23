@@ -129,11 +129,11 @@ public class Estudante {
         this.telefone = telefone;
     }
 
-    public String getCodigoestudante() {
+    public String getCodigoEstudante() {
         return codigoestudante;
     }
 
-    public void setCodigoestudante(String codigoestudante) {
+    public void setCodigoEstudante(String codigoestudante) {
         this.codigoestudante = codigoestudante;
     }
 

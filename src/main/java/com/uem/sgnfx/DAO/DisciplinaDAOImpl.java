@@ -2,9 +2,11 @@ package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Disciplina;
+import com.uem.sgnfx.Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.time.Instant;
 import java.util.List;
@@ -70,5 +72,32 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
         disciplina.setCurso(curso);
         create(disciplina);
     }
+
+    public List<Disciplina> getDisciplinasPorDocente(Long docenteId) {
+        List<Disciplina> disciplinas = null;
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "SELECT d FROM Disciplina d " +
+                    "JOIN DisciplinaDocente dd ON d.id = dd.disciplina.id " +
+                    "WHERE dd.docente.id = :docenteId";
+
+            Query<Disciplina> query = session.createQuery(hql, Disciplina.class);
+            query.setParameter("docenteId", docenteId);
+
+            disciplinas = query.list();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return disciplinas;
+    }
+
 
 }
