@@ -47,4 +47,5 @@ public class DocenteDAOImpl extends GenericDAOImpl<Docente> {
     public void read(Long id) {
 
     }
+
 }

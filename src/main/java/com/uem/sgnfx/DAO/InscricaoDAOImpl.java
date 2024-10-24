@@ -105,32 +105,15 @@ public class InscricaoDAOImpl implements GenericDAO<Inscricao> {
         }
     }
 
-    public List<Inscricao> getInscricoesPorDocente(Long docenteId) {
-        List<Inscricao> inscricoes = null;
-        Transaction transaction = null;
-
+    public List<Inscricao> listarInscricoesPorDisciplina(Long disciplinaId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-
-            String hql = "SELECT i FROM Inscricao i " +
-                    "JOIN i.disciplina d " +
-                    "JOIN DisciplinaDocente dd ON d.id = dd.disciplina.id " +
-                    "WHERE dd.docente.id = :docenteId";
-
+            String hql = "FROM Inscricao i WHERE i.disciplina.id = :disciplinaId";
             Query<Inscricao> query = session.createQuery(hql, Inscricao.class);
-            query.setParameter("docenteId", docenteId);
-
-            inscricoes = query.list();
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
+            query.setParameter("disciplinaId", disciplinaId);
+            return query.list();
         }
-
-        return inscricoes;
     }
+
 
     public List<Inscricao> getInscricoesPorDisciplina(Long disciplinaId) {
         List<Inscricao> inscricoes = null;

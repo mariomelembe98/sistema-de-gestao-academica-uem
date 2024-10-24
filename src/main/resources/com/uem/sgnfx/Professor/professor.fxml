@@ -242,7 +242,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="189.0" layoutY="55.0" text="Matematica Discreta I" textFill="#38613f">
+                                    <Label fx:id="lblNomeDisciplina" layoutX="189.0" layoutY="55.0" text=" " textFill="#38613f">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -252,7 +252,7 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <TableView fx:id="inscricaoTableView" layoutX="55.0" layoutY="149.0" prefHeight="342.0" prefWidth="740.0">
+                                    <TableView fx:id="estudanteTableView" layoutX="55.0" layoutY="149.0" prefHeight="342.0" prefWidth="740.0">
                                       <columns>
                                          <TableColumn fx:id="inscricaoNumeroEstudanteColumn" prefWidth="132.00000762939453" text="Nr. Estudante" />
                                          <TableColumn fx:id="inscricaoEstudanteColumn" prefWidth="181.60006713867188" text="Estudante" />

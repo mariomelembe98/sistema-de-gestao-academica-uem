@@ -6,14 +6,15 @@ package com.uem.sgnfx.Controllers.Professor;
 
 import com.jfoenix.controls.JFXButton;
 import com.uem.sgnfx.DAO.DisciplinaDAOImpl;
+import com.uem.sgnfx.DAO.EstudanteDAOImpl;
 import com.uem.sgnfx.DAO.InscricaoDAOImpl;
 import com.uem.sgnfx.Models.Disciplina;
 import com.uem.sgnfx.Models.Docente;
+import com.uem.sgnfx.Models.Estudante;
 import com.uem.sgnfx.Models.Inscricao;
 import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.util.Callback;
 
 import java.time.Instant;
 import java.util.List;
@@ -60,7 +60,7 @@ public class ProfessorController {
     private Label lblLoggedUserName, panelDisciplinas;
 
     @FXML
-    private Label panelDisciplinas1;
+    private Label panelDisciplinas1, lblNomeDisciplina;
 
     @FXML
     private Label panelTurmas;
@@ -90,7 +90,7 @@ public class ProfessorController {
     private AnchorPane disciplinasPane;
 
     @FXML
-    private TableView<Inscricao> inscricaoTableView;
+    private TableView<Inscricao> estudanteTableView;
 
     @FXML
     private TableColumn<Inscricao, String> inscricaoNumeroEstudanteColumn, inscricaoEstudanteColumn, inscricaoDisciplinaColumn;
@@ -100,12 +100,14 @@ public class ProfessorController {
 
     private InscricaoDAOImpl inscricaoDAO;
     private DisciplinaDAOImpl disciplinaDAO;
+    private EstudanteDAOImpl estudanteDAO;
 
     @FXML
     void initialize() {
 
         this.inscricaoDAO = new InscricaoDAOImpl(HibernateUtil.getSessionFactory());
         this.disciplinaDAO = new DisciplinaDAOImpl(HibernateUtil.getSessionFactory());
+        this.estudanteDAO = new EstudanteDAOImpl(HibernateUtil.getSessionFactory());
 
         Docente loggedInUser = SessionManager.getLoggedInEntity();
 
@@ -124,39 +126,33 @@ public class ProfessorController {
         //btnDisciplina.setOnAction(event -> tabPane.getSelectionModel().select(tabDisciplina));
         arrowDisciplina.setOnMouseClicked(event -> tabPane.getSelectionModel().select(tabDisciplinas));
 
-        listarInscricoesNaTabela();
         carregarDisciplinasDinamicamente();
     }
 
-    private void listarInscricoesNaTabela() {
-        inscricaoNumeroEstudanteColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
-                return new SimpleStringProperty(cellData.getValue().getEstudante().getCodigoEstudante());
-            }
-        });
-        inscricaoEstudanteColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
-                return new SimpleStringProperty(cellData.getValue().getEstudante().getNome() + "   " + cellData.getValue().getEstudante().getApelido());
-            }
-        });
-        inscricaoDisciplinaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscricao, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Inscricao, String> cellData) {
-                return new SimpleStringProperty(cellData.getValue().getDisciplina().getCursoNome());
-            }
-        });
+    private void carregarEstudantesPorDisciplina(Long disciplinaId) {
+        List<Inscricao> inscricoes = inscricaoDAO.listarInscricoesPorDisciplina(disciplinaId);
+        atualizarTabelaInscricoes(inscricoes);
+    }
+
+
+    private void atualizarTabelaInscricoes(List<Inscricao> inscricoes) {
+        ObservableList<Inscricao> inscricaoObservableList = FXCollections.observableArrayList(inscricoes);
+        estudanteTableView.setItems(inscricaoObservableList);
+
+        // Configurando colunas da tabela
+        inscricaoNumeroEstudanteColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEstudante().getCodigoEstudante())
+        );
+        inscricaoEstudanteColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEstudante().getNome() + " " + cellData.getValue().getEstudante().getApelido())
+        );
+        inscricaoDisciplinaColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDisciplina().getCursoNome())
+        );
         inscricaoCreatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         inscricaoUpdatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
-
-        carregarInscricoes();
     }
 
-    private void carregarInscricoes() {
-        ObservableList<Inscricao> inscricoes = FXCollections.observableArrayList(inscricaoDAO.readAll());
-        inscricaoTableView.setItems(inscricoes);
-    }
 
     public void carregarDisciplinasDinamicamente() {
         Docente docenteLogado = (Docente) SessionManager.getLoggedInEntity();
@@ -169,6 +165,7 @@ public class ProfessorController {
             int yOffset = 50;  // Margem inicial superior
 
             for (Disciplina disciplina : disciplinas) {
+
                 // Criar um botão para cada disciplina
                 JFXButton btnDisciplina = new JFXButton();
                 btnDisciplina.setPrefSize(130, 120);  // Definir tamanho
@@ -177,6 +174,7 @@ public class ProfessorController {
 
                 // Adicionar ícone no botão
                 ImageView icon = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/icons8_book_96px.png"))));
+
                 // Substitua pelo caminho correto
                 icon.setFitHeight(120);
                 icon.setFitWidth(130);
@@ -205,6 +203,11 @@ public class ProfessorController {
                     btnDisciplina.setStyle(""); // restaura o estilo original quando o mouse sai
                 });
 
+                btnDisciplina.setOnAction(event -> {
+                    listarEstudantesPorDisciplina(disciplina);
+                });
+
+
                 // Atualizar a posição do próximo botão/label
                 xOffset += 200;  // Espaçamento horizontal
 
@@ -220,12 +223,14 @@ public class ProfessorController {
     }
 
     private void listarEstudantesPorDisciplina(Disciplina disciplina) {
-        // Supomos que exista um método que retorne as inscrições de uma disciplina
         List<Inscricao> inscricoes = inscricaoDAO.getInscricoesPorDisciplina(disciplina.getId());
+        atualizarTabelaInscricoes(inscricoes);
 
-        ObservableList<Inscricao> inscricoesObservable = FXCollections.observableArrayList(inscricoes);
-        inscricaoTableView.setItems(inscricoesObservable);  // Supondo que você tenha um TableView para exibir estudantes
+        // Actualizar o título da disciplina
+        lblNomeDisciplina.setText(disciplina.getDesignacao());
+
+        // Selecionar a tab de disciplina
+        tabPane.getSelectionModel().select(tabDisciplina);
     }
-
 
 }
