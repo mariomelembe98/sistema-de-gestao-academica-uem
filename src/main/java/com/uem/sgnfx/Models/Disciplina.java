@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Disciplina")
 @Table(name = "disciplinas", schema = "gestao_academica")
 public class Disciplina {
     @Id
@@ -24,11 +24,19 @@ public class Disciplina {
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "semestre_id", nullable = false)
+    private Semestre semestre;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "disciplina")
+    private Set<Avaliacao> avaliacaos = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "disciplina")
     private Set<DisciplinaDocente> disciplinaDocentes = new LinkedHashSet<>();
@@ -64,6 +72,14 @@ public class Disciplina {
         return curso != null ? curso.getNome() : "Sem curso";
     }
 
+    public Semestre getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(Semestre semestre) {
+        this.semestre = semestre;
+    }
+
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -78,6 +94,14 @@ public class Disciplina {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Avaliacao> getAvaliacaos() {
+        return avaliacaos;
+    }
+
+    public void setAvaliacaos(Set<Avaliacao> avaliacaos) {
+        this.avaliacaos = avaliacaos;
     }
 
     public Set<DisciplinaDocente> getDisciplinaDocentes() {
