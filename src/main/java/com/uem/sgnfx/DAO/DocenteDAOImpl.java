@@ -42,10 +42,12 @@ public class DocenteDAOImpl extends GenericDAOImpl<Docente> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Docente read(Long id) {
 
+        return null;
     }
 
 }

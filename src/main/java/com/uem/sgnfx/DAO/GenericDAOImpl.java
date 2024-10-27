@@ -8,9 +8,8 @@ import java.util.List;
 public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     private Class<T> entityClass;
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
-    // Construtor que recebe a classe da entidade e a SessionFactory do Hibernate
     public GenericDAOImpl(Class<T> entityClass, SessionFactory sessionFactory) {
         this.entityClass = entityClass;
         this.sessionFactory = sessionFactory;
@@ -21,10 +20,10 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.save(entity);  // Hibernate salva a entidade no banco de dados
+            session.save(entity);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
+            if (transaction != null && transaction.getStatus().canRollback()) {
                 transaction.rollback();
             }
             e.printStackTrace();
@@ -32,9 +31,18 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     @Override
+    public T read(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(entityClass, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public List<T> readAll() {
         try (Session session = sessionFactory.openSession()) {
-            // Usa HQL para buscar todas as entidades
             return session.createQuery("from " + entityClass.getName(), entityClass).list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,7 +55,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.update(entity);  // Hibernate atualiza a entidade no banco de dados
+            session.update(entity);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -62,7 +70,6 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            // Busca a entidade pelo ID e a remove
             T entity = session.find(entityClass, id);
             if (entity != null) {
                 session.delete(entity);

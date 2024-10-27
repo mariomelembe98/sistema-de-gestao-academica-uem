@@ -27,10 +27,12 @@ public class TurmaDAOImpl extends GenericDAOImpl<Turma> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Turma read(Long id) {
 
+        return null;
     }
 
 

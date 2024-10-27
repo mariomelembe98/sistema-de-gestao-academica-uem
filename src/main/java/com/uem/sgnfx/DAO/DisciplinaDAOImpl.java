@@ -47,10 +47,12 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Disciplina read(Long id) {
 
+        return null;
     }
 
     public List<Disciplina> buscarPorNome(String designacao) {

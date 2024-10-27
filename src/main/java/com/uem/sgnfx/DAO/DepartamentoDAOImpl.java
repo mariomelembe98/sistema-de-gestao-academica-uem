@@ -46,10 +46,12 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Departamento read(Long id) {
 
+        return null;
     }
 
     @Override

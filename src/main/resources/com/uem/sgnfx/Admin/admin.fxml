@@ -4,6 +4,10 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -24,11 +28,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Admin.AdminController">
+<AnchorPane prefHeight="800.0" prefWidth="1400.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Admin.AdminController">
    <children>
-      <BorderPane prefHeight="700.0" prefWidth="1200.0">
+      <BorderPane prefHeight="800.0" prefWidth="1400.0">
          <left>
-            <Pane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: ddeaee;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="800.0" prefWidth="300.0" style="-fx-background-color: ddeaee;" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #008B8B;">
                      <children>
@@ -44,14 +48,14 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEstudantes" layoutX="14.0" layoutY="133.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="286.0" styleClass="itemButtons" text="Estudantes">
+                  <Button fx:id="btnEstudantes" layoutX="5.0" layoutY="198.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Estudantes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="btnDocentes" layoutX="40.0" layoutY="211.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" styleClass="itemButtons" text="Docentes">
+                  <Button fx:id="btnDocentes" layoutX="5.0" layoutY="259.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Docentes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -59,29 +63,29 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnCursos" layoutX="40.0" layoutY="284.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" styleClass="itemButtons" text="Cursos">
+                  <Button fx:id="btnCursos" layoutX="5.0" layoutY="321.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Cursos">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="19.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_student_male_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="45.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_teacher_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="50.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_books_64px_1.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnTurmas" layoutY="350.0" prefHeight="50.0" prefWidth="300.0" styleClass="itemButtons" text="Turmas" textFill="WHITE">
+                  <JFXButton fx:id="btnTurmas" layoutX="5.0" layoutY="384.0" prefHeight="50.0" prefWidth="290.0" styleClass="itemButtons" text="Turmas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -89,7 +93,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <Button fx:id="btnUtilizadores" layoutX="40.0" layoutY="552.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" styleClass="itemButtons" text="Utilizadores">
+                  <Button fx:id="btnUtilizadores" layoutX="5.0" layoutY="564.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Utilizadores">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -97,12 +101,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="59.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_manager_64px.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnDisciplinas" layoutY="401.0" prefHeight="50.0" prefWidth="300.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
+                  <JFXButton fx:id="btnDisciplinas" layoutX="5.0" layoutY="442.0" prefHeight="50.0" prefWidth="290.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -110,17 +114,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="50.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_google_classroom_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="50.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_literature_32px.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnDepartamentos" alignment="CENTER_RIGHT" layoutX="40.0" layoutY="470.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Departamentos">
+                  <Button fx:id="btnDepartamentos" alignment="CENTER" layoutX="5.0" layoutY="499.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Departamentos">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -128,7 +132,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="59.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_person_at_home_32px.png" />
                      </image>
@@ -137,15 +141,15 @@
             </Pane>
          </left>
          <center>
-            <Pane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #f1f1f1;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f1f1f1;" BorderPane.alignment="CENTER">
                <children>
-                  <TabPane fx:id="tabPane" prefHeight="700.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPane" prefHeight="800.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="tabHome" text="Tab Home">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0">
                               <children>
-                                 <Pane fx:id="panelHomeHome" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                 <Pane fx:id="panelHomeHome" prefHeight="750.0" prefWidth="1100.0">
                                     <children>
                                        <Label fx:id="lblHome" layoutX="75.0" layoutY="30.0" text="Dashboard">
                                           <font>
@@ -155,6 +159,26 @@
                                              <Cursor fx:constant="HAND" />
                                           </cursor>
                                        </Label>
+                                          <Pane layoutX="50.0" layoutY="86.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <BarChart layoutX="14.0" layoutY="57.0" prefHeight="400.0" prefWidth="422.0">
+                                                  <xAxis>
+                                                    <CategoryAxis side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis side="LEFT" />
+                                                  </yAxis>
+                                                </BarChart>
+                                                <StackedBarChart layoutX="467.0" layoutY="57.0">
+                                                  <xAxis>
+                                                    <CategoryAxis side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis side="LEFT" />
+                                                  </yAxis>
+                                                </StackedBarChart>
+                                             </children>
+                                          </Pane>
                                     </children>
                                  </Pane>
                               </children>
@@ -165,7 +189,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
                                  <children>
-                                    <Pane fx:id="panelHomeEstudante" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                    <Pane fx:id="panelHomeEstudante" prefHeight="750.0" prefWidth="1100.0">
                                        <children>
                                           <Label fx:id="lblEstudanteDashboard" layoutX="75.0" layoutY="30.0" text="Dashboard &gt;" textFill="#767676">
                                              <font>
@@ -175,39 +199,39 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Label>
-                                          <Label layoutX="190.0" layoutY="30.0" text="Gestão de Estudantes" textFill="#1e1e1e">
+                                          <Label layoutX="190.0" layoutY="30.0" text="Gestão de Estudantes" textFill="#767676">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="250.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" styleClass="itemButtons">
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="353.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" styleClass="itemButtons">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_student_registration_96px.png" />
                                              </image>
                                           </ImageView>
-                                          <JFXButton fx:id="btnRegistarEstudante" layoutX="210.0" layoutY="170.0" prefHeight="160.0" prefWidth="180.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
+                                          <JFXButton fx:id="btnRegistarEstudante" layoutX="313.0" layoutY="215.0" prefHeight="160.0" prefWidth="180.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
             
                                                 </JFXButton>
-                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="550.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" styleClass="itemButtons">
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="653.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true" styleClass="itemButtons">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_syllabus_96px.png" />
                                              </image>
                                           </ImageView>
-                                          <JFXButton fx:id="btnListarEstudantes" layoutX="515.0" layoutY="170.0" prefHeight="160.0" prefWidth="170.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
+                                          <JFXButton fx:id="btnListarEstudantes" layoutX="618.0" layoutY="215.0" prefHeight="160.0" prefWidth="170.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              
                                                       </JFXButton>
-                                          <Label layoutX="220.0" layoutY="300.0" text="Registar Estudante">
+                                          <Label layoutX="323.0" layoutY="345.0" text="Registar Estudante">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="530.0" layoutY="300.0" text="Listar Estudantes">
+                                          <Label layoutX="633.0" layoutY="345.0" text="Listar Estudantes">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -218,165 +242,182 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab fx:id="tabAdicionarEstudantes" text="Tab Adicionar Estudante">
+                       <Tab fx:id="tabAdicionarEstudantes" text="Tab Adicionar Estudante">
+                          <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
+                                <children>
+                                   <Pane fx:id="panelListarEstudantes" prefHeight="750.0" prefWidth="1100.0">
+                                      <children>
+                                         <ImageView fx:id="iconVoltarPanelEstudantes" fitHeight="25.0" fitWidth="40.0" layoutX="40.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                               <Image url="@../../../../Images/icons8_left_32px.png" />
+                                            </image>
+                                            <cursor>
+                                               <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                         </ImageView>
+                                         <Label layoutX="75.0" layoutY="30.0" text="Registo de  Estudante" textFill="#767676">
+                                            <font>
+                                               <Font size="17.0" />
+                                            </font>
+                                         </Label>
+                                          <Pane layoutX="50.0" layoutY="105.0" prefHeight="530.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <Label layoutX="127.0" layoutY="135.0" text="Codico">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="129.0" layoutY="176.0" text="Nome">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteCodigo" layoutX="185.0" layoutY="128.0" prefHeight="30.0" promptText="Codico do estudante" />
+                                                <TextField fx:id="txtEstudanteNome" layoutX="185.0" layoutY="171.0" prefHeight="30.0" promptText="Nome do estudante" />
+                                                <Label layoutX="390.0" layoutY="175.0" text="Apelido">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteApelido" layoutX="449.0" layoutY="171.0" prefHeight="30.0" promptText="Apelido do estudante" />
+                                                <Label layoutX="129.0" layoutY="262.0" prefHeight="20.0" prefWidth="50.0" text="Nr de doc">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteDocumento" layoutX="185.0" layoutY="257.0" prefHeight="30.0" promptText="Número do documento" />
+                                                <Label layoutX="129.0" layoutY="304.0" text="NUIT">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteNuit" layoutX="185.0" layoutY="299.0" prefHeight="30.0" promptText="NUIT" />
+                                                <DatePicker fx:id="dateEstudanteNascimento" layoutX="447.0" layoutY="215.0" prefHeight="30.0" prefWidth="152.0" promptText="Data de nascimento" />
+                                                <Label layoutX="348.0" layoutY="220.0" text="D. Nascimento">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="392.0" layoutY="262.0" text="Gênero">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="cbEstudanteGenero" layoutX="448.0" layoutY="257.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione o gênero" />
+                                                <Label layoutX="623.0" layoutY="174.0" text="Naturalidade">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="401.0" layoutY="135.0" text="Email">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteEmail" layoutX="449.0" layoutY="131.0" prefHeight="30.0" promptText="Email do estudante" />
+                                                <TextField fx:id="txtEstudanteNaturalidade" layoutX="712.0" layoutY="170.0" prefHeight="30.0" promptText="Naturalidade" />
+                                                <Label layoutX="352.0" layoutY="303.0" text="Nacionalidade">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteNacionalidade" layoutX="450.0" layoutY="299.0" prefHeight="30.0" promptText="Nacionalidade" />
+                                                <Label layoutX="645.0" layoutY="136.0" text="Província">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboEstudanteProvincia" layoutX="712.0" layoutY="131.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione uma província" />
+                                                <Label layoutX="648.0" layoutY="215.0" text="Telefone">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteTelefone" layoutX="712.0" layoutY="210.0" prefHeight="30.0" promptText="Telefone" />
+                                                <Label layoutX="553.0" layoutY="382.0" text="Curso para o qual o estudante está se matriculando">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="cbEstudanteCurso" layoutX="553.0" layoutY="403.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione um curso" />
+                                                <Label layoutX="129.0" layoutY="220.0" prefHeight="20.0" prefWidth="50.0" text="Tipo doc.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="cbEstudanteDocumento" layoutX="185.0" layoutY="215.0" prefHeight="30.0" prefWidth="150.0" promptText="Tipo de documento" />
+                                                <Separator layoutX="133.0" layoutY="105.0" prefHeight="3.0" prefWidth="250.0" />
+                                                <Label layoutX="395.0" layoutY="95.0" text="Informações Pessoais Do Estudante" textFill="#b1bdbc">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Separator layoutX="623.0" layoutY="104.0" prefHeight="3.0" prefWidth="234.0" />
+                                                <Separator layoutX="300.0" layoutY="365.0" prefHeight="3.0" prefWidth="550.0" />
+                                                <Label layoutX="133.0" layoutY="354.0" text="Informações Acadêmicas" textFill="#b1bdbc">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="131.0" layoutY="382.0" text="Certificado de conclusão do ensino médio ou equivalente">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox layoutX="133.0" layoutY="403.0" prefHeight="30.0" prefWidth="205.0" promptText="Selecione o tipo de certificado" />
+                                                <Button alignment="BOTTOM_LEFT" layoutX="760.0" layoutY="58.0" mnemonicParsing="false" onAction="#adicionarEstudante" prefHeight="25.0" prefWidth="100.0" text="Registar">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="827.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_save_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnBackEstudantes" alignment="BOTTOM_LEFT" layoutX="664.0" layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" text="Listar">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="711.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_syllabus_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label layoutX="652.0" layoutY="252.0" text="Endereco">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteEndereco" layoutX="711.0" layoutY="247.0" prefHeight="30.0" promptText="endereco" />
+                                                <Label layoutX="130.0" layoutY="459.0" text="Senha">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtEstudanteSenha" layoutX="189.0" layoutY="454.0" prefHeight="30.0" promptText="senha" />
+                                             </children>
+                                          </Pane>
+                                      </children>
+                                   </Pane>
+                                </children>
+                             </AnchorPane>
+                          </content>
+                       </Tab>
+
+                       <Tab fx:id="tabListarEstudantes" text="Tab Listar Estudantes">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
                                  <children>
-                                    <Pane fx:id="panelListarEstudantes" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
-                                       <children>
-                                          <ImageView fx:id="iconVoltarPanelEstudantes" fitHeight="25.0" fitWidth="40.0" layoutX="40.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../Images/icons8_left_32px.png" />
-                                             </image>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </ImageView>
-                                          <Label layoutX="75.0" layoutY="30.0" text="Registo de  Estudante" textFill="#767676">
-                                             <font>
-                                                <Font size="17.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="84.0" layoutY="213.0" text="Codico">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="84.0" layoutY="256.0" text="Nome">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="140.0" layoutY="208.0" prefHeight="30.0" promptText="Codico do estudante" />
-                                          <TextField layoutX="140.0" layoutY="251.0" prefHeight="30.0" promptText="nome do estudante" />
-                                          <Label layoutX="345.0" layoutY="255.0" text="Apelido">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="404.0" layoutY="251.0" prefHeight="30.0" promptText="apelido do estudante" />
-                                          <Label layoutX="84.0" layoutY="342.0" prefHeight="20.0" prefWidth="50.0" text="Nr de doc">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="140.0" layoutY="337.0" prefHeight="30.0" promptText="Numero do documento" />
-                                          <Label layoutX="84.0" layoutY="384.0" text="NUIT">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="140.0" layoutY="379.0" prefHeight="30.0" promptText="nuit" />
-                                          <DatePicker layoutX="402.0" layoutY="295.0" prefHeight="30.0" prefWidth="152.0" promptText="data de nascimento" />
-                                          <Label layoutX="303.0" layoutY="300.0" text="D. Nascimento">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="347.0" layoutY="342.0" text="Genero">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox layoutX="403.0" layoutY="337.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione o genero" />
-                                          <Label layoutX="578.0" layoutY="254.0" text="Naturalidade">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="356.0" layoutY="215.0" text="Email">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="404.0" layoutY="211.0" prefHeight="30.0" promptText="email do estudante" />
-                                          <TextField layoutX="405.0" layoutY="379.0" prefHeight="30.0" promptText="nacionalidade" />
-                                          <Label layoutX="307.0" layoutY="383.0" text="Nacionalidade">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="600.0" layoutY="216.0" text="Provincia">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox layoutX="667.0" layoutY="211.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione uma provincia" />
-                                          <TextField layoutX="667.0" layoutY="290.0" prefHeight="30.0" promptText="nacionalidade" />
-                                          <Label layoutX="603.0" layoutY="295.0" text="Telefone">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="667.0" layoutY="250.0" prefHeight="30.0" promptText="naturalidade" />
-                                          <Label layoutX="508.0" layoutY="462.0" text="Curso para o qual o estudante está se matricular">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox layoutX="508.0" layoutY="483.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione um curso" />
-                                          <Label layoutX="84.0" layoutY="300.0" prefHeight="20.0" prefWidth="50.0" text="Tipo doc.">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox layoutX="140.0" layoutY="295.0" prefHeight="30.0" prefWidth="150.0" promptText="Tipo de documento" />
-                                          <Separator layoutX="88.0" layoutY="185.0" prefHeight="3.0" prefWidth="250.0" />
-                                          <Label layoutX="350.0" layoutY="175.0" text="Informações Pessoas Do Estudante" textFill="#b1bdbc">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Separator layoutX="578.0" layoutY="184.0" prefHeight="3.0" prefWidth="234.0" />
-                                          <Separator layoutX="255.0" layoutY="445.0" prefHeight="3.0" prefWidth="550.0" />
-                                          <Label layoutX="88.0" layoutY="434.0" text="Informações Acadêmicas" textFill="#b1bdbc">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="86.0" layoutY="462.0" text="Certificado de conclusão do ensino médio ou equivalente">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox layoutX="88.0" layoutY="483.0" prefHeight="30.0" prefWidth="205.0" promptText="Selecione o tipo de certificado" />
-                                          <Button alignment="BOTTOM_LEFT" layoutX="715.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Registar">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="782.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../Images/icons8_save_32px.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Button fx:id="btnBackEstudantes" alignment="BOTTOM_LEFT" layoutX="619.0" layoutY="139.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" text="Listar">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="666.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../Images/icons8_syllabus_32px.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab fx:id="tabListarEstudantes" text="Tab Listar Estudantes">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
-                                 <children>
-                                    <Pane fx:id="panelHomeEstudante11" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                    <Pane fx:id="panelHomeEstudante11" prefHeight="750.0" prefWidth="1100.0">
                                        <children>
                                           <ImageView fx:id="iconVoltarPanelEstudantes1" fitHeight="30.0" fitWidth="50.0" layoutX="30.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -391,46 +432,46 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnAddEstudante" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="723.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
+                                          <Button fx:id="btnAddEstudante" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="833.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor></Button>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="820.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="930.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_add_32px.png" />
                                              </image>
                                           </ImageView>
-                                          <TextField fx:id="txtPesquisarEstudante" layoutX="30.0" layoutY="72.0" promptText="pesquisar..." />
-                                          <Button fx:id="btnBuscarEstudantes" alignment="BOTTOM_LEFT" layoutX="183.0" layoutY="72.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
+                                          <TextField fx:id="txtPesquisarEstudante" layoutX="140.0" layoutY="104.0" promptText="pesquisar..." />
+                                          <Button fx:id="btnBuscarEstudantes" alignment="BOTTOM_LEFT" layoutX="293.0" layoutY="104.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor></Button>
-                                          <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="226.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="336.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_search_32px.png" />
                                              </image>
                                           </ImageView>
-                                          <Button fx:id="btnCarregarEstudantes" alignment="BOTTOM_LEFT" layoutX="605.0" layoutY="74.0" mnemonicParsing="false" onAction="#listarEstudantes" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
+                                          <Button fx:id="btnCarregarEstudantes" alignment="BOTTOM_LEFT" layoutX="715.0" layoutY="106.0" mnemonicParsing="false" onAction="#listarEstudantes" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor></Button>
-                                          <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="668.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="778.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_refresh_32px.png" />
                                              </image>
                                           </ImageView>
-                                          <SearchableComboBox fx:id="txtLiveSearchEstudante" layoutX="274.0" layoutY="72.0" onAction="#buscarEstudantesPorCurso" />
+                                          <SearchableComboBox fx:id="txtLiveSearchEstudante" layoutX="384.0" layoutY="104.0" onAction="#buscarEstudantesPorCurso" />
+                                          <TableView fx:id="estudanteTable" layoutX="140.0" layoutY="167.0" prefHeight="480.0" prefWidth="820.0">
+                                             <columns>
+                                                <TableColumn fx:id="idEstudanteColumn" prefWidth="150" text="Número de Estudante" />
+                                                <TableColumn fx:id="nomeColumn" prefWidth="150.0" text="Nome" />
+                                                <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
+                                                <TableColumn fx:id="telefoneColumn" prefWidth="150.0" text="Telefone" />
+                                                <TableColumn fx:id="createdAtEstudanteColumn" prefWidth="150.0" text="Criado em" />
+                                             </columns>
+                                          </TableView>
                                        </children>
                                     </Pane>
-                                    <TableView fx:id="estudanteTable" layoutX="30.0" layoutY="134.0" prefHeight="480.0" prefWidth="820.0">
-                                       <columns>
-                                          <TableColumn fx:id="idEstudanteColumn" prefWidth="150" text="Número de Estudante" />
-                                          <TableColumn fx:id="nomeColumn" prefWidth="150.0" text="Nome" />
-                                          <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
-                                          <TableColumn fx:id="telefoneColumn" prefWidth="150.0" text="Telefone" />
-                                          <TableColumn fx:id="createdAtEstudanteColumn" prefWidth="150.0" text="Criado em" />
-                                       </columns>
-                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -703,7 +744,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
                                  <children>
-                                    <Pane fx:id="panelHomeUtilizadores" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                    <Pane fx:id="panelHomeUtilizadores" prefHeight="750.0" prefWidth="1100.0">
                                        <children>
                                           <Label fx:id="lblUtilizadorDashboard" layoutX="75.0" layoutY="30.0" text="Dashboard &gt;" textFill="#767676">
                                              <font>
@@ -718,32 +759,32 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="250.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="352.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_teacher_96px.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="550.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="652.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_clipboard_list_96px.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="230.0" layoutY="300.0" text="Registar Utilizador">
+                                          <Label layoutX="325.0" layoutY="345.0" text="Registar Utilizador">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="530.0" layoutY="300.0" text="Listar Utilizadores">
+                                          <Label layoutX="625.0" layoutY="345.0" text="Listar Utilizadores">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <JFXButton fx:id="btnRegistarUtilizador" layoutX="210.0" layoutY="170.0" prefHeight="160.0" prefWidth="180.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
+                                          <JFXButton fx:id="btnRegistarUtilizador" layoutX="312.0" layoutY="215.0" prefHeight="160.0" prefWidth="180.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </JFXButton>
-                                          <JFXButton fx:id="btnListarUtilizadores" layoutX="515.0" layoutY="170.0" prefHeight="160.0" prefWidth="170.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
+                                          <JFXButton fx:id="btnListarUtilizadores" layoutX="617.0" layoutY="215.0" prefHeight="160.0" prefWidth="170.0" ripplerFill="WHITE" styleClass="btnRegistarEstudante" text=" ">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
@@ -758,9 +799,9 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="678.0">
                                  <children>
-                                    <Pane fx:id="panelAddUtilizadores" layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                    <Pane fx:id="panelAddUtilizadores" prefHeight="750.0" prefWidth="1100.0">
                                        <children>
-                                          <ImageView fx:id="iconVoltarPanelUtilizadores" fitHeight="25.0" fitWidth="40.0" layoutX="40.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="iconVoltarPanelUtilizadores" fitHeight="25.0" fitWidth="40.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../Images/icons8_left_32px.png" />
                                              </image>
@@ -768,22 +809,81 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </ImageView>
-                                          <Label layoutX="75.0" layoutY="30.0" text="Registo de Utilizadores" textFill="#767676">
+                                          <Label layoutX="85.0" layoutY="50.0" text="Registo de Utilizadores" textFill="#767676">
                                              <font>
-                                                <Font size="17.0" />
+                                                <Font name="System Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <Pane layoutX="39.0" layoutY="84.0" prefHeight="483.0" prefWidth="822.0">
+                                          <Pane layoutX="50.0" layoutY="105.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: white;">
                                              <children>
-                                                <TextField fx:id="txtUserName" layoutX="132.0" layoutY="97.0" promptText="nome" />
-                                                <TextField fx:id="txtUserEmail" layoutX="441.0" layoutY="97.0" promptText="email" />
-                                                <PasswordField fx:id="txtUserPassword" layoutX="132.0" layoutY="174.0" promptText="senha" />
-                                                <JFXCheckBox layoutX="441.0" layoutY="178.0" />
-                                                <Button layoutX="644.0" layoutY="36.0" mnemonicParsing="false" onAction="#adicionarUtilizadores" prefHeight="30.0" prefWidth="118.0" text="Registar">
+                                                <TextField fx:id="txtUserName" layoutX="90.0" layoutY="14.0" minHeight="30.0" prefWidth="200.0" promptText="Nome" />
+                                                <TextField fx:id="txtUserEmail" layoutX="536.0" layoutY="15.0" minHeight="30.0" prefWidth="200.0" promptText="Email" />
+                                                <PasswordField fx:id="txtUserPassword" layoutX="536.0" layoutY="53.0" minHeight="30.0" prefWidth="200.0" promptText="Senha" />
+                                                <JFXCheckBox fx:id="txtUserAdmin" layoutX="90.0" layoutY="53.0" minHeight="30.0" prefWidth="100.0" text="Admin" />
+                                                <Button layoutX="792.0" layoutY="122.0" mnemonicParsing="false" onAction="#adicionarUtilizadores" prefHeight="30.0" prefWidth="118.0" text="Registar">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
                                                 </Button>
+                                                <JFXCheckBox fx:id="txtUserActive" layoutX="190.0" layoutY="53.0" minHeight="30.0" prefWidth="100.0" text="Ativo" />
+                                                <TextField fx:id="txtPesquisarUtilizadores" layoutX="90.0" layoutY="120.0" maxWidth="150.0" prefHeight="30.0" promptText="pesquisar..." />
+                                                <Button fx:id="btnBuscarUtilizadores" layoutX="244.0" layoutY="121.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="317.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_search_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button layoutX="357.0" layoutY="122.0" mnemonicParsing="false" onAction="#ListarUsers" prefHeight="30.0" prefWidth="120.0" text="Carregar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="451.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_refresh_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TableView fx:id="tableViewUsers" layoutX="90.0" layoutY="159.0" prefHeight="450.0" prefWidth="820.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="colUserId" prefWidth="50.0" text="ID" />
+                                                      <TableColumn fx:id="colUserName" prefWidth="150.0" text="Nome" />
+                                                      <TableColumn fx:id="colUserEmail" prefWidth="200.0" text="Email" />
+                                                      <TableColumn fx:id="colUserCreatedAt" prefWidth="150.0" text="Criado em" />
+                                                      <TableColumn fx:id="colUserUpdatedAt" prefWidth="150.0" text="Actualizado em" />
+                                                   </columns>
+                                                </TableView>
+                                                <TextField fx:id="txtUserApelido" layoutX="317.0" layoutY="15.0" minHeight="30.0" prefWidth="200.0" promptText="Apelido" />
+                                                <TextField fx:id="txtUserNomeUtilizador" layoutX="317.0" layoutY="54.0" minHeight="30.0" prefWidth="200.0" promptText="Nome de utilizador" />
+                                                <Button fx:id="btnCarregarUtilizadores2" layoutX="494.0" layoutY="122.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Actualizar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnCarregarUtilizadores21" layoutX="630.0" layoutY="122.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Eliminar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ComboBox fx:id="cbUserGenero" layoutX="760.0" layoutY="56.0" prefHeight="30.0" prefWidth="150.0" />
                                              </children>
                                           </Pane>
                                        </children>
@@ -809,46 +909,6 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnAddUtilizadores" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="706.0" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="803.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_add_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField fx:id="txtPesquisarUtilizadores" layoutX="67.0" layoutY="136.0" promptText="pesquisar..." />
-                                    <Button fx:id="btnBuscarUtilizadores" alignment="BOTTOM_LEFT" layoutX="220.0" layoutY="136.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="263.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_search_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Button fx:id="btnCarregarUtilizadores" alignment="BOTTOM_LEFT" layoutX="588.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="651.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_refresh_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TableView fx:id="tableViewUsers" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
-                                      <columns>
-                                       <TableColumn fx:id="colUserId" prefWidth="50.0" text="ID" />
-                                       <TableColumn fx:id="colUserName" prefWidth="150.0" text="Nome" />
-                                       <TableColumn fx:id="colUserEmail" prefWidth="200.0" text="Email" />
-                                       <TableColumn fx:id="colUserCreatedAt" prefWidth="150.0" text="Criado em" />
-                                       <TableColumn fx:id="colUserUpdatedAt" prefWidth="150.0" text="Actualizado em" />
-                                      </columns>
-                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -912,15 +972,8 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Pane layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                    <Pane prefHeight="650.0" prefWidth="900.0">
                                        <children>
-                                          <Pane layoutX="110.0" layoutY="185.0" prefHeight="300.0" prefWidth="700.0" style="-fx-background-color: whitesmoke;">
-                                             <children>
-                                                <TextField fx:id="txtNomeCurso" layoutX="174.0" layoutY="56.0" promptText="designacao do curso" />
-                                                <TextArea fx:id="txtDescricaoCurso" layoutX="170.0" layoutY="136.0" prefHeight="150.0" prefWidth="360.0" promptText="Descricao do curso" />
-                                                <JFXComboBox fx:id="cbDepartamentoCurso" layoutX="377.0" layoutY="55.0" prefHeight="28.0" prefWidth="153.0" />
-                                             </children>
-                                          </Pane>
                                           <Label fx:id="lblAddCursoDashboard" layoutX="77.0" layoutY="50.0" text="Dashboard &gt;" textFill="#767676">
                                              <font>
                                                 <Font size="18.0" />
@@ -929,21 +982,78 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Label>
-                                          <Label layoutX="192.0" layoutY="50.0" text="Registo do Curso" textFill="#1e1e1e">
+                                          <Label layoutX="192.0" layoutY="50.0" text="Registo do Curso" textFill="#767676">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="670.0" layoutY="139.0" mnemonicParsing="false" onAction="#adicionarCurso" prefHeight="30.0" prefWidth="140.0" text="Registar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <Button fx:id="btnGoListarCursos" layoutX="520.0" layoutY="139.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Listar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
+                                          <Pane layoutX="50.0" layoutY="105.0" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <TextField fx:id="txtNomeCurso" layoutX="17.0" layoutY="71.0" prefHeight="30.0" prefWidth="190.0" promptText="Designação do Curso" />
+                                                <TextArea fx:id="txtDescricaoCurso" layoutX="484.0" layoutY="71.0" prefHeight="85.0" prefWidth="300.0" promptText="Descrição do curso" />
+                                                <JFXComboBox fx:id="cbDepartamentoCurso" focusColor="#12dc74" layoutX="244.0" layoutY="71.0" prefHeight="30.0" prefWidth="220.0" unFocusColor="#a5bf1f" />
+                                                <TextField fx:id="txtPesquisarCursos" layoutX="17.0" layoutY="124.0" prefHeight="30.0" prefWidth="150.0" promptText="pesquisar..." />
+                                                <Button fx:id="btnBuscarCursos" alignment="CENTER" layoutX="170.0" layoutY="124.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="244.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_search_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TableView fx:id="cursoTableView" layoutX="10.0" layoutY="170.0" prefHeight="360.0" prefWidth="780.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="colCursoId" prefWidth="100.0" text="ID" />
+                                                      <TableColumn fx:id="colCursoName" prefWidth="150.0" text="Nome" />
+                                                      <TableColumn fx:id="colCursoDepartamento" prefWidth="200.0" text="Departamento" />
+                                                      <TableColumn fx:id="colCursoCreatedAt" prefWidth="150.0" text="Criado em" />
+                                                      <TableColumn fx:id="colCursoUpdatedAt" prefWidth="150.0" text="Actualizado em" />
+                                                   </columns>
+                                                </TableView>
+                                                <Button fx:id="btnCarregarCursos" alignment="CENTER" layoutX="354.0" layoutY="124.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="30.0" prefWidth="120.0" text="Carregar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="447.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_refresh_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button layoutX="643.0" layoutY="14.0" mnemonicParsing="false" onAction="#adicionarCurso" prefHeight="30.0" prefWidth="140.0" text="Registar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button layoutX="325.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Actualizar">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button layoutX="484.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Eliminar">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </Pane>
                                        </children>
                                     </Pane>
                                  </children>
@@ -959,45 +1069,6 @@
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnAddCursos" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="706.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="803.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_add_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField fx:id="txtPesquisarCursos" layoutX="67.0" layoutY="146.0" promptText="pesquisar..." />
-                                    <Button fx:id="btnBuscarCursos" alignment="BOTTOM_LEFT" layoutX="220.0" layoutY="146.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="263.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_search_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Button fx:id="btnCarregarCursos" alignment="BOTTOM_LEFT" layoutX="588.0" layoutY="148.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="651.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_refresh_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TableView fx:id="cursoTableView" layoutX="67.0" layoutY="180.0" prefHeight="432.0" prefWidth="766.0">
-                                       <columns>
-                                          <TableColumn fx:id="colCursoId" prefWidth="50.0" text="ID" />
-                                          <TableColumn fx:id="colCursoName" prefWidth="150.0" text="Nome" />
-                                          <TableColumn fx:id="colCursoDepartamento" prefWidth="200.0" text="Email" />
-                                          <TableColumn fx:id="colCursoCreatedAt" prefWidth="150.0" text="Criado em" />
-                                       </columns>
-                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -1061,7 +1132,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Pane layoutY="20.0" prefHeight="650.0" prefWidth="900.0">
+                                    <Pane prefHeight="750.0" prefWidth="1100.0">
                                        <children>
                                           <Label fx:id="lblAddDisciplinaDashboard" layoutX="77.0" layoutY="50.0" text="Dashboard &gt;" textFill="#767676">
                                              <font>
@@ -1071,28 +1142,77 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Label>
-                                          <Label layoutX="192.0" layoutY="50.0" text="Registo de Disciplina" textFill="#1e1e1e">
+                                          <Label layoutX="192.0" layoutY="50.0" text="Registo de Disciplina" textFill="#767676">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Pane layoutX="120.0" layoutY="195.0" prefHeight="300.0" prefWidth="700.0" style="-fx-background-color: whitesmoke;">
+                                          <Pane layoutX="50.0" layoutY="111.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;">
                                              <children>
-                                                <TextField fx:id="txtNomeDisciplina" layoutX="174.0" layoutY="56.0" promptText="nome da disciplina" />
-                                                <TextArea fx:id="txtDescricaoDisciplina" layoutX="170.0" layoutY="136.0" prefHeight="150.0" prefWidth="360.0" promptText="Descricao da discplina" />
-                                                <JFXComboBox fx:id="cbCursoDisciplina" focusColor="#4bc95e" layoutX="377.0" layoutY="55.0" prefHeight="28.0" prefWidth="153.0" />
+                                                <TextField fx:id="txtNomeDisciplina" layoutX="117.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" promptText="Nome da Disciplina" />
+                                                <TextArea fx:id="txtDescricaoDisciplina" layoutX="586.0" layoutY="59.0" prefHeight="85.0" prefWidth="300.0" promptText="Descrição  da discplina" />
+                                                <JFXComboBox fx:id="cbCursoDisciplina" focusColor="#4bc95e" layoutX="320.0" layoutY="59.0" prefHeight="30.0" prefWidth="245.0" />
+                                                <TextField fx:id="txtPesquisarDisciplinas" layoutX="117.0" layoutY="116.0" prefHeight="30.0" promptText="pesquisar..." />
+                                                <Button fx:id="btnBuscarDisciplinas" alignment="CENTER" layoutX="270.0" layoutY="115.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="344.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_search_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnCarregarDisciplinas" alignment="CENTER" layoutX="417.0" layoutY="116.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="30.0" prefWidth="150.0" text="Carregar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="537.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_refresh_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TableView fx:id="disciplinaTableView" layoutX="110.0" layoutY="160.0" prefHeight="420.0" prefWidth="780.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="colDisciplinaId" prefWidth="101.60003662109375" text="ID" />
+                                                      <TableColumn fx:id="colDisciplinaName" prefWidth="207.20001220703125" text="Nome" />
+                                                      <TableColumn fx:id="colDisciplinaCurso" prefWidth="240.79998779296875" text="Curso" />
+                                                      <TableColumn fx:id="colDisciplinaCreatedAt" prefWidth="227.199951171875" text="Criado em" />
+                                                   </columns>
+                                                </TableView>
+                                                <Button layoutX="736.0" layoutY="14.0" mnemonicParsing="false" onAction="#adicionarDisciplina" prefHeight="30.0" prefWidth="150.0" text="Registar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnGoListarDisciplinas" layoutX="576.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Eliminar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button layoutX="417.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Actualizar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </Pane>
-                                          <Button layoutX="680.0" layoutY="149.0" mnemonicParsing="false" onAction="#adicionarDisciplina" prefHeight="30.0" prefWidth="140.0" text="Registar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <Button fx:id="btnGoListarDisciplinas" layoutX="530.0" layoutY="149.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Listar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
                                        </children>
                                     </Pane>
                                  </children>
@@ -1116,45 +1236,6 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnAddDisciplinas" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="706.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="803.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_add_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField fx:id="txtPesquisarDisciplinas" layoutX="67.0" layoutY="142.0" promptText="pesquisar..." />
-                                    <Button fx:id="btnBuscarDisciplinas" alignment="BOTTOM_LEFT" layoutX="220.0" layoutY="142.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="263.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_search_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Button fx:id="btnCarregarDisciplinas" alignment="BOTTOM_LEFT" layoutX="588.0" layoutY="144.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="651.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_refresh_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TableView fx:id="disciplinaTableView" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
-                                       <columns>
-                                          <TableColumn fx:id="colDisciplinaId" prefWidth="50.0" text="ID" />
-                                          <TableColumn fx:id="colDisciplinaName" prefWidth="150.0" text="Nome" />
-                                          <TableColumn fx:id="colDisciplinaCurso" prefWidth="200.0" text="Curso" />
-                                          <TableColumn fx:id="colDisciplinaCreatedAt" prefWidth="150.0" text="Criado em" />
-                                       </columns>
-                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -1356,17 +1437,10 @@
                         </Tab>
                         <Tab fx:id="tabAddDepartamento" text="Tab Adicionar Departamento">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                                  <children>
-                                    <Pane prefHeight="650.0" prefWidth="900.0">
+                                    <Pane prefHeight="850.0" prefWidth="1100.0">
                                        <children>
-                                          <Pane layoutX="100.0" layoutY="175.0" prefHeight="300.0" prefWidth="700.0" style="-fx-background-color: whitesmoke;">
-                                             <children>
-                                                <TextField fx:id="txtNomeDepartamento" layoutX="174.0" layoutY="56.0" promptText="designacao do departamento" />
-                                                <TextField fx:id="txtSiglaDepartamento" layoutX="378.0" layoutY="56.0" promptText="sigla, ex: DMI" />
-                                                <TextArea fx:id="txtDescricaoDepartamento" layoutX="170.0" layoutY="136.0" prefHeight="150.0" prefWidth="360.0" promptText="Descricao do departamento" />
-                                             </children>
-                                          </Pane>
                                           <Label fx:id="lblAddDepartamentoDashboard" layoutX="77.0" layoutY="50.0" text="Dashboard &gt;" textFill="#767676">
                                              <font>
                                                 <Font size="18.0" />
@@ -1375,21 +1449,82 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Label>
-                                          <Label layoutX="192.0" layoutY="50.0" text="Registo de Departamento" textFill="#1e1e1e">
+                                          <Label layoutX="192.0" layoutY="50.0" text="Registo de Departamento" textFill="#767676">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button layoutX="660.0" layoutY="129.0" mnemonicParsing="false" onAction="#adicionarDepartamento" prefHeight="30.0" prefWidth="140.0" text="Registar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <Button fx:id="btnGoListarDepartamentos" layoutX="510.0" layoutY="129.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Listar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
+                                          <Pane layoutX="50.0" layoutY="117.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <TextField fx:id="txtNomeDepartamento" layoutX="118.0" layoutY="88.0" prefHeight="30.0" prefWidth="280.0" promptText="Designação do Departamento" />
+                                                <TextField fx:id="txtSiglaDepartamento" layoutX="429.0" layoutY="88.0" prefHeight="30.0" prefWidth="140.0" promptText="Sigla, ex: DMI" />
+                                                <TextArea fx:id="txtDescricaoDepartamento" layoutX="586.0" layoutY="88.0" prefHeight="100.0" prefWidth="300.0" promptText="Descrição do Departamento" />
+                                                <Button alignment="CENTER" layoutX="746.0" layoutY="42.0" mnemonicParsing="false" onAction="#adicionarDepartamento" prefHeight="30.0" prefWidth="140.0" text="Registar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnGoListarDepartamentos" alignment="CENTER" layoutX="430.0" layoutY="42.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Actualizar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnAddDepartamento" alignment="CENTER" defaultButton="true" layoutX="584.0" layoutY="42.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Eliminar" textAlignment="JUSTIFY">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="702.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_add_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TextField fx:id="txtPesquisarDepartamento" layoutX="117.0" layoutY="158.0" prefHeight="30.0" prefWidth="175.0" promptText="pesquisar..." />
+                                                <Button fx:id="btnBuscarDepartamento" alignment="CENTER" layoutX="298.0" layoutY="158.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="371.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_search_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnCarregarDepartamento" alignment="CENTER" layoutX="429.0" layoutY="158.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="30.0" prefWidth="140.0" text="Actualizar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="538.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_refresh_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TableView fx:id="departementoTableView" layoutX="110.0" layoutY="198.0" prefHeight="360.0" prefWidth="780.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="colDepartamentoId" prefWidth="129.60000610351562" text="ID" />
+                                                      <TableColumn fx:id="colDepartementoName" prefWidth="278.4000244140625" text="Nome" />
+                                                      <TableColumn fx:id="colDepartamentoSigla" prefWidth="126.39996337890625" text="Sigla" />
+                                                      <TableColumn fx:id="colDepartamentoCreatedAt" prefWidth="244.0" text="Criado em" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </Pane>
                                        </children>
                                     </Pane>
                                  </children>
@@ -1413,45 +1548,6 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnAddDepartamento" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="706.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="803.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_add_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TextField fx:id="txtPesquisarDepartamento" layoutX="67.0" layoutY="140.0" promptText="pesquisar..." />
-                                    <Button fx:id="btnBuscarDepartamento" alignment="BOTTOM_LEFT" layoutX="220.0" layoutY="140.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="263.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_search_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Button fx:id="btnCarregarDepartamento" alignment="BOTTOM_LEFT" layoutX="588.0" layoutY="142.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="651.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../Images/icons8_refresh_32px.png" />
-                                       </image>
-                                    </ImageView>
-                                    <TableView fx:id="departementoTableView" layoutX="67.0" layoutY="177.0" prefHeight="432.0" prefWidth="766.0">
-                                       <columns>
-                                          <TableColumn fx:id="colDepartamentoId" prefWidth="50.0" text="ID" />
-                                          <TableColumn fx:id="colDepartementoName" prefWidth="150.0" text="Nome" />
-                                          <TableColumn fx:id="colDepartamentoSigla" prefWidth="200.0" text="Sigla" />
-                                          <TableColumn fx:id="colDepartamentoCreatedAt" prefWidth="150.0" text="Criado em" />
-                                       </columns>
-                                    </TableView>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -1462,15 +1558,15 @@
             </Pane>
          </center>
       </BorderPane>
-      <Pane layoutX="300.0" prefHeight="50.0" prefWidth="900.0" style="-fx-background-color: #f1f1f1;">
+      <Pane layoutX="300.0" prefHeight="50.0" prefWidth="1100.0" style="-fx-background-color: #f1f1f1;">
          <children>
-            <Separator layoutY="49.0" prefHeight="2.0" prefWidth="900.0" />
-            <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="839.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <Separator layoutY="49.0" prefHeight="2.0" prefWidth="1100.0" />
+            <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="1019.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Images/icons8_male_user_50px.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblLoggedUserName" layoutX="720.0" layoutY="17.0" text="Ola, Docente!">
+            <Label fx:id="lblLoggedUserName" layoutX="900.0" layoutY="16.0" text="Ola, Docente!">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>

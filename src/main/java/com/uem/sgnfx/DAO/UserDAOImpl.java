@@ -73,10 +73,12 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public User read(Long id) {
 
+        return null;
     }
 
 

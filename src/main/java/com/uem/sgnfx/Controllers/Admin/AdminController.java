@@ -5,6 +5,7 @@ package com.uem.sgnfx.Controllers.Admin;
  */
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.uem.sgnfx.DAO.*;
 import com.uem.sgnfx.Models.*;
@@ -20,8 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -51,7 +54,7 @@ public class AdminController {
     @FXML
     private TableColumn<?, ?> colTurmaId, colTurmaName, colTurmaCurso, colTurmaCreatedAt;
     @FXML
-    private TableColumn<?, ?> colDepartamentoCreatedAt, colDepartamentoSigla, colDepartamentoId, colDepartementoName;
+    private TableColumn<?, ?> colDepartamentoCreatedAt, colDepartamentoSigla, colDepartamentoId, colCursoUpdatedAt, colDepartementoName;
     @FXML
     private TableColumn<Estudante, Instant> createdAtEstudanteColumn;
 
@@ -115,12 +118,31 @@ public class AdminController {
     private JFXComboBox<Curso> cbCursoDisciplina;
 
     @FXML
-    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina, txtUserName, txtUserEmail, txtUserPassword;
+    private ComboBox<Curso> cbEstudanteCurso;
+
+    @FXML
+    private ComboBox<String> cbUserGenero;
+
+    @FXML
+    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina, txtUserName, txtUserApelido, txtUserEmail, txtUserNomeUtilizador, txtUserPassword;
+
+    @FXML
+    JFXCheckBox txtUserActive, txtUserAdmin;
 
     @FXML
     private TextArea txtDescricaoDepartamento, txtDescricaoCurso, txtDescricaoDisciplina;
 
     private AlertMessage alertMessage;
+
+    // CRUD de Estudantes
+    @FXML
+    private TextField txtEstudanteCodigo, txtEstudanteNome, txtEstudanteApelido, txtEstudanteEmail, txtEstudanteDocumento, txtEstudanteNuit, txtEstudanteTelefone, txtEstudanteEndereco, txtEstudanteSenha, txtEstudanteNacionalidade, txtEstudanteNaturalidade;
+    @FXML
+    private ComboBox<String> cbEstudanteGenero, cbEstudanteDocumento, cbEstudanteNaturalidade, cbEstudanteNacionalidade;
+    @FXML
+    private DatePicker dateEstudanteNascimento;
+    @FXML
+    private TableView<Estudante> estudanteTableView;
 
 
     private UserDAOImpl userDAO;
@@ -179,7 +201,7 @@ public class AdminController {
             }
         });
 
-        idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoestudante"));
+        idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoEstudante"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
@@ -213,6 +235,7 @@ public class AdminController {
         colCursoName.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCursoDepartamento.setCellValueFactory(new PropertyValueFactory<>("DepartamentoNome"));
         colCursoCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        colCursoUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
 
         colTurmaId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTurmaName.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -252,10 +275,11 @@ public class AdminController {
     }
 
     @FXML
-    public void listarEstudantes() {
+    public void listarEstudantes(){
         List<Estudante> estudantes = estudanteDAO.readAll();
         System.out.println("Número de estudantes encontrados: " + (estudantes != null ? estudantes.size() : 0));
         actualizarTabelaEstudantes(estudantes);
+        inicializarComboBoxCurso(cbEstudanteCurso);
     }
 
     public void listarDisciplinas(){
@@ -264,7 +288,7 @@ public class AdminController {
             disciplina.getCurso().getNome();
         }
         actualizarDisciplinas(disciplinas);
-        cursoDisciplina();
+        inicializarComboBoxCurso(cbCursoDisciplina);
     }
 
     public void listarCursos(){
@@ -375,39 +399,39 @@ public class AdminController {
         }
     }
 
-    public void cursoDisciplina(){
-
+    public void inicializarComboBoxCurso(ComboBox<Curso> comboBoxCurso) {
+        // Obtém a lista de cursos do DAO
         List<Curso> cursos = cursoDAO.readAll();
         ObservableList<Curso> observableCursos = FXCollections.observableArrayList(cursos);
-        cbCursoDisciplina.setItems(observableCursos);
+        comboBoxCurso.setItems(observableCursos);
 
-        cbCursoDisciplina.setCellFactory(lv -> new ListCell<Curso>() {
+        // Define a fábrica de células para exibir o nome do curso na lista
+        comboBoxCurso.setCellFactory(lv -> new ListCell<Curso>() {
             @Override
             protected void updateItem(Curso curso, boolean empty) {
                 super.updateItem(curso, empty);
                 if (empty || curso == null) {
                     setText(null);
                 } else {
-                    // Exibe o nome do curso
                     setText(curso.getNome());
                 }
             }
         });
 
-        // Também exibe o nome do curso quando um item é selecionado
-        cbCursoDisciplina.setButtonCell(new ListCell<Curso>() {
+        // Define a célula do botão para exibir o nome do curso selecionado
+        comboBoxCurso.setButtonCell(new ListCell<Curso>() {
             @Override
             protected void updateItem(Curso curso, boolean empty) {
                 super.updateItem(curso, empty);
                 if (empty || curso == null) {
                     setText(null);
                 } else {
-                    setText(curso.getNome());  // Exibe o nome do curso na seleção
+                    setText(curso.getNome());
                 }
             }
         });
-
     }
+
 
     private void actualizarTabelaUsers(List<User> users) {
         if (users != null && !users.isEmpty()) {
@@ -476,16 +500,68 @@ public class AdminController {
 
     @FXML
     public void adicionarUtilizadores(){
+
+        cbEstudanteGenero.getItems().addAll("Selecione uma opção", "Masculino", "Feminino");
+        cbUserGenero.getSelectionModel().selectFirst();
+
         String nome = txtUserName.getText();
+        String apelido = txtUserApelido.getText();
+        String username = txtUserNomeUtilizador.getText();
         String email = txtUserEmail.getText();
-        String password = txtUserPassword.getText();
+        String genero = "Masculino";
+        Boolean isActive = txtUserActive.isSelected();
+        Boolean isAdmin = txtUserAdmin.isSelected();
+        String password = BCrypt.hashpw(txtUserPassword.getText(), BCrypt.gensalt());
 
         if (nome != null && !nome.isEmpty()) {
-            userDAO.createUser(nome, email, password);
+            User user = new User(nome, apelido, username, email, genero, isActive, isAdmin, password, Instant.now(), Instant.now(),null);
+            userDAO.create(user);
         }else {
             alertMessage.showAlertInfo("Por favor, preecha todos os campos!");
             return;
         }
+
+        alertMessage.showAlertSuccess("Utilizador " + nome + " criado com sucesso!");
+
+    }
+
+    @FXML
+    private void adicionarEstudante(){
+
+        String nome = txtEstudanteNome.getText();
+        String apelido = txtEstudanteApelido.getText();
+        String email = txtEstudanteEmail.getText();
+        String telefone = txtEstudanteTelefone.getText();
+        String codigo = txtEstudanteCodigo.getText();
+        String endereco = txtEstudanteEndereco.getText();
+        String bilheteIdentidade = "cbEstudanteDocumento.getValue();";
+        String genero = "cbEstudanteGenero.getValue()";
+        LocalDate dataNascimento = dateEstudanteNascimento.getValue();
+        String estadoCivil = "Solteiro";
+        String nacionalidade = txtEstudanteNacionalidade.getText();
+        String naturalidade = txtEstudanteNaturalidade.getText();
+        User loggedInUser = SessionManager.getLoggedInEntity();
+        Curso curso = cbEstudanteCurso.getValue();
+        Boolean isActive = true;
+        Boolean isAdmin = false;
+        String senha = txtEstudanteSenha.getText();
+
+        try {
+
+            if (!nome.isEmpty() && !email.isEmpty()) {
+                Estudante estudante = new Estudante(nome, apelido, email, telefone, codigo, endereco, bilheteIdentidade, genero, dataNascimento, estadoCivil, nacionalidade, naturalidade, loggedInUser, curso, isActive, isAdmin, senha, Instant.now(), Instant.now());
+                //Estudante estudante = new Estudante(nome, apelido);
+                estudanteDAO.create(estudante);
+            } else {
+                alertMessage.showAlertWarning("Por favor, preencha todos os campos obrigatórios!");
+                return;
+            }
+        }catch (Exception exception){
+            System.out.println("Erro: " + exception.getMessage());
+            return;
+        }
+
+        alertMessage.showAlertSuccess("Estudante criado com sucesso!");
 
     }
 
@@ -518,7 +594,8 @@ public class AdminController {
             alertMessage.showAlertWarning("Por favor, preecha todos os campos!");
             return;
         }else {
-            cursoDAO.createCurso(nome, descricao, departamento);
+            Curso curso = new Curso(nome, descricao, departamento, Instant.now(), Instant.now());
+            cursoDAO.create(curso);
         }
 
         alertMessage.showAlertSuccess("Curso criado com sucesso!");
@@ -545,6 +622,7 @@ public class AdminController {
         limparCamposDisciplina();
 
     }
+
 
     // TODO: Método para limpar os campos de texto
     private void limparCamposDepartamento() {

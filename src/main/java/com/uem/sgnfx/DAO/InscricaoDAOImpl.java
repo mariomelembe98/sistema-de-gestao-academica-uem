@@ -45,10 +45,12 @@ public class InscricaoDAOImpl implements GenericDAO<Inscricao> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Inscricao read(Long id) {
 
+        return null;
     }
 
 

@@ -1,10 +1,15 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Estudante;
+import com.uem.sgnfx.Models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
@@ -13,6 +18,21 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
     public EstudanteDAOImpl(SessionFactory sessionFactory) {
         super(Estudante.class, sessionFactory);
         this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public void create(Estudante estudante) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.save(estudante);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     public List<Estudante> buscarPorCriterioUnico(String criterio) {
@@ -94,11 +114,37 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
         }
     }
 
+    public void createEstudante(String nome, String apelido, String email, String telefone, String codigoestudante, String endereco, String bi, String genero, LocalDate dataNascimento, String estadoCivil, String nacionalidade, String naturalidade, User user, Curso curso, Boolean isActive, Boolean isAdmin, String password, Instant createdAt, Instant updatedAt) {
+        Estudante estudante = new Estudante();
+        estudante.setNome(nome);
+        estudante.setApelido(apelido);
+        estudante.setEmail(email);
+        estudante.setTelefone(telefone);
+        estudante.setCodigoEstudante(codigoestudante);
+        estudante.setEndereco(endereco);
+        estudante.setBi(bi);
+        estudante.setGenero(genero);
+        estudante.setDataNascimento(dataNascimento);
+        estudante.setEstadoCivil(estadoCivil);
+        estudante.setNacionalidade(nacionalidade);
+        estudante.setNaturalidade(naturalidade);
+        estudante.setUser(user);
+        estudante.setCurso(curso);
+        estudante.setIsActive(isActive);
+        estudante.setIsAdmin(isAdmin);
+        estudante.setPassword(password);
+        estudante.setCreatedAt(createdAt);
+        estudante.setUpdatedAt(updatedAt);
+        create(estudante);
+    }
+
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Estudante read(Long id) {
 
+        return null;
     }
 }

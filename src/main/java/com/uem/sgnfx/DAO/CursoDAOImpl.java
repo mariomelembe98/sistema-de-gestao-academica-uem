@@ -1,13 +1,11 @@
 package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Curso;
-import com.uem.sgnfx.Models.Departamento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.time.Instant;
 import java.util.List;
 
 public class CursoDAOImpl extends GenericDAOImpl<Curso> {
@@ -46,10 +44,12 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void read(Long id) {
+    public Curso read(Long id) {
 
+        return null;
     }
 
     // TODO: Exemplo de um método específico para buscar cursos por nome
@@ -74,16 +74,6 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public void createCurso(String nome, String descricao, Departamento departamento) {
-        Curso curso = new Curso();
-        curso.setNome(nome);
-        curso.setDescricao(descricao);
-        curso.setDepartamento(departamento);
-        curso.setCreatedAt(Instant.now());
-        curso.setUpdatedAt(Instant.now());
-        create(curso);
     }
 
 

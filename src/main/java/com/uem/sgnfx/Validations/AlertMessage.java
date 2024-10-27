@@ -41,10 +41,8 @@ public class AlertMessage {
         alert.setHeaderText(null);
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
-        if (buttonType == ButtonType.OK) {
-            if (result.get() == ButtonType.OK) {
-                alert.close();
-            }
+        if (buttonType == ButtonType.OK && result.isPresent() && result.get() == ButtonType.OK) {
+            alert.close();
         }
     }
 
