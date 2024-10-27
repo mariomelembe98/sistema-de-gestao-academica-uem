@@ -1,12 +1,13 @@
 package com.uem.sgnfx.Models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "User")
 @Table(name = "users", schema = "gestao_academica", uniqueConstraints = {
         @UniqueConstraint(name = "users_email_unique", columnNames = {"email"})
 })
@@ -19,8 +20,25 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "apelido", nullable = false)
+    private String apelido;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "genero", nullable = false)
+    private String genero;
+
+    @ColumnDefault("0")
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = false;
+
+    @ColumnDefault("0")
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin = false;
 
     @Column(name = "email_verified_at")
     private Instant emailVerifiedAt;
@@ -37,7 +55,10 @@ public class User {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "updatedBy")
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
+
+    @OneToMany(mappedBy = "createdBy")
     private Set<Avaliacao> avaliacaos = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -46,11 +67,27 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Estudante> estudantes = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "updatedBy")
+    @OneToMany(mappedBy = "createdBy")
     private Set<Nota> notas = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Pessoa> pessoas = new LinkedHashSet<>();
+
+    public User(){}
+
+    public User(String name, String apelido, String username, String email, String genero, Boolean isActive, Boolean isAdmin, String password, Instant createdAt, Instant updatedAt, Instant deletedAt) {
+        this.name = name;
+        this.apelido = apelido;
+        this.username = username;
+        this.email = email;
+        this.genero = genero;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
+    }
 
     public Long getId() {
         return id;
@@ -68,12 +105,52 @@ public class User {
         this.name = name;
     }
 
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public Instant getEmailVerifiedAt() {
@@ -114,6 +191,14 @@ public class User {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
     }
 
     public Set<Avaliacao> getAvaliacaos() {
