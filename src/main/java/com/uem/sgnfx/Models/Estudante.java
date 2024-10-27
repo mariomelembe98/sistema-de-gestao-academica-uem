@@ -89,6 +89,37 @@ public class Estudante {
     @OneToMany(mappedBy = "estudante")
     private Set<Nota> notas = new LinkedHashSet<>();
 
+    public Estudante() {
+
+    }
+
+    public Estudante(String nome, String apelido) {
+        this.nome = nome;
+        this.apelido = apelido;
+    }
+
+    public Estudante(String nome, String apelido, String email, String telefone, String codigoestudante, String endereco, String bi, String genero, LocalDate dataNascimento, String estadoCivil, String nacionalidade, String naturalidade, User user, Curso curso, Boolean isActive, Boolean isAdmin, String password, Instant createdAt, Instant updatedAt) {
+        this.nome = nome;
+        this.apelido = apelido;
+        this.email = email;
+        this.telefone = telefone;
+        this.codigoestudante = codigoestudante;
+        this.endereco = endereco;
+        this.bi = bi;
+        this.genero = genero;
+        this.dataNascimento = dataNascimento;
+        this.estadoCivil = estadoCivil;
+        this.nacionalidade = nacionalidade;
+        this.naturalidade = naturalidade;
+        this.user = user;
+        this.curso = curso;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public Long getId() {
         return id;
     }
