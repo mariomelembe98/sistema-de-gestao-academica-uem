@@ -12,7 +12,7 @@ public class EstudanteApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/uem/sgnfx/Estudante/estudante.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1250, 700);
         primaryStage.setResizable(false);
         primaryStage.resizableProperty();
         primaryStage.setTitle("Estudante");

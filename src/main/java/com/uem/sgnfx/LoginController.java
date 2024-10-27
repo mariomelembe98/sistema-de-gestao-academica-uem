@@ -1,8 +1,19 @@
 package com.uem.sgnfx;
 
 import com.uem.sgnfx.Controllers.Admin.AdminApplication;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.uem.sgnfx.Controllers.Estudante.EstudanteApplication;
+import com.uem.sgnfx.Controllers.Professor.ProfessorApplication;
+import com.uem.sgnfx.DAO.UserDAOImpl;
+import com.uem.sgnfx.Models.Docente;
+import com.uem.sgnfx.Models.Estudante;
+import com.uem.sgnfx.Models.User;
+import com.uem.sgnfx.Services.LoginService;
+import com.uem.sgnfx.Services.SessionManager;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,8 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import javax.swing.*;
+import org.hibernate.SessionFactory;
 
 public class LoginController {
 
@@ -53,41 +63,65 @@ public class LoginController {
     private PasswordField txtSenha;
 
     @FXML
-    private TextField txtUsuario;
+    private Label lblMessage;
 
     @FXML
-    void handleLogin(MouseEvent event) {
-        String usuario = txtUsuario.getText();
-        String senha = txtSenha.getText();
+    private TextField txtUsuario;
+    private SessionFactory sessionFactory;
 
-        if (usuario.isEmpty() && senha.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!");
+    private final UserDAOImpl userDAO = new UserDAOImpl(this.sessionFactory);
+
+    @FXML
+    public void handleLogin(MouseEvent event) {
+        String email = txtUsuario.getText();
+        String password = txtSenha.getText();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            lblMessage.setText("Preencha todos os campos.");
             return;
         }
 
-        // TODO: Lógica para verificar credenciais de login
-        if (usuario.equals("admin") || usuario.equals("email@gmail.com") && senha.equals("12345")) {
-            System.out.println("Login bem-sucedido! " + txtUsuario.getText());
-            abrirAdminPanel();
-        } else {
-            //Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, "Credenciais inválidas. Tente novamente.");
+        // Instancia o serviço de ‘login’
+        LoginService loginService = new LoginService();
 
-            JOptionPane.showMessageDialog(null, "Usuario ou senha incorreto!");
-            //System.out.println("Nome de usuário ou senha incorretos!");
+        // Tentativa de login para diferentes tipos de utilizadores
+        User user = loginService.login(User.class, email, password);
+        Estudante estudante = loginService.login(Estudante.class, email, password);
+        Docente docente = loginService.login(Docente.class, email, password);
+
+        // Verifica o tipo de utilizador logado e abre o painel correspondente
+        if (user != null || estudante != null || docente != null) {
+            if (user instanceof User) {
+                // Armazena o usuário na sessão
+                SessionManager.setLoggedInEntity(user);
+                abrirPainel(AdminApplication.class);
+            } else if (docente instanceof Docente) {
+                // Armazena o docente na sessão
+                SessionManager.setLoggedInEntity(docente);
+                abrirPainel(ProfessorApplication.class);
+            } else {
+                // Armazena o estudante na sessão
+                SessionManager.setLoggedInEntity(estudante);
+                abrirPainel(EstudanteApplication.class);
+            }
+        } else {
+            lblMessage.setText("Credenciais inválidas!");
         }
+
     }
 
+
     // TODO: Método para abrir a aplicação AdminApplication
-    private void abrirAdminPanel() {
+    private <T extends Application> void abrirPainel(Class<T> applicationClass) {
         try {
-            // TODO: Fechar a janela de login
+            // Fechar a janela de login
             Stage stageAtual = (Stage) btnLogin.getScene().getWindow();
             stageAtual.close();
 
-            // TODO: Iniciar a aplicação AdminApplication
-            AdminApplication adminApp = new AdminApplication();
-            Stage novaStage = new Stage(); // TODO: Nova stage para a aplicação Admin
-            adminApp.start(novaStage);
+            // Iniciar a aplicação passada como parâmetro
+            T appInstance = applicationClass.getDeclaredConstructor().newInstance(); // Instancia a classe passada
+            Stage novaStage = new Stage(); // Nova stage para a aplicação genérica
+            appInstance.start(novaStage);
 
         } catch (Exception e) {
             e.printStackTrace();

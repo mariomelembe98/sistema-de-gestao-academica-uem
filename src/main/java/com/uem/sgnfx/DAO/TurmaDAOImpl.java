@@ -1,7 +1,5 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
-import com.uem.sgnfx.Models.Disciplina;
 import com.uem.sgnfx.Models.Turma;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,15 +15,6 @@ public class TurmaDAOImpl extends GenericDAOImpl<Turma> {
         this.sessionFactory = sessionFactory;
     }
 
-    /**
-     * @param id
-     * @return
-     */
-    @Override
-    public Departamento read(Long id) {
-        return null;
-    }
-
     @Override
     public List<Turma> readAll() {
         try (Session session = sessionFactory.openSession()) {
@@ -35,6 +24,17 @@ public class TurmaDAOImpl extends GenericDAOImpl<Turma> {
             return null;
         }
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Turma read(Long id) {
+
+        return null;
+    }
+
 
     // TODO: Método específico para buscar turmas por nome
     public List<Turma> buscarPorNome(String nome) {

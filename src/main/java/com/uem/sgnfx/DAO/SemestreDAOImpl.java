@@ -1,6 +1,7 @@
 package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Departamento;
+import com.uem.sgnfx.Models.Semestre;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,23 +9,24 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 /**
- * Created by USER on 19/10/2024.
+ * Created by USER on 27/10/2024.
  */
 
-public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
+public class SemestreDAOImpl extends GenericDAOImpl<Semestre>{
+
     private SessionFactory sessionFactory;
 
-    public DepartamentoDAOImpl(SessionFactory sessionFactory) {
-        super(Departamento.class, sessionFactory);
+    public SemestreDAOImpl(SessionFactory sessionFactory) {
+        super(Semestre.class, sessionFactory);
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void create(Departamento departamento) {
+    public void create(Semestre semestre) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.save(departamento);
+            session.save(semestre);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -35,9 +37,9 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
     }
 
     @Override
-    public List<Departamento> readAll() {
+    public List<Semestre> readAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Departamento", Departamento.class).list();
+            return session.createQuery("from Semestre", Semestre.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -49,17 +51,17 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
      * @return
      */
     @Override
-    public Departamento read(Long id) {
+    public Semestre read(Long id) {
 
         return null;
     }
 
     @Override
-    public void update(Departamento departamento) {
+    public void update(Semestre semestre) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.update(departamento);
+            session.update(semestre);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -74,9 +76,9 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            Departamento departamento = session.get(Departamento.class, id);
-            if (departamento != null) {
-                session.delete(departamento);
+            Semestre semestre = session.get(Semestre.class, id);
+            if (semestre != null) {
+                session.delete(semestre);
                 transaction.commit();
             }
         } catch (Exception e) {
@@ -86,14 +88,4 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
             e.printStackTrace();
         }
     }
-
-    public void createDepartamento(String nome, String sigla,  String descricao) {
-        Departamento departamento = new Departamento();
-        departamento.setNome(nome);
-        departamento.setSigla(sigla);
-        departamento.setDescricao(descricao);
-        create(departamento);
-    }
-
-
 }

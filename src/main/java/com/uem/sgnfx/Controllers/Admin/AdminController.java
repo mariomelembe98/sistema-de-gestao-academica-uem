@@ -5,11 +5,14 @@ package com.uem.sgnfx.Controllers.Admin;
  */
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.uem.sgnfx.DAO.*;
 import com.uem.sgnfx.Models.*;
+import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
 
+import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,8 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -49,7 +54,7 @@ public class AdminController {
     @FXML
     private TableColumn<?, ?> colTurmaId, colTurmaName, colTurmaCurso, colTurmaCreatedAt;
     @FXML
-    private TableColumn<?, ?> colDepartamentoCreatedAt, colDepartamentoSigla, colDepartamentoId, colDepartementoName;
+    private TableColumn<?, ?> colDepartamentoCreatedAt, colDepartamentoSigla, colDepartamentoId, colCursoUpdatedAt, colDepartementoName;
     @FXML
     private TableColumn<Estudante, Instant> createdAtEstudanteColumn;
 
@@ -83,7 +88,7 @@ public class AdminController {
 
     // Labels
     @FXML
-    private Label lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
+    private Label lblLoggedUserName, lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
 
     // Panes
     @FXML
@@ -113,10 +118,31 @@ public class AdminController {
     private JFXComboBox<Curso> cbCursoDisciplina;
 
     @FXML
-    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina;
+    private ComboBox<Curso> cbEstudanteCurso;
+
+    @FXML
+    private ComboBox<String> cbUserGenero;
+
+    @FXML
+    private TextField txtNomeDepartamento, txtNomeCurso, txtSiglaDepartamento, txtNomeDisciplina, txtUserName, txtUserApelido, txtUserEmail, txtUserNomeUtilizador, txtUserPassword;
+
+    @FXML
+    JFXCheckBox txtUserActive, txtUserAdmin;
 
     @FXML
     private TextArea txtDescricaoDepartamento, txtDescricaoCurso, txtDescricaoDisciplina;
+
+    private AlertMessage alertMessage;
+
+    // CRUD de Estudantes
+    @FXML
+    private TextField txtEstudanteCodigo, txtEstudanteNome, txtEstudanteApelido, txtEstudanteEmail, txtEstudanteDocumento, txtEstudanteNuit, txtEstudanteTelefone, txtEstudanteEndereco, txtEstudanteSenha, txtEstudanteNacionalidade, txtEstudanteNaturalidade;
+    @FXML
+    private ComboBox<String> cbEstudanteGenero, cbEstudanteDocumento, cbEstudanteNaturalidade, cbEstudanteNacionalidade;
+    @FXML
+    private DatePicker dateEstudanteNascimento;
+    @FXML
+    private TableView<Estudante> estudanteTableView;
 
 
     private UserDAOImpl userDAO;
@@ -137,6 +163,16 @@ public class AdminController {
         setupDisciplinasActions();
         setupUtilizadoresActions();
         setupDepartamentosActions();
+
+        this.alertMessage = new AlertMessage();
+
+        User loggedInUser = SessionManager.getLoggedInEntity();
+
+        if (loggedInUser != null) {
+            lblLoggedUserName.setText("Bem-vindo, " + loggedInUser.getName());
+        }else {
+            lblLoggedUserName.textProperty().setValue("Bem-vindo, null");
+        }
 
         // Use a implementação concreta do DAO
         this.userDAO = new UserDAOImpl(HibernateUtil.getSessionFactory());
@@ -165,7 +201,7 @@ public class AdminController {
             }
         });
 
-        idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoestudante"));
+        idEstudanteColumn.setCellValueFactory(new PropertyValueFactory<>("codigoEstudante"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         telefoneColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
@@ -199,6 +235,7 @@ public class AdminController {
         colCursoName.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCursoDepartamento.setCellValueFactory(new PropertyValueFactory<>("DepartamentoNome"));
         colCursoCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        colCursoUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
 
         colTurmaId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTurmaName.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -238,10 +275,11 @@ public class AdminController {
     }
 
     @FXML
-    public void listarEstudantes() {
+    public void listarEstudantes(){
         List<Estudante> estudantes = estudanteDAO.readAll();
         System.out.println("Número de estudantes encontrados: " + (estudantes != null ? estudantes.size() : 0));
         actualizarTabelaEstudantes(estudantes);
+        inicializarComboBoxCurso(cbEstudanteCurso);
     }
 
     public void listarDisciplinas(){
@@ -250,7 +288,7 @@ public class AdminController {
             disciplina.getCurso().getNome();
         }
         actualizarDisciplinas(disciplinas);
-        cursoDisciplina();
+        inicializarComboBoxCurso(cbCursoDisciplina);
     }
 
     public void listarCursos(){
@@ -310,11 +348,7 @@ public class AdminController {
         String criterio = txtPesquisarEstudante.getText();
 
         if (criterio == null || criterio.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aviso");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, insira um critério de pesquisa.");
-            alert.showAndWait();
+            alertMessage.showAlertWarning("Por favor, insira um critério de pesquisa.");
             return;
         }
 
@@ -365,38 +399,39 @@ public class AdminController {
         }
     }
 
-    public void cursoDisciplina(){
-
+    public void inicializarComboBoxCurso(ComboBox<Curso> comboBoxCurso) {
+        // Obtém a lista de cursos do DAO
         List<Curso> cursos = cursoDAO.readAll();
         ObservableList<Curso> observableCursos = FXCollections.observableArrayList(cursos);
-        cbCursoDisciplina.setItems(observableCursos);
+        comboBoxCurso.setItems(observableCursos);
 
-        cbCursoDisciplina.setCellFactory(lv -> new ListCell<Curso>() {
+        // Define a fábrica de células para exibir o nome do curso na lista
+        comboBoxCurso.setCellFactory(lv -> new ListCell<Curso>() {
             @Override
             protected void updateItem(Curso curso, boolean empty) {
                 super.updateItem(curso, empty);
                 if (empty || curso == null) {
                     setText(null);
                 } else {
-                    setText(curso.getNome());  // Exibe o nome do curso
+                    setText(curso.getNome());
                 }
             }
         });
 
-        // Também exibe o nome do curso quando um item é selecionado
-        cbCursoDisciplina.setButtonCell(new ListCell<Curso>() {
+        // Define a célula do botão para exibir o nome do curso selecionado
+        comboBoxCurso.setButtonCell(new ListCell<Curso>() {
             @Override
             protected void updateItem(Curso curso, boolean empty) {
                 super.updateItem(curso, empty);
                 if (empty || curso == null) {
                     setText(null);
                 } else {
-                    setText(curso.getNome());  // Exibe o nome do curso na seleção
+                    setText(curso.getNome());
                 }
             }
         });
-
     }
+
 
     private void actualizarTabelaUsers(List<User> users) {
         if (users != null && !users.isEmpty()) {
@@ -404,7 +439,7 @@ public class AdminController {
             tableViewUsers.setItems(observableUsers);
         } else {
             tableViewUsers.getItems().clear();
-            System.out.println("Nenhum utilizador encontrado ou lista de utilizadores está vazia.");
+            //System.out.println("Nenhum utilizador encontrado ou lista de utilizadores está vazia.");
         }
     }
 
@@ -423,7 +458,7 @@ public class AdminController {
             estudanteTable.setItems(observableEstudantes);
         } else {
             estudanteTable.getItems().clear();
-            System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
+            //System.out.println("Nenhum estudante encontrado ou lista de estudantes está vazia.");
         }
     }
 
@@ -464,34 +499,86 @@ public class AdminController {
     }
 
     @FXML
+    public void adicionarUtilizadores(){
+
+        cbEstudanteGenero.getItems().addAll("Selecione uma opção", "Masculino", "Feminino");
+        cbUserGenero.getSelectionModel().selectFirst();
+
+        String nome = txtUserName.getText();
+        String apelido = txtUserApelido.getText();
+        String username = txtUserNomeUtilizador.getText();
+        String email = txtUserEmail.getText();
+        String genero = "Masculino";
+        Boolean isActive = txtUserActive.isSelected();
+        Boolean isAdmin = txtUserAdmin.isSelected();
+        String password = BCrypt.hashpw(txtUserPassword.getText(), BCrypt.gensalt());
+
+        if (nome != null && !nome.isEmpty()) {
+            User user = new User(nome, apelido, username, email, genero, isActive, isAdmin, password, Instant.now(), Instant.now(),null);
+            userDAO.create(user);
+        }else {
+            alertMessage.showAlertInfo("Por favor, preecha todos os campos!");
+            return;
+        }
+
+        alertMessage.showAlertSuccess("Utilizador " + nome + " criado com sucesso!");
+
+    }
+
+    @FXML
+    private void adicionarEstudante(){
+
+        String nome = txtEstudanteNome.getText();
+        String apelido = txtEstudanteApelido.getText();
+        String email = txtEstudanteEmail.getText();
+        String telefone = txtEstudanteTelefone.getText();
+        String codigo = txtEstudanteCodigo.getText();
+        String endereco = txtEstudanteEndereco.getText();
+        String bilheteIdentidade = "cbEstudanteDocumento.getValue();";
+        String genero = "cbEstudanteGenero.getValue()";
+        LocalDate dataNascimento = dateEstudanteNascimento.getValue();
+        String estadoCivil = "Solteiro";
+        String nacionalidade = txtEstudanteNacionalidade.getText();
+        String naturalidade = txtEstudanteNaturalidade.getText();
+        User loggedInUser = SessionManager.getLoggedInEntity();
+        Curso curso = cbEstudanteCurso.getValue();
+        Boolean isActive = true;
+        Boolean isAdmin = false;
+        String senha = txtEstudanteSenha.getText();
+
+        try {
+
+            if (!nome.isEmpty() && !email.isEmpty()) {
+                Estudante estudante = new Estudante(nome, apelido, email, telefone, codigo, endereco, bilheteIdentidade, genero, dataNascimento, estadoCivil, nacionalidade, naturalidade, loggedInUser, curso, isActive, isAdmin, senha, Instant.now(), Instant.now());
+                //Estudante estudante = new Estudante(nome, apelido);
+                estudanteDAO.create(estudante);
+            } else {
+                alertMessage.showAlertWarning("Por favor, preencha todos os campos obrigatórios!");
+                return;
+            }
+        }catch (Exception exception){
+            System.out.println("Erro: " + exception.getMessage());
+            return;
+        }
+
+        alertMessage.showAlertSuccess("Estudante criado com sucesso!");
+
+    }
+
+    @FXML
     public void adicionarDepartamento() {
         String nome = txtNomeDepartamento.getText();
         String sigla = txtSiglaDepartamento.getText();
         String descricao = txtDescricaoDepartamento.getText();
 
         if (nome.isEmpty() || sigla.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Preencha todos os campos");
-            alert.showAndWait();
+            alertMessage.showAlertInfo("Por favor, preecha todos os campos!");
             return;
+        }else {
+            departamentoDAO.createDepartamento(nome, sigla, descricao);
         }
 
-        Departamento departamento = new Departamento();
-        departamento.setNome(nome);
-        departamento.setSigla(sigla);
-        departamento.setDescricao(descricao);
-        departamento.setCreatedAt(Instant.now());
-        departamento.setUpdatedAt(Instant.now());
-
-        departamentoDAO.create(departamento);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText("Departamento adicionado com sucesso!");
-        alert.showAndWait();
+        alertMessage.showAlertSuccess("Departamento criado com sucesso!");
 
         listarDepartamentos();
         limparCamposDepartamento();
@@ -503,30 +590,15 @@ public class AdminController {
         String descricao = txtDescricaoCurso.getText();
         Departamento departamento = cbDepartamentoCurso.getValue();
 
-        if (nome.isEmpty() || departamento == null) {
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Preencha todos os campos obrigatórios!");
-            alert.showAndWait();
+        if (nome.isEmpty()){
+            alertMessage.showAlertWarning("Por favor, preecha todos os campos!");
             return;
+        }else {
+            Curso curso = new Curso(nome, descricao, departamento, Instant.now(), Instant.now());
+            cursoDAO.create(curso);
         }
 
-        Curso curso = new Curso();
-        curso.setNome(nome);
-        curso.setDescricao(descricao);
-        curso.setDepartamento(departamento);
-        curso.setCreatedAt(Instant.now());
-        curso.setUpdatedAt(Instant.now());
-
-        cursoDAO.create(curso);  // Chamar o método de criação do DAO
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText("Curso adicionado com sucesso!");
-        alert.showAndWait();
+        alertMessage.showAlertSuccess("Curso criado com sucesso!");
 
         listarCursos();
         limparCamposCurso();
@@ -538,30 +610,19 @@ public class AdminController {
         Curso curso = cbCursoDisciplina.getValue();
 
         if (nome.isEmpty() || curso == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Preencha todos os campos");
-            alert.showAndWait();
+            alertMessage.showAlertWarning("Por favor, preecha todos os campos!");
+            return;
+        }else {
+            disciplinaDAO.createDisciplina(nome, curso);
         }
 
-        Disciplina disciplina = new Disciplina();
-        disciplina.setDesignacao(nome);
-        disciplina.setCreatedAt(Instant.now());
-        disciplina.setUpdatedAt(Instant.now());
-        disciplina.setCurso(curso);
-        disciplinaDAO.create(disciplina);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText("Disciplina adicionado com sucesso!");
-        alert.showAndWait();
+        alertMessage.showAlertSuccess("Disciplina criado com sucesso!");
 
         listarDisciplinas();
         limparCamposDisciplina();
 
     }
+
 
     // TODO: Método para limpar os campos de texto
     private void limparCamposDepartamento() {
@@ -654,7 +715,7 @@ public class AdminController {
         btnUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabUtilizadores));
         btnListarUtilizadores.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
         btnRegistarUtilizador.setOnAction(event -> tabPane.getSelectionModel().select(tabAdicionarUtilizadores));
-        listarDocentebtn.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
+        //listarDocentebtn.setOnAction(event -> tabPane.getSelectionModel().select(tabListarUlitizadores));
     }
 
     // TODO: Departamentos

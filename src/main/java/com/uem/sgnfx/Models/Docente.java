@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Docente")
 @Table(name = "docentes", schema = "gestao_academica", uniqueConstraints = {
         @UniqueConstraint(name = "docentes_email_unique", columnNames = {"email"})
 })
@@ -51,6 +51,9 @@ public class Docente {
     @ColumnDefault("0")
     @Column(name = "is_admin", nullable = false)
     private Boolean isAdmin = false;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -142,6 +145,14 @@ public class Docente {
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Instant getCreatedAt() {

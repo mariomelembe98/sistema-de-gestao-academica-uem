@@ -8,7 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.Instant;
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "Pessoa")
 @Table(name = "pessoas", schema = "gestao_academica", uniqueConstraints = {
         @UniqueConstraint(name = "pessoas_email_unique", columnNames = {"email"})
 })

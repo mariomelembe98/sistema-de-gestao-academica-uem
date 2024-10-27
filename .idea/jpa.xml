@@ -5,4 +5,8 @@
     <option name="reLastEntityCreationPackage" value="src/main/java/com/uem/sgnfx/Models" />
     <option name="reverseEngineeringLastDbConnectionId" value="cf10da28-98c3-4224-8484-b2340456171f" />
   </component>
+  <component name="JpaPluginProjectSettings" commentSavingStrategy="@Comment annotation" reExcludeTablePrefixes="" reExcludeColumnPrefixes="" reExcludeTableSuffixes="" reExcludeColumnSuffixes="">
+    <option name="entityNameTemplate" value="${className}" />
+    <option name="scaffoldingLanguage" value="Java" />
+  </component>
 </project>

@@ -1,11 +1,15 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
+import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Estudante;
+import com.uem.sgnfx.Models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
@@ -16,12 +20,27 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
+    public void create(Estudante estudante) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.save(estudante);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
     public List<Estudante> buscarPorCriterioUnico(String criterio) {
         try (Session session = sessionFactory.openSession()) {
             String hql;
 
             if (criterio.contains("@")) {
-                // Se contiver "@" é um email
+                // Se contiver "@" é um endereço eletrónico
                 hql = "from Estudante where email like :criterio";
             } else if (criterio.matches("\\d+")) {
                 // Se for numérico, é um código de estudante
@@ -64,7 +83,7 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
     }
 
     // TODO: Método específico: Listar estudantes activos
-    public List<Estudante> listarAtivos() {
+    public List<Estudante> listarActivos() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Estudante where isActive = true", Estudante.class).list();
         } catch (Exception e) {
@@ -95,12 +114,37 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
         }
     }
 
+    public void createEstudante(String nome, String apelido, String email, String telefone, String codigoestudante, String endereco, String bi, String genero, LocalDate dataNascimento, String estadoCivil, String nacionalidade, String naturalidade, User user, Curso curso, Boolean isActive, Boolean isAdmin, String password, Instant createdAt, Instant updatedAt) {
+        Estudante estudante = new Estudante();
+        estudante.setNome(nome);
+        estudante.setApelido(apelido);
+        estudante.setEmail(email);
+        estudante.setTelefone(telefone);
+        estudante.setCodigoEstudante(codigoestudante);
+        estudante.setEndereco(endereco);
+        estudante.setBi(bi);
+        estudante.setGenero(genero);
+        estudante.setDataNascimento(dataNascimento);
+        estudante.setEstadoCivil(estadoCivil);
+        estudante.setNacionalidade(nacionalidade);
+        estudante.setNaturalidade(naturalidade);
+        estudante.setUser(user);
+        estudante.setCurso(curso);
+        estudante.setIsActive(isActive);
+        estudante.setIsAdmin(isAdmin);
+        estudante.setPassword(password);
+        estudante.setCreatedAt(createdAt);
+        estudante.setUpdatedAt(updatedAt);
+        create(estudante);
+    }
+
     /**
      * @param id
      * @return
      */
     @Override
-    public Departamento read(Long id) {
+    public Estudante read(Long id) {
+
         return null;
     }
 }
