@@ -43,6 +43,16 @@ public class Curso {
     @OneToMany(mappedBy = "curso")
     private Set<Turma> turmas = new LinkedHashSet<>();
 
+    public Curso() {}
+
+    public Curso(String nome, String descricao, Departamento departamento, Instant createdAt, Instant updatedAt) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.departamento = departamento;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public Long getId() {
         return id;
     }
