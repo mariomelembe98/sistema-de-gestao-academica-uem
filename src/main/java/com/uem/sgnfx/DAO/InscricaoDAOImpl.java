@@ -1,7 +1,9 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Disciplina;
 import com.uem.sgnfx.Models.Inscricao;
 import com.uem.sgnfx.Utils.HibernateUtil;
+import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,12 +11,13 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class InscricaoDAOImpl implements GenericDAO<Inscricao> {
+public class InscricaoDAOImpl extends GenericDAOImpl<Inscricao> {
 
     private SessionFactory sessionFactory;
+    private EntityManager entityManager;
 
     public InscricaoDAOImpl(SessionFactory sessionFactory) {
-        super();
+        super(Inscricao.class, sessionFactory);
         this.sessionFactory = sessionFactory;
     }
 
@@ -106,6 +109,16 @@ public class InscricaoDAOImpl implements GenericDAO<Inscricao> {
             return query.list();
         }
     }
+
+    public List<Disciplina> buscarDisciplinasPorEstudante(Long estudanteId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT i.disciplina FROM Inscricao i WHERE i.estudante.id = :estudanteId";
+            Query<Disciplina> query = session.createQuery(hql, Disciplina.class);
+            query.setParameter("estudanteId", estudanteId);
+            return query.list();
+        }
+    }
+
 
     public List<Inscricao> listarInscricoesPorDisciplina(Long disciplinaId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

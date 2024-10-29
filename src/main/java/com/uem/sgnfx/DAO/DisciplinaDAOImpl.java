@@ -2,6 +2,7 @@ package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Disciplina;
+import com.uem.sgnfx.Models.Semestre;
 import com.uem.sgnfx.Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,12 +67,13 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
         }
     }
 
-    public void createDisciplina(String designacao, Curso curso) {
+    public void createDisciplina(String designacao, Curso curso, Semestre semestre) {
         Disciplina disciplina = new Disciplina();
         disciplina.setDesignacao(designacao);
         disciplina.setCreatedAt(Instant.now());
         disciplina.setUpdatedAt(Instant.now());
         disciplina.setCurso(curso);
+        disciplina.setSemestre(semestre);
         create(disciplina);
     }
 
@@ -101,5 +103,12 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
         return disciplinas;
     }
 
+    public List<Disciplina> findByDesignacao(String designacao) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Disciplina where designacao = :designacao", Disciplina.class)
+                    .setParameter("designacao", designacao)
+                    .getResultList();
+        }
+    }
 
 }

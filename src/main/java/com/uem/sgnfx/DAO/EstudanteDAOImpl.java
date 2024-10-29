@@ -3,6 +3,7 @@ package com.uem.sgnfx.DAO;
 import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Estudante;
 import com.uem.sgnfx.Models.User;
+import com.uem.sgnfx.Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -144,7 +145,23 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
      */
     @Override
     public Estudante read(Long id) {
-
-        return null;
+        Estudante estudante = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            estudante = session.get(Estudante.class, id); // Carrega o estudante com o ID fornecido
+        } catch (Exception e) {
+            e.printStackTrace(); // Exibe o erro, se houver
+        }
+        return estudante;
     }
+
+    public Long obterUltimoId() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return (Long) session.createQuery("SELECT COALESCE(MAX(e.id), 0) FROM Estudante e").uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0L; // Retorna 0 se não houver nenhum registro
+        }
+    }
+
+
 }
