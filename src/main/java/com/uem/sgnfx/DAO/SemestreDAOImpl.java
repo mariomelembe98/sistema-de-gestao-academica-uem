@@ -2,6 +2,10 @@ package com.uem.sgnfx.DAO;
 
 import com.uem.sgnfx.Models.Departamento;
 import com.uem.sgnfx.Models.Semestre;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -87,5 +91,26 @@ public class SemestreDAOImpl extends GenericDAOImpl<Semestre>{
             }
             e.printStackTrace();
         }
+    }
+
+    public void inicializarComboBoxSemestre(ComboBox<Semestre> comboBoxCurso) {
+        // Obtém a lista de cursos do DAO
+        List<Semestre> semestres = readAll();
+        ObservableList<Semestre> observableCursos = FXCollections.observableArrayList(semestres);
+        comboBoxCurso.setItems(observableCursos);
+
+        // Define a fábrica de células para exibir o nome do curso na lista
+        comboBoxCurso.setCellFactory(lv -> new ListCell<Semestre>() {
+            @Override
+            protected void updateItem(Semestre semestreList, boolean empty) {
+                super.updateItem(semestreList, empty);
+                if (empty || semestreList == null) {
+                    setText(null);
+                } else {
+                    setText(semestreList.getNome());
+                }
+            }
+        });
+
     }
 }

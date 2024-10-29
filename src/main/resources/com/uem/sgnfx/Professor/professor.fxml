@@ -14,15 +14,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1100.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Professor.ProfessorController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="1000.0">
+      <BorderPane prefHeight="600.0" prefWidth="1100.0">
          <left>
             <Pane prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnTurmas" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="174.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
+                  <JFXButton fx:id="btnTurmas" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="281.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -30,7 +33,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnDisciplinas" alignment="CENTER" layoutX="6.0" layoutY="224.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
+                  <JFXButton fx:id="btnDisciplinas" alignment="CENTER" layoutX="4.0" layoutY="331.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -38,33 +41,101 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_google_classroom_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_books_64px.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="22.0" layoutY="14.0" text="Painel do Docente" textFill="WHITE">
+                  <Label layoutX="33.0" layoutY="14.0" text="PAINEL DO DOCENTE" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                   <Separator layoutY="56.0" prefWidth="250.0" />
+                  <JFXButton layoutX="5.0" layoutY="517.0" prefHeight="40.0" prefWidth="240.0" text="Sair" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="20.0" layoutY="525.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/icons8_sign_out_60px.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="84.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/icons8_student_male_104px.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="100.0" layoutY="187.0" text="SGA" textAlignment="JUSTIFY">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.3073830306529999" green="0.747965395450592" blue="0.7631579041481018" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9098039269447327" green="0.9098039269447327" blue="0.9098039269447327" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label layoutX="12.0" layoutY="222.0" text="SISTEMA DE GESTÃO ACADÉMICA">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.3073830306529999" green="0.747965395450592" blue="0.7631579041481018" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9098039269447327" green="0.9098039269447327" blue="0.9098039269447327" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
                </children>
             </Pane>
          </left>
          <top>
-            <Pane prefHeight="50.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+            <Pane BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="lblLoggedUserName" layoutX="894.0" layoutY="15.0" text="Ola, Professor">
+                  <Label fx:id="lblLoggedUserName" layoutX="892.0" layoutY="8.0" text="Ola, Professor">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1035.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/icons8_male_user_50px.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
                </children></Pane>
          </top>
          <center>
@@ -76,7 +147,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Pane prefHeight="650.0" prefWidth="900.0">
+                                    <Pane prefHeight="535.0" prefWidth="900.0">
                                        <children>
                                           <Label layoutX="260.0" layoutY="201.0" text="Painel Inicial" textFill="#4d5b4f">
                                              <font>
@@ -277,13 +348,5 @@
             </Pane>
          </center>
       </BorderPane>
-      <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="1045.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/icons8_male_user_50px.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
    </children>
 </AnchorPane>
