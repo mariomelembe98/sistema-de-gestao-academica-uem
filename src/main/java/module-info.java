@@ -17,6 +17,7 @@ module com.uem.sgnfx {
     requires org.hibernate.orm.core;
     requires java.naming;
     requires jbcrypt;
+    requires jakarta.mail;
 
     exports com.uem.sgnfx.Controllers.Admin to javafx.graphics, javafx.fxml;
     exports com.uem.sgnfx.Controllers.Estudante to javafx.graphics, javafx.fxml;
