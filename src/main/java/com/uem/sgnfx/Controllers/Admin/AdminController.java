@@ -17,6 +17,10 @@ import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -27,6 +31,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 public class AdminController {
 
@@ -86,7 +91,7 @@ public class AdminController {
 
     // Labels
     @FXML
-    private Label lblLoggedUserName, lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
+    private Label lblCountEstudantes, lblLoggedUserName, lblCursosDashboard, lblDisciplinasDashboard, lblDisciplinasDashboard1, lblDocenteDashboard, lblEstudanteDashboard, lblHome, lblUtilizadorDashboard;
 
     // Panes
     @FXML
@@ -143,6 +148,15 @@ public class AdminController {
     private DatePicker dateEstudanteNascimento;
     @FXML
     private TableView<Estudante> estudanteTableView;
+
+    @FXML
+    private BarChart<String, Number> chartEstudantes;
+
+    @FXML
+    private CategoryAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
 
 
     private UserDAOImpl userDAO;
@@ -269,6 +283,8 @@ public class AdminController {
         listarDepartamentos();
         buscarEstudantesPorCurso();
         listarSemestres();
+        configurarEixos();
+        carregarDadosEstudantesPorCurso();
     }
 
     @FXML
@@ -668,6 +684,33 @@ public class AdminController {
         listarDisciplinas();
         limparCamposDisciplina();
 
+    }
+
+    private void configurarEixos() {
+        xAxis.setLabel("Cursos");
+        yAxis.setLabel("Número de Estudantes");
+    }
+
+    private void carregarDadosEstudantesPorCurso() {
+        // Obter contagem de estudantes por curso
+        Map<String, Long> contagemEstudantesPorCurso = estudanteDAO.obterContagemEstudantesPorCurso();
+
+        // Criar a série de dados
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Estudantes por Curso");
+
+        // Adicionar dados à série
+        for (Map.Entry<String, Long> entry : contagemEstudantesPorCurso.entrySet()) {
+            String cursoNome = entry.getKey();
+            Long quantidadeEstudantes = entry.getValue();
+            series.getData().add(new XYChart.Data<>(cursoNome, quantidadeEstudantes));
+        }
+
+        // Adicionar a série ao gráfico
+        chartEstudantes.getData().clear(); // Limpa dados anteriores, se houver
+        chartEstudantes.getData().add(series);
+        long totalEstudantes = estudanteDAO.count();
+        lblCountEstudantes.setText(String.valueOf(totalEstudantes));
     }
 
 

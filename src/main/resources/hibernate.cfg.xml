@@ -40,5 +40,8 @@
         <mapping class="com.uem.sgnfx.Models.Docente"/>
         <mapping class="com.uem.sgnfx.Models.Avaliacao"/>
         <mapping class="com.uem.sgnfx.Models.Semestre" />
+        <mapping class="com.uem.sgnfx.Models.CursoRegime" />
+        <mapping class="com.uem.sgnfx.Models.DisciplinaCurso" />
+        <mapping class="com.uem.sgnfx.Models.Regime" />
     </session-factory>
 </hibernate-configuration>

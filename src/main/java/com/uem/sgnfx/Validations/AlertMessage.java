@@ -2,6 +2,7 @@ package com.uem.sgnfx.Validations;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
@@ -46,12 +47,34 @@ public class AlertMessage {
         }
     }
 
+    public void showAlertClose(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Saída");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            alert.close();
+        }
+    }
+
     public void showAlertSuccess(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Sucesso");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void close(Stage stage) {
+
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmação de Saída");
+        alerta.setHeaderText("Tem a certeza de que deseja sair?");
+        alerta.setContentText(null);
+        if(alerta.showAndWait().get() == ButtonType.OK){
+
+            stage.close();
+        }
     }
 
 }

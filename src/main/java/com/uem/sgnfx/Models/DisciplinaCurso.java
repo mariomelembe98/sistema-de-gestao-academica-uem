@@ -5,21 +5,23 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-@Entity
-@Table(name = "inscricaos", schema = "gestao_academica")
-public class Inscricao {
+@Entity(name = "DisciplinaCurso")
+@Table(name = "disciplina_cursos", schema = "gestao_academica")
+public class DisciplinaCurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "estudante_id", nullable = false)
-    private Estudante estudante;
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "disciplina_id", nullable = false)
     private Disciplina disciplina;
@@ -30,18 +32,8 @@ public class Inscricao {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "disciplina_curso_id", nullable = false)
-    private DisciplinaCurso disciplinaCurso;
-
-    public DisciplinaCurso getDisciplinaCurso() {
-        return disciplinaCurso;
-    }
-
-    public void setDisciplinaCurso(DisciplinaCurso disciplinaCurso) {
-        this.disciplinaCurso = disciplinaCurso;
-    }
+    @OneToMany(mappedBy = "disciplinaCurso")
+    private Set<Inscricao> inscricaos = new LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -51,12 +43,12 @@ public class Inscricao {
         this.id = id;
     }
 
-    public Estudante getEstudante() {
-        return estudante;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setEstudante(Estudante estudante) {
-        this.estudante = estudante;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public Disciplina getDisciplina() {
@@ -81,6 +73,14 @@ public class Inscricao {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Inscricao> getInscricaos() {
+        return inscricaos;
+    }
+
+    public void setInscricaos(Set<Inscricao> inscricaos) {
+        this.inscricaos = inscricaos;
     }
 
 }

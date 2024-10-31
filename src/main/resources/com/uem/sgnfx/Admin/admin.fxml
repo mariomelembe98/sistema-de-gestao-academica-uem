@@ -25,6 +25,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
@@ -32,7 +35,7 @@
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1400.0">
          <left>
-            <Pane prefHeight="800.0" prefWidth="300.0" style="-fx-background-color: ddeaee;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="800.0" prefWidth="300.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #008B8B;">
                      <children>
@@ -48,14 +51,14 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEstudantes" layoutX="5.0" layoutY="198.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Estudantes">
+                  <Button fx:id="btnEstudantes" layoutX="5.0" layoutY="300.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Estudantes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="btnDocentes" layoutX="5.0" layoutY="259.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Docentes">
+                  <Button fx:id="btnDocentes" layoutX="5.0" layoutY="365.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Docentes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -63,29 +66,29 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnCursos" layoutX="5.0" layoutY="321.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Cursos">
+                  <Button fx:id="btnCursos" layoutX="5.0" layoutY="430.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Cursos">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="19.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_student_male_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="19.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_teacher_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_books_64px_1.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnUtilizadores" layoutX="5.0" layoutY="564.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Utilizadores">
+                  <Button fx:id="btnUtilizadores" layoutX="5.0" layoutY="690.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Utilizadores">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -93,20 +96,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="698.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_manager_64px.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnDisciplinas" layoutX="5.0" layoutY="442.0" prefHeight="50.0" prefWidth="290.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </JFXButton>
-                  <Button fx:id="btnTurmas" layoutX="5.0" layoutY="382.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Turmas">
+                  <Button fx:id="btnTurmas" layoutX="5.0" layoutY="495.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Turmas">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -114,12 +109,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="503.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_google_classroom_64px.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnDepartamentos" alignment="CENTER" layoutX="5.0" layoutY="499.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Departamentos">
+                  <Button fx:id="btnDepartamentos" alignment="CENTER" layoutX="5.0" layoutY="625.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Departamentos">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -127,12 +122,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="633.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_person_at_home_32px.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnDisciplinas" layoutX="5.0" layoutY="440.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Disciplinas">
+                  <Button fx:id="btnDisciplinas" layoutX="5.0" layoutY="560.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Disciplinas">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -140,11 +135,58 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_literature_32px.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="110.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/icons8_student_male_104px.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="126.0" layoutY="165.0" text="SGA" textAlignment="JUSTIFY">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.3073830306529999" green="0.747965395450592" blue="0.7631579041481018" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9098039269447327" green="0.9098039269447327" blue="0.9098039269447327" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label layoutX="38.0" layoutY="200.0" text="SISTEMA DE GESTÃO ACADÉMICA">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.3073830306529999" green="0.747965395450592" blue="0.7631579041481018" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9098039269447327" green="0.9098039269447327" blue="0.9098039269447327" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
                </children>
             </Pane>
          </left>
@@ -157,9 +199,9 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0">
                               <children>
-                                 <Pane fx:id="panelHomeHome" prefHeight="750.0" prefWidth="1100.0">
+                                 <Pane fx:id="panelHomeHome" layoutY="21.0" prefHeight="750.0" prefWidth="1100.0">
                                     <children>
-                                       <Label fx:id="lblHome" layoutX="75.0" layoutY="30.0" text="Dashboard">
+                                       <Label fx:id="lblHome" layoutX="50.0" layoutY="40.0" text="Dashboard">
                                           <font>
                                              <Font size="18.0" />
                                           </font>
@@ -167,26 +209,52 @@
                                              <Cursor fx:constant="HAND" />
                                           </cursor>
                                        </Label>
-                                          <Pane layoutX="50.0" layoutY="86.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: white;">
-                                             <children>
-                                                <BarChart layoutX="14.0" layoutY="57.0" prefHeight="400.0" prefWidth="422.0">
-                                                  <xAxis>
-                                                    <CategoryAxis side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                    <NumberAxis side="LEFT" />
-                                                  </yAxis>
-                                                </BarChart>
-                                                <StackedBarChart layoutX="467.0" layoutY="57.0">
-                                                  <xAxis>
-                                                    <CategoryAxis side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                    <NumberAxis side="LEFT" />
-                                                  </yAxis>
-                                                </StackedBarChart>
-                                             </children>
-                                          </Pane>
+                                       <Pane layoutX="50.0" layoutY="86.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                                          <children>
+                                                <TabPane layoutX="50.0" layoutY="103.0" prefHeight="500.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+                                                  <tabs>
+                                                    <Tab text="Untitled Tab 1">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                               <BarChart fx:id="chartEstudantes" layoutX="50.0" layoutY="26.0" prefHeight="419.0" prefWidth="800.0">
+                                                                  <xAxis>
+                                                                     <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                                                                  </xAxis>
+                                                                  <yAxis>
+                                                                     <NumberAxis fx:id="yAxis" side="LEFT" />
+                                                                  </yAxis>
+                                                               </BarChart>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                    <Tab text="Untitled Tab 2">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <StackedBarChart layoutX="200.0" layoutY="36.0">
+                                                                    <xAxis>
+                                                                      <CategoryAxis side="BOTTOM" />
+                                                                    </xAxis>
+                                                                    <yAxis>
+                                                                      <NumberAxis side="LEFT" />
+                                                                    </yAxis>
+                                                                  </StackedBarChart>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                  </tabs>
+                                                </TabPane>
+                                                <Label fx:id="lblCountEstudantes" layoutX="50.0" layoutY="42.0" text="Label">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                          </children>
+                                       </Pane>
+
                                     </children>
                                  </Pane>
                               </children>
@@ -269,112 +337,42 @@
                                                <Font size="17.0" />
                                             </font>
                                          </Label>
-                                          <Pane layoutX="50.0" layoutY="105.0" prefHeight="530.0" prefWidth="1000.0" style="-fx-background-color: white;">
+                                          <Pane layoutX="50.0" layoutY="105.0" prefHeight="620.0" prefWidth="1000.0" style="-fx-background-color: white;">
                                              <children>
-                                                <Label layoutX="127.0" layoutY="135.0" text="Codico">
+                                                <TextField fx:id="txtEstudanteCodigo" layoutX="99.0" layoutY="71.0" prefHeight="30.0" promptText="Codico do estudante" />
+                                                <TextField fx:id="txtEstudanteNome" layoutX="99.0" layoutY="112.0" prefHeight="30.0" promptText="Nome do estudante" />
+                                                <TextField fx:id="txtEstudanteApelido" layoutX="99.0" layoutY="151.0" prefHeight="30.0" promptText="Apelido do estudante" />
+                                                <TextField fx:id="txtEstudanteDocumento" layoutX="586.0" layoutY="113.0" prefHeight="30.0" promptText="Número do documento" />
+                                                <TextField fx:id="txtEstudanteNuit" layoutX="586.0" layoutY="152.0" prefHeight="30.0" promptText="NUIT" />
+                                                <DatePicker fx:id="dateEstudanteNascimento" layoutX="269.0" layoutY="151.0" prefHeight="30.0" prefWidth="152.0" promptText="Data de nascimento" />
+                                                <ComboBox fx:id="cbEstudanteGenero" layoutX="430.0" layoutY="70.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione o gênero" />
+                                                <TextField fx:id="txtEstudanteEmail" layoutX="271.0" layoutY="71.0" prefHeight="30.0" promptText="Email do estudante" />
+                                                <TextField fx:id="txtEstudanteNaturalidade" layoutX="742.0" layoutY="72.0" prefHeight="30.0" promptText="Naturalidade" />
+                                                <TextField fx:id="txtEstudanteNacionalidade" layoutX="431.0" layoutY="113.0" prefHeight="30.0" promptText="Nacionalidade" />
+                                                <ComboBox fx:id="comboEstudanteProvincia" layoutX="430.0" layoutY="151.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione uma província" />
+                                                <TextField fx:id="txtEstudanteTelefone" layoutX="270.0" layoutY="112.0" prefHeight="30.0" promptText="Telefone" />
+                                                <ComboBox fx:id="cbEstudanteCurso" layoutX="311.0" layoutY="245.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione um curso" />
+                                                <ComboBox fx:id="cbEstudanteDocumento" layoutX="585.0" layoutY="72.0" prefHeight="30.0" prefWidth="150.0" promptText="Tipo de documento" />
+                                                <Separator layoutX="124.0" layoutY="48.0" prefHeight="3.0" prefWidth="250.0" />
+                                                <Label layoutX="386.0" layoutY="38.0" text="Informações Pessoais Do Estudante" textFill="#b1bdbc">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="129.0" layoutY="176.0" text="Nome">
+                                                <Separator layoutX="614.0" layoutY="47.0" prefHeight="3.0" prefWidth="234.0" />
+                                                <Separator layoutX="309.0" layoutY="208.0" prefHeight="3.0" prefWidth="550.0" />
+                                                <Label layoutX="142.0" layoutY="197.0" text="Informações Acadêmicas" textFill="#b1bdbc">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="txtEstudanteCodigo" layoutX="185.0" layoutY="128.0" prefHeight="30.0" promptText="Codico do estudante" />
-                                                <TextField fx:id="txtEstudanteNome" layoutX="185.0" layoutY="171.0" prefHeight="30.0" promptText="Nome do estudante" />
-                                                <Label layoutX="390.0" layoutY="175.0" text="Apelido">
+                                                <Label layoutX="97.0" layoutY="224.0" text="Certificado de conclusão do ensino médio ou equivalente">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="txtEstudanteApelido" layoutX="449.0" layoutY="171.0" prefHeight="30.0" promptText="Apelido do estudante" />
-                                                <Label layoutX="129.0" layoutY="262.0" prefHeight="20.0" prefWidth="50.0" text="Nr de doc">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteDocumento" layoutX="185.0" layoutY="257.0" prefHeight="30.0" promptText="Número do documento" />
-                                                <Label layoutX="129.0" layoutY="304.0" text="NUIT">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteNuit" layoutX="185.0" layoutY="299.0" prefHeight="30.0" promptText="NUIT" />
-                                                <DatePicker fx:id="dateEstudanteNascimento" layoutX="447.0" layoutY="215.0" prefHeight="30.0" prefWidth="152.0" promptText="Data de nascimento" />
-                                                <Label layoutX="348.0" layoutY="220.0" text="D. Nascimento">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label layoutX="392.0" layoutY="262.0" text="Gênero">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <ComboBox fx:id="cbEstudanteGenero" layoutX="448.0" layoutY="257.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione o gênero" />
-                                                <Label layoutX="623.0" layoutY="174.0" text="Naturalidade">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label layoutX="401.0" layoutY="135.0" text="Email">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteEmail" layoutX="449.0" layoutY="131.0" prefHeight="30.0" promptText="Email do estudante" />
-                                                <TextField fx:id="txtEstudanteNaturalidade" layoutX="712.0" layoutY="170.0" prefHeight="30.0" promptText="Naturalidade" />
-                                                <Label layoutX="352.0" layoutY="303.0" text="Nacionalidade">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteNacionalidade" layoutX="450.0" layoutY="299.0" prefHeight="30.0" promptText="Nacionalidade" />
-                                                <Label layoutX="645.0" layoutY="136.0" text="Província">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <ComboBox fx:id="comboEstudanteProvincia" layoutX="712.0" layoutY="131.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione uma província" />
-                                                <Label layoutX="648.0" layoutY="215.0" text="Telefone">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteTelefone" layoutX="712.0" layoutY="210.0" prefHeight="30.0" promptText="Telefone" />
-                                                <Label layoutX="553.0" layoutY="382.0" text="Curso para o qual o estudante está se matriculando">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <ComboBox fx:id="cbEstudanteCurso" layoutX="553.0" layoutY="403.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione um curso" />
-                                                <Label layoutX="129.0" layoutY="220.0" prefHeight="20.0" prefWidth="50.0" text="Tipo doc.">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <ComboBox fx:id="cbEstudanteDocumento" layoutX="185.0" layoutY="215.0" prefHeight="30.0" prefWidth="150.0" promptText="Tipo de documento" />
-                                                <Separator layoutX="133.0" layoutY="105.0" prefHeight="3.0" prefWidth="250.0" />
-                                                <Label layoutX="395.0" layoutY="95.0" text="Informações Pessoais Do Estudante" textFill="#b1bdbc">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Separator layoutX="623.0" layoutY="104.0" prefHeight="3.0" prefWidth="234.0" />
-                                                <Separator layoutX="300.0" layoutY="365.0" prefHeight="3.0" prefWidth="550.0" />
-                                                <Label layoutX="133.0" layoutY="354.0" text="Informações Acadêmicas" textFill="#b1bdbc">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label layoutX="131.0" layoutY="382.0" text="Certificado de conclusão do ensino médio ou equivalente">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <ComboBox layoutX="133.0" layoutY="403.0" prefHeight="30.0" prefWidth="205.0" promptText="Selecione o tipo de certificado" />
-                                                <Button alignment="BOTTOM_LEFT" layoutX="760.0" layoutY="58.0" mnemonicParsing="false" onAction="#adicionarEstudante" prefHeight="25.0" prefWidth="100.0" text="Registar">
+                                                <ComboBox layoutX="99.0" layoutY="245.0" prefHeight="30.0" prefWidth="205.0" promptText="Selecione o tipo de certificado" />
+                                                <Button alignment="BOTTOM_LEFT" layoutX="184.0" layoutY="287.0" mnemonicParsing="false" onAction="#adicionarEstudante" prefHeight="25.0" prefWidth="100.0" text="Registar">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -382,12 +380,12 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="827.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="251.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../../Images/icons8_save_32px.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Button fx:id="btnBackEstudantes" alignment="BOTTOM_LEFT" layoutX="664.0" layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" text="Listar">
+                                                <Button fx:id="btnBackEstudantes" alignment="BOTTOM_LEFT" layoutX="88.0" layoutY="288.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" text="Listar">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -395,23 +393,13 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="711.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="135.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../../Images/icons8_syllabus_32px.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Label layoutX="652.0" layoutY="252.0" text="Endereco">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteEndereco" layoutX="711.0" layoutY="247.0" prefHeight="30.0" promptText="endereco" />
-                                                <Label layoutX="130.0" layoutY="459.0" text="Senha">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="txtEstudanteSenha" layoutX="189.0" layoutY="454.0" prefHeight="30.0" promptText="senha" />
+                                                <TextField fx:id="txtEstudanteEndereco" layoutX="742.0" layoutY="113.0" prefHeight="30.0" promptText="endereco" />
+                                                <TextField fx:id="txtEstudanteSenha" layoutX="312.0" layoutY="287.0" prefHeight="30.0" promptText="senha" />
                                              </children>
                                           </Pane>
                                       </children>

@@ -24,7 +24,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Pane layoutX="25.0" layoutY="30.0" prefHeight="450.0" prefWidth="350.0">
+                        <Pane layoutX="25.0" layoutY="42.0" prefHeight="450.0" prefWidth="350.0">
                            <children>
                               <TextField fx:id="txtUsuario" layoutX="86.0" layoutY="220.0" prefHeight="30.0" prefWidth="200.0" promptText="seu email" />
                               <PasswordField fx:id="txtSenha" layoutX="86.0" layoutY="270.0" prefHeight="30.0" prefWidth="200.0" promptText="senha" />
@@ -48,6 +48,16 @@
                               </ImageView>
                               <Label fx:id="lblEsqueciSenha" layoutX="192.0" layoutY="308.0" prefHeight="18.0" prefWidth="89.0" text="Esqueci senha" underline="true" />
                               <Label fx:id="lblMessage" layoutX="86.0" layoutY="326.0" textFill="red" />
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="56.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/icons8_customer_32px.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="56.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Images/icons8_lock_32px.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </Pane>
                      </children>

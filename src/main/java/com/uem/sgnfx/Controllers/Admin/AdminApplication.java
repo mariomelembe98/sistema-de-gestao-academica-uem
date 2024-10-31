@@ -1,5 +1,6 @@
 package com.uem.sgnfx.Controllers.Admin;
 
+import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +10,8 @@ import java.io.IOException;
 
 
 public class AdminApplication extends Application {
+
+    private final AlertMessage alertMessage = new AlertMessage();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -20,6 +23,10 @@ public class AdminApplication extends Application {
         primaryStage.setTitle("Sistema de Gestão Académica");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+            alertMessage.close(primaryStage);
+        });
     }
 
     public static void main(String[] args) {

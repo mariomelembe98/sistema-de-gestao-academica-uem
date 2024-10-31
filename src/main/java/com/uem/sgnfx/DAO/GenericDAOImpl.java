@@ -82,4 +82,15 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public long count() {
+        try (Session session = sessionFactory.openSession()) {
+            return (long) session.createQuery("SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e")
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0; // Retorna 0 em caso de erro
+        }
+    }
 }

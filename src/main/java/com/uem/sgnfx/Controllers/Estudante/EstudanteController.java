@@ -13,16 +13,12 @@ import com.uem.sgnfx.DAO.DisciplinaDAOImpl;
 import com.uem.sgnfx.DAO.InscricaoDAOImpl;
 import com.uem.sgnfx.DAO.SemestreDAOImpl;
 import com.uem.sgnfx.LoginApplication;
-import com.uem.sgnfx.Models.Disciplina;
-import com.uem.sgnfx.Models.Estudante;
-import com.uem.sgnfx.Models.Inscricao;
-import com.uem.sgnfx.Models.Semestre;
+import com.uem.sgnfx.Models.*;
 import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
 import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -85,6 +81,7 @@ public class EstudanteController {
     private CheckListView<String> disciplinasCheckListNova;
 
     private Map<String, Disciplina> disciplinaMap = new HashMap<>();
+    private Map<String, DisciplinaCurso> disciplinaCursoMap = new HashMap<>();
 
     private SessionManager sessionManager;
     private SemestreDAOImpl semestreDAO;
@@ -183,12 +180,14 @@ public class EstudanteController {
         for (String disciplinaString : disciplinasSelecionadas) {
             // Obter o objeto Disciplina correspondente da string selecionada
             Disciplina disciplina = disciplinaMap.get(disciplinaString);
+            DisciplinaCurso disciplinaCurso = disciplinaCursoMap.get(disciplinaString);
 
             if (disciplina != null) {
                 // Criar uma Inscricao para cada disciplina selecionada
                 Inscricao inscricao = new Inscricao();
                 inscricao.setEstudante(estudanteLogado);
                 inscricao.setDisciplina(disciplina);
+                inscricao.setDisciplinaCurso(disciplinaCurso);
                 inscricao.setCreatedAt(Instant.now());
                 inscricao.setUpdatedAt(Instant.now());
 
@@ -218,13 +217,13 @@ public class EstudanteController {
     private void carregarTodasDisciplinas() {
         List<Disciplina> disciplinas = disciplinaDAO.readAll();
         for (Disciplina disciplina : disciplinas) {
-            // Formatação da string de exibição
+            // Formatação da ‘string’ de exibição
             String displayText = disciplina.getDesignacao() + " | " + disciplina.getSemestre().getNome();
 
             // Adiciona a string ao CheckListView
             disciplinasCheckListNova.getItems().add(displayText);
 
-            // Armazena a relação entre a string e o objeto Disciplina
+            // Armazena a relação entre a ‘string’ e o objeto Disciplina
             disciplinaMap.put(displayText, disciplina);
         }
     }

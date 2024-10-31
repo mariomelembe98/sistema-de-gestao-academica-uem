@@ -76,23 +76,24 @@ public class LoginController {
         String email = txtUsuario.getText();
         String password = txtSenha.getText();
 
-        if (email.isEmpty() || password.isEmpty()) {
-            lblMessage.setText("Preencha todos os campos.");
-            return;
-        }
+//        if (email.isEmpty() || password.isEmpty()) {
+//            lblMessage.setText("Preencha todos os campos.");
+//            return;
+//        }
 
         // Instancia o serviço de ‘login’
         LoginService loginService = new LoginService();
 
         // Tentativa de login para diferentes tipos de utilizadores
         User user = loginService.login(User.class, email, password);
+        //User user = loginService.login(User.class, "admin@gmail.com", "12345");
         Estudante estudante = loginService.login(Estudante.class, email, password);
         Docente docente = loginService.login(Docente.class, email, password);
 
         // Verifica o tipo de utilizador logado e abre o painel correspondente
         if (user != null || estudante != null || docente != null) {
             if (user instanceof User) {
-                // Armazena o usuário na sessão
+                // Armazena o utilizador na sessão
                 SessionManager.setLoggedInEntity(user);
                 abrirPainel(AdminApplication.class);
             } else if (docente instanceof Docente) {

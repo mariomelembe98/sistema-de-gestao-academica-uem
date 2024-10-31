@@ -8,27 +8,33 @@ import com.jfoenix.controls.JFXButton;
 import com.uem.sgnfx.DAO.DisciplinaDAOImpl;
 import com.uem.sgnfx.DAO.EstudanteDAOImpl;
 import com.uem.sgnfx.DAO.InscricaoDAOImpl;
+import com.uem.sgnfx.LoginApplication;
 import com.uem.sgnfx.Models.Disciplina;
 import com.uem.sgnfx.Models.Docente;
-import com.uem.sgnfx.Models.Estudante;
 import com.uem.sgnfx.Models.Inscricao;
 import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
+import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ProfessorController {
 
@@ -52,6 +58,9 @@ public class ProfessorController {
 
     @FXML
     private JFXButton btnHome;
+
+    @FXML
+    private Button btnSair;
 
     @FXML
     private JFXButton btnTurmas;
@@ -93,6 +102,9 @@ public class ProfessorController {
     private TableView<Inscricao> estudanteTableView;
 
     @FXML
+    private AlertMessage alertMessage;
+
+    @FXML
     private TableColumn<Inscricao, String> inscricaoNumeroEstudanteColumn, inscricaoEstudanteColumn, inscricaoDisciplinaColumn;
 
     @FXML
@@ -108,6 +120,7 @@ public class ProfessorController {
         this.inscricaoDAO = new InscricaoDAOImpl(HibernateUtil.getSessionFactory());
         this.disciplinaDAO = new DisciplinaDAOImpl(HibernateUtil.getSessionFactory());
         this.estudanteDAO = new EstudanteDAOImpl(HibernateUtil.getSessionFactory());
+        this.alertMessage = new AlertMessage();
 
         Docente loggedInUser = SessionManager.getLoggedInEntity();
 
@@ -231,6 +244,38 @@ public class ProfessorController {
 
         // Selecionar a tab de disciplina
         tabPane.getSelectionModel().select(tabDisciplina);
+    }
+
+    @FXML
+    private void sair() {
+
+        // Mostrar uma caixa de diálogo de confirmação
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Saída");
+        alert.setHeaderText(null);
+        alert.setContentText("Tem certeza de que deseja sair?");
+
+        // Aguardar resposta do utilizador
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Obtém a janela atual a partir do botão "Sair"
+            Stage currentStage = (Stage) btnSair.getScene().getWindow();
+            currentStage.close();
+
+            // Abre a tela de login
+            try {
+                Stage loginStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("tela-login.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+                loginStage.setScene(scene);
+                loginStage.setResizable(false);
+                loginStage.setTitle("Autenticação!");
+                loginStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 }

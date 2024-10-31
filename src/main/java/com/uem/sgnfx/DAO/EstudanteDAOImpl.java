@@ -11,7 +11,9 @@ import org.hibernate.query.Query;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
     private SessionFactory sessionFactory;
@@ -160,6 +162,32 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
         } catch (Exception e) {
             e.printStackTrace();
             return 0L; // Retorna 0 se não houver nenhum registro
+        }
+    }
+
+    public Map<String, Long> obterContagemEstudantesPorCurso() {
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String query = "SELECT e.curso.nome, COUNT(e) FROM Estudante e GROUP BY e.curso.nome";
+            List<Object[]> results = session.createQuery(query).getResultList();
+            Map<String, Long> contagemPorCurso = new HashMap<>();
+            for (Object[] result : results) {
+                String cursoNome = (String) result[0];
+                Long quantidadeEstudantes = (Long) result[1];
+                contagemPorCurso.put(cursoNome, quantidadeEstudantes);
+            }
+            return contagemPorCurso;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @Override
+    public long count(){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("select count(e) from Estudante e", Long.class).uniqueResult();
         }
     }
 
