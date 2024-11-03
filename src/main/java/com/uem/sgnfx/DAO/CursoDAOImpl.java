@@ -18,7 +18,7 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
     }
 
     @Override
-    public void create(Curso curso) {
+    public Curso create(Curso curso) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -30,6 +30,7 @@ public class CursoDAOImpl extends GenericDAOImpl<Curso> {
             }
             e.printStackTrace();
         }
+        return curso;
     }
 
     @Override

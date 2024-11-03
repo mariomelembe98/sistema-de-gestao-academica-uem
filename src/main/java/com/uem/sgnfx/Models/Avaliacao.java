@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Avaliacao")
 @Table(name = "avaliacaos", schema = "gestao_academica")
 public class Avaliacao {
     @Id
@@ -23,6 +23,9 @@ public class Avaliacao {
     @Column(name = "data_realizacao", nullable = false)
     private LocalDate dataRealizacao;
 
+    @Column(name = "peso", nullable = false)
+    private Double peso;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "disciplina_id", nullable = false)
@@ -30,13 +33,8 @@ public class Avaliacao {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "updated_by", nullable = false)
-    private User updatedBy;
+    @JoinColumn(name = "docente_id", nullable = false)
+    private Docente docente;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -71,6 +69,14 @@ public class Avaliacao {
         this.dataRealizacao = dataRealizacao;
     }
 
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
     public Disciplina getDisciplina() {
         return disciplina;
     }
@@ -79,20 +85,12 @@ public class Avaliacao {
         this.disciplina = disciplina;
     }
 
-    public User getCreatedBy() {
-        return createdBy;
+    public Docente getDocente() {
+        return docente;
     }
 
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public User getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(User updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setDocente(Docente docente) {
+        this.docente = docente;
     }
 
     public Instant getCreatedAt() {

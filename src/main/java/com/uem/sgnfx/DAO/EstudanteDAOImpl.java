@@ -24,7 +24,7 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
     }
 
     @Override
-    public void create(Estudante estudante) {
+    public Estudante create(Estudante estudante) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -36,6 +36,7 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     public List<Estudante> buscarPorCriterioUnico(String criterio) {
@@ -101,16 +102,6 @@ public class EstudanteDAOImpl extends GenericDAOImpl<Estudante> {
             return session.createQuery("from Estudante where curso.id = :cursoId", Estudante.class)
                     .setParameter("cursoId", cursoId)
                     .list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    // TODO: Método específico: Contar número total de estudantes
-    public Long contarTotalDeEstudantes() {
-        try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("select count(e) from Estudante e", Long.class).uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

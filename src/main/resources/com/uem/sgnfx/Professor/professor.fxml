@@ -3,12 +3,15 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,13 +22,13 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1100.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Professor.ProfessorController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Professor.ProfessorController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="1100.0">
+      <BorderPane prefHeight="700.0" prefWidth="1200.0">
          <left>
-            <Pane prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="700.0" prefWidth="250.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnTurmas" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="281.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
+                  <JFXButton fx:id="btnTurmas" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="333.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Turmas" textFill="#fff9f9">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -33,7 +36,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnDisciplinas" alignment="CENTER" layoutX="4.0" layoutY="331.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
+                  <JFXButton fx:id="btnDisciplinas" alignment="CENTER" layoutX="4.0" layoutY="383.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Disciplinas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -41,12 +44,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_google_classroom_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_books_64px.png" />
                      </image>
@@ -57,7 +60,7 @@
                      </font>
                   </Label>
                   <Separator layoutY="56.0" prefWidth="250.0" />
-                  <JFXButton fx:id="btnSair" layoutX="5.0" layoutY="517.0" onAction="#sair" prefHeight="40.0" prefWidth="240.0" text="Sair" textFill="WHITE">
+                  <JFXButton fx:id="btnSair" layoutX="4.0" layoutY="614.0" onAction="#sair" prefHeight="40.0" prefWidth="240.0" text="Sair" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -65,7 +68,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="20.0" layoutY="525.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="19.0" layoutY="622.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_sign_out_60px.png" />
                      </image>
@@ -117,18 +120,31 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
+                  <JFXButton fx:id="btnAvaliacoes" alignment="CENTER" layoutX="4.0" layoutY="434.0" prefHeight="50.0" prefWidth="240.0" styleClass="itemButtons" text="Avaliacoes" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="12.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/icons8_books_64px.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </left>
          <top>
             <Pane BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="lblLoggedUserName" layoutX="892.0" layoutY="8.0" text="Ola, Professor">
+                  <Label fx:id="lblLoggedUserName" layoutX="1003.0" layoutY="9.0" text="Ola, Professor">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1035.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1146.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_male_user_50px.png" />
                      </image>
@@ -136,12 +152,13 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-               </children></Pane>
+               </children>
+            </Pane>
          </top>
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TabPane fx:id="tabPane" prefHeight="550.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPane" prefHeight="670.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="tabHome" text="Tab Home">
                         <content>
@@ -274,7 +291,7 @@
                         <content>
                            <AnchorPane fx:id="disciplinasPane" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="750.0">
                                  <children>
-                                    <Label layoutX="70.0" prefHeight="20.0" prefWidth="98.0" text="Disciplinas">
+                                    <Label layoutX="25.0" layoutY="14.0" prefHeight="20.0" prefWidth="98.0" text="Disciplinas">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -313,7 +330,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="lblNomeDisciplina" layoutX="189.0" layoutY="55.0" text=" " textFill="#38613f">
+                                    <Label fx:id="lblNomeDisciplina" layoutX="189.0" layoutY="55.0" text="Nome da Disciplina" textFill="#38613f">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -336,14 +353,65 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Untitled Tab">
+                        <Tab fx:id="tabAvaliacoes" text="Tab Avaliacoes">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane fx:id="disciplinasPaneAvaliacoes" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="750.0">
+                                 <children>
+                                    <Label layoutX="25.0" layoutY="14.0" prefHeight="20.0" prefWidth="98.0" text="Avaliacoes">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="tabAvaliacao" text="Tab Avaliacao">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Pane layoutX="25.0" layoutY="71.0" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <TableView layoutX="50.0" layoutY="158.0" prefHeight="300.0" prefWidth="800.0">
+                                             <columns>
+                                                <TableColumn prefWidth="75.0" text="C1" />
+                                                <TableColumn prefWidth="75.0" text="C2" />
+                                             </columns>
+                                          </TableView>
+                                          <TextField fx:id="txtDescricaoAvaliacao" layoutX="50.0" layoutY="65.0" prefHeight="30.0" prefWidth="200.0" promptText="Nome da Avaliação" />
+                                          <TextField fx:id="txtPesoAvaliacao" layoutX="350.0" layoutY="65.0" prefHeight="30.0" prefWidth="200.0" promptText="Peso da avaliação" />
+                                          <DatePicker fx:id="txtDataAvaliacao" layoutX="650.0" layoutY="65.0" prefHeight="30.0" prefWidth="200.0" promptText="Data da realização" />
+                                          <Button layoutX="650.0" layoutY="114.0" mnemonicParsing="false" onAction="#salvarAvaliacao" prefHeight="30.0" prefWidth="200.0" text="Salvar Avaliação">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Label layoutX="50.0" layoutY="14.0" text="Criacao de avaliacao para disciplina de:">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblNomeDisciplina2" layoutX="424.0" layoutY="14.0" text="Nome da Disciplina" textFill="#38613f">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Label layoutX="25.0" layoutY="14.0" text="Avaliacoes">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                     </tabs>
                   </TabPane>
-                  <Pane layoutY="1.0" prefHeight="30.0" prefWidth="850.0" style="-fx-background-color: whitesmoke;" />
+                  <Pane layoutY="1.0" prefHeight="30.0" prefWidth="950.0" style="-fx-background-color: whitesmoke;" />
                </children>
             </Pane>
          </center>

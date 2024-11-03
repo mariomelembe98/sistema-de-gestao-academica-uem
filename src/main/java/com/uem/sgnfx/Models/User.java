@@ -58,17 +58,11 @@ public class User {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    @OneToMany(mappedBy = "createdBy")
-    private Set<Avaliacao> avaliacaos = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "user")
     private Set<Docente> docentes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Estudante> estudantes = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "createdBy")
-    private Set<Nota> notas = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Pessoa> pessoas = new LinkedHashSet<>();
@@ -201,14 +195,6 @@ public class User {
         this.deletedAt = deletedAt;
     }
 
-    public Set<Avaliacao> getAvaliacaos() {
-        return avaliacaos;
-    }
-
-    public void setAvaliacaos(Set<Avaliacao> avaliacaos) {
-        this.avaliacaos = avaliacaos;
-    }
-
     public Set<Docente> getDocentes() {
         return docentes;
     }
@@ -223,14 +209,6 @@ public class User {
 
     public void setEstudantes(Set<Estudante> estudantes) {
         this.estudantes = estudantes;
-    }
-
-    public Set<Nota> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(Set<Nota> notas) {
-        this.notas = notas;
     }
 
     public Set<Pessoa> getPessoas() {

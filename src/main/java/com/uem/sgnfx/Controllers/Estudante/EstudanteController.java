@@ -83,6 +83,7 @@ public class EstudanteController {
     private Map<String, Disciplina> disciplinaMap = new HashMap<>();
     private Map<String, DisciplinaCurso> disciplinaCursoMap = new HashMap<>();
 
+
     private SessionManager sessionManager;
     private SemestreDAOImpl semestreDAO;
     private DisciplinaDAOImpl disciplinaDAO;
@@ -178,7 +179,7 @@ public class EstudanteController {
         }
 
         for (String disciplinaString : disciplinasSelecionadas) {
-            // Obter o objeto Disciplina correspondente da string selecionada
+            // Obter o objeto Disciplina correspondente da ‘string’ selecionada
             Disciplina disciplina = disciplinaMap.get(disciplinaString);
             DisciplinaCurso disciplinaCurso = disciplinaCursoMap.get(disciplinaString);
 

@@ -6,7 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
 
-@Entity
+@Entity(name = "Nota")
 @Table(name = "notas", schema = "gestao_academica")
 public class Nota {
     @Id
@@ -27,16 +27,6 @@ public class Nota {
     @Column(name = "nota", nullable = false)
     private Double nota;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "updated_by", nullable = false)
-    private User updatedBy;
-
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
@@ -45,9 +35,6 @@ public class Nota {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
-
-    @Column(name = "disciplina_id", nullable = false)
-    private Long disciplinaId;
 
     public Long getId() {
         return id;
@@ -81,22 +68,6 @@ public class Nota {
         this.nota = nota;
     }
 
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public User getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(User updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
     public Instant getDeletedAt() {
         return deletedAt;
     }
@@ -119,14 +90,6 @@ public class Nota {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Long getDisciplinaId() {
-        return disciplinaId;
-    }
-
-    public void setDisciplinaId(Long disciplinaId) {
-        this.disciplinaId = disciplinaId;
     }
 
 }

@@ -19,7 +19,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
     }
 
     @Override
-    public void create(User user) {
+    public User create(User user) {
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()){
             tx = session.beginTransaction();
@@ -31,6 +31,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> {
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     public User login(String email, String password) {

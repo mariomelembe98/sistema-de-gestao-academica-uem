@@ -18,6 +18,7 @@ module com.uem.sgnfx {
     requires java.naming;
     requires jbcrypt;
     requires jakarta.mail;
+    requires mysql.connector.java;
 
     exports com.uem.sgnfx.Controllers.Admin to javafx.graphics, javafx.fxml;
     exports com.uem.sgnfx.Controllers.Estudante to javafx.graphics, javafx.fxml;

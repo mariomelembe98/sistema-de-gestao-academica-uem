@@ -1,5 +1,6 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Disciplina;
 import com.uem.sgnfx.Models.Inscricao;
 import com.uem.sgnfx.Utils.HibernateUtil;
@@ -24,7 +25,7 @@ public class InscricaoDAOImpl extends GenericDAOImpl<Inscricao> {
 
     // Método para criar uma inscrição
     @Override
-    public void create(Inscricao inscricao) {
+    public Inscricao create(Inscricao inscricao) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -36,6 +37,7 @@ public class InscricaoDAOImpl extends GenericDAOImpl<Inscricao> {
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     // Método para listar todas as inscrições

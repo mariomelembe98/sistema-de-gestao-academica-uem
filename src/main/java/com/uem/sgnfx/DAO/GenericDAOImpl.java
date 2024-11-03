@@ -1,5 +1,6 @@
 package com.uem.sgnfx.DAO;
 
+import com.uem.sgnfx.Models.Nota;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
@@ -16,7 +17,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     @Override
-    public void create(T entity) {
+    public T create(T entity) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -28,6 +29,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -93,4 +95,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
             return 0; // Retorna 0 em caso de erro
         }
     }
+
+    // CREATE - Adicionar uma nova Nota
+
 }

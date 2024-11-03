@@ -18,7 +18,7 @@ public class ProfessorApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Use caminho absoluto se necessário
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/uem/sgnfx/Professor/professor.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1100, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         primaryStage.setResizable(false);
         primaryStage.resizableProperty();
         primaryStage.setTitle("Painel do Professor");

@@ -1,6 +1,6 @@
 package com.uem.sgnfx.DAO;
 
-import com.uem.sgnfx.Models.Departamento;
+import com.uem.sgnfx.Models.Curso;
 import com.uem.sgnfx.Models.Semestre;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +26,7 @@ public class SemestreDAOImpl extends GenericDAOImpl<Semestre>{
     }
 
     @Override
-    public void create(Semestre semestre) {
+    public Semestre create(Semestre semestre) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -38,6 +38,7 @@ public class SemestreDAOImpl extends GenericDAOImpl<Semestre>{
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override

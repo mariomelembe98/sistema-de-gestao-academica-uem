@@ -22,7 +22,7 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
     }
 
     @Override
-    public void create(Disciplina disciplina) {
+    public Disciplina create(Disciplina disciplina) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -34,6 +34,7 @@ public class DisciplinaDAOImpl extends GenericDAOImpl<Disciplina> {
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override

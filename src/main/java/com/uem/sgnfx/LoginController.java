@@ -76,10 +76,10 @@ public class LoginController {
         String email = txtUsuario.getText();
         String password = txtSenha.getText();
 
-//        if (email.isEmpty() || password.isEmpty()) {
-//            lblMessage.setText("Preencha todos os campos.");
-//            return;
-//        }
+        if (email.isEmpty() || password.isEmpty()) {
+            lblMessage.setText("Preencha todos os campos.");
+            return;
+        }
 
         // Instancia o serviço de ‘login’
         LoginService loginService = new LoginService();

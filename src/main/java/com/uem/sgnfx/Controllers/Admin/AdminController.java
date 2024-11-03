@@ -25,11 +25,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.CheckListView;
 import org.controlsfx.control.SearchableComboBox;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,6 +86,8 @@ public class AdminController {
     private TableView<Departamento> departementoTableView;
     @FXML
     private TableView<?> tableViewCursos, tableViewDisciplinas;
+    @FXML
+    private CheckListView checkListCursoRegime;
 
     // Imagens
     @FXML
@@ -158,7 +162,10 @@ public class AdminController {
     @FXML
     private NumberAxis yAxis;
 
+    private Map<String, Regime> regimeMap = new HashMap<String, Regime>();
+    private Map<String, CursoRegime> regimeCurso = new HashMap<String, CursoRegime>();
 
+    private MetodosGenericos metodosGenericos;
     private UserDAOImpl userDAO;
     private DocenteDAOImpl docenteDAO;
     private EstudanteDAOImpl estudanteDAO;
@@ -167,7 +174,8 @@ public class AdminController {
     private TurmaDAOImpl turmaDAO;
     private DepartamentoDAOImpl departamentoDAO;
     private SemestreDAOImpl semestreDAO;
-
+    private RegimeDAOImpl regimeDAO;
+    private CursoRegimeDAOImpl cursoRegimeDAO;
 
     @FXML
     void initialize() {
@@ -190,6 +198,7 @@ public class AdminController {
         }
 
         // Use a implementação concreta do DAO
+        this.metodosGenericos = new MetodosGenericos(HibernateUtil.getSessionFactory());
         this.userDAO = new UserDAOImpl(HibernateUtil.getSessionFactory());
         this.docenteDAO = new DocenteDAOImpl(HibernateUtil.getSessionFactory());
         this.estudanteDAO = new EstudanteDAOImpl(HibernateUtil.getSessionFactory());
@@ -198,6 +207,8 @@ public class AdminController {
         this.turmaDAO = new TurmaDAOImpl(HibernateUtil.getSessionFactory());
         this.departamentoDAO = new DepartamentoDAOImpl(HibernateUtil.getSessionFactory());
         this.semestreDAO = new SemestreDAOImpl(HibernateUtil.getSessionFactory());
+        this.regimeDAO = new RegimeDAOImpl(HibernateUtil.getSessionFactory());
+        this.cursoRegimeDAO = new CursoRegimeDAOImpl(HibernateUtil.getSessionFactory());
 
         // Configure as colunas da tabela
         colUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -321,10 +332,17 @@ public class AdminController {
     }
 
     public void listarCursos(){
+
+        checkListCursoRegime.getItems().clear();
         List<Curso> cursos = cursoDAO.readAll();
-        for (Curso curso : cursos) {
-            curso.getDepartamento().getNome();
+        List<Regime> regimes = regimeDAO.readAll();
+
+        for (Regime regime : regimes) {
+            String displayRegimes = regime.getNome();
+            checkListCursoRegime.getItems().add(displayRegimes);
+            regimeMap.put(displayRegimes, regime);
         }
+
         actualizarCursos(cursos);
     }
 
@@ -374,11 +392,6 @@ public class AdminController {
         semestreDAO.inicializarComboBoxSemestre(cbDisciplinaSemestre);
     }
 
-    public void listarEstudantesPorNome(String nome) {
-        List<Estudante> estudantes = estudanteDAO.buscarPorNome(nome);
-        actualizarTabelaEstudantes(estudantes);
-    }
-
     @FXML
     public void buscarEstudantesPorCriterio() {
         String criterio = txtPesquisarEstudante.getText();
@@ -388,7 +401,8 @@ public class AdminController {
             return;
         }
 
-        List<Estudante> estudantes = estudanteDAO.buscarPorCriterioUnico(criterio);
+        //List<Estudante> estudantes = estudanteDAO.buscarPorCriterioUnico(criterio);
+        List<Estudante> estudantes = metodosGenericos.buscarPorCriterio(Estudante.class,"nome" , criterio);
 
         actualizarTabelaEstudantes(estudantes);
     }
@@ -656,8 +670,32 @@ public class AdminController {
             alertMessage.showAlertWarning("Por favor, preecha todos os campos!");
             return;
         }else {
+
             Curso curso = new Curso(nome, descricao, departamento, Instant.now(), Instant.now());
-            cursoDAO.create(curso);
+
+            Curso cursoCriado = cursoDAO.create(curso);
+
+            List<String> regimesSelecionadas = checkListCursoRegime.getCheckModel().getCheckedItems();
+            if (regimesSelecionadas.isEmpty()){
+                alertMessage.showAlertWarning("Por favor, selecione pelo menos um regime!.");
+                return;
+            }
+
+            for (String regimeaString : regimesSelecionadas) {
+                Regime regime = regimeMap.get(regimeaString);
+                //CursoRegime cursoRegime = regimeCurso.get(regimeaString);
+
+                if (regime != null) {
+                    CursoRegime cursoRegimes = new CursoRegime();
+                    cursoRegimes.setCurso(cursoCriado);
+                    cursoRegimes.setRegime(regime);
+                    cursoRegimes.setCreatedAt(Instant.now());
+                    cursoRegimes.setUpdatedAt(Instant.now());
+                    //cursoRegime.setCurso(curso);
+                    cursoRegimeDAO.create(cursoRegimes);
+                }
+            }
+
         }
 
         alertMessage.showAlertSuccess("Curso criado com sucesso!");

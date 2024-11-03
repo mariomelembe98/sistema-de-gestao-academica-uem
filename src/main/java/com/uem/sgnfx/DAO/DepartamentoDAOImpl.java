@@ -20,7 +20,7 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
     }
 
     @Override
-    public void create(Departamento departamento) {
+    public Departamento create(Departamento departamento) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -32,6 +32,7 @@ public class DepartamentoDAOImpl extends GenericDAOImpl<Departamento> {
             }
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override

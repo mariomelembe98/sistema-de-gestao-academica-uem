@@ -29,6 +29,7 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckListView?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1400.0" stylesheets="/public/assets/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uem.sgnfx.Controllers.Admin.AdminController">
@@ -51,14 +52,14 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEstudantes" layoutX="5.0" layoutY="300.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Estudantes">
+                  <Button fx:id="btnEstudantes" layoutX="5.0" layoutY="300.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Estudantes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button fx:id="btnDocentes" layoutX="5.0" layoutY="365.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Docentes">
+                  <Button fx:id="btnDocentes" layoutX="5.0" layoutY="365.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Docentes">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -66,29 +67,29 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnCursos" layoutX="5.0" layoutY="430.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Cursos">
+                  <Button fx:id="btnCursos" layoutX="5.0" layoutY="430.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Cursos">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="19.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_student_male_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="19.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_teacher_64px.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_books_64px_1.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnUtilizadores" layoutX="5.0" layoutY="690.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Utilizadores">
+                  <Button fx:id="btnUtilizadores" layoutX="5.0" layoutY="690.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Utilizadores">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -96,12 +97,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="698.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="693.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_manager_64px.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnTurmas" layoutX="5.0" layoutY="495.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Turmas">
+                  <Button fx:id="btnTurmas" layoutX="5.0" layoutY="495.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Turmas">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -109,12 +110,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="503.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_google_classroom_64px.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnDepartamentos" alignment="CENTER" layoutX="5.0" layoutY="625.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Departamentos">
+                  <Button fx:id="btnDepartamentos" alignment="CENTER" layoutX="5.0" layoutY="625.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Departamentos">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -122,12 +123,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="633.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="628.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_person_at_home_32px.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnDisciplinas" layoutX="5.0" layoutY="560.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="290.0" styleClass="itemButtons" text="Disciplinas">
+                  <Button fx:id="btnDisciplinas" layoutX="5.0" layoutY="560.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="290.0" styleClass="itemButtons" text="Disciplinas">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -135,7 +136,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/icons8_literature_32px.png" />
                      </image>
@@ -187,6 +188,16 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
+                  <JFXButton fx:id="btnSair" layoutX="10.0" layoutY="746.0" prefHeight="40.0" prefWidth="280.0" text="Sair" textFill="#fcfcfc">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="751.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/icons8_sign_out_60px.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </left>
@@ -956,7 +967,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Pane prefHeight="650.0" prefWidth="900.0">
+                                    <Pane layoutY="20.0" prefHeight="750.0" prefWidth="1100.0">
                                        <children>
                                           <Label fx:id="lblAddCursoDashboard" layoutX="77.0" layoutY="50.0" text="Dashboard &gt;" textFill="#767676">
                                              <font>
@@ -971,13 +982,13 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Pane layoutX="50.0" layoutY="105.0" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;">
+                                          <Pane layoutX="50.0" layoutY="112.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;">
                                              <children>
-                                                <TextField fx:id="txtNomeCurso" layoutX="17.0" layoutY="71.0" prefHeight="30.0" prefWidth="190.0" promptText="Designação do Curso" />
-                                                <TextArea fx:id="txtDescricaoCurso" layoutX="484.0" layoutY="71.0" prefHeight="85.0" prefWidth="300.0" promptText="Descrição do curso" />
-                                                <JFXComboBox fx:id="cbDepartamentoCurso" focusColor="#12dc74" layoutX="244.0" layoutY="71.0" prefHeight="30.0" prefWidth="220.0" unFocusColor="#a5bf1f" />
-                                                <TextField fx:id="txtPesquisarCursos" layoutX="17.0" layoutY="124.0" prefHeight="30.0" prefWidth="150.0" promptText="pesquisar..." />
-                                                <Button fx:id="btnBuscarCursos" alignment="CENTER" layoutX="170.0" layoutY="124.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+                                                <TextField fx:id="txtNomeCurso" layoutX="60.0" layoutY="15.0" prefHeight="30.0" prefWidth="380.0" promptText="Designação do Curso" />
+                                                <TextArea fx:id="txtDescricaoCurso" layoutX="690.0" layoutY="15.0" prefHeight="140.0" prefWidth="250.0" promptText="Descrição do curso" />
+                                                <JFXComboBox fx:id="cbDepartamentoCurso" focusColor="#12dc74" layoutX="60.0" layoutY="55.0" prefHeight="30.0" prefWidth="380.0" unFocusColor="#a5bf1f" />
+                                                <TextField fx:id="txtPesquisarCursos" layoutX="60.0" layoutY="184.0" prefHeight="30.0" prefWidth="150.0" promptText="pesquisar..." />
+                                                <Button fx:id="btnBuscarCursos" alignment="CENTER" layoutX="213.0" layoutY="184.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -985,12 +996,12 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="244.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="287.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../../Images/icons8_search_32px.png" />
                                                    </image>
                                                 </ImageView>
-                                                <TableView fx:id="cursoTableView" layoutX="10.0" layoutY="170.0" prefHeight="360.0" prefWidth="780.0">
+                                                <TableView fx:id="cursoTableView" layoutX="60.0" layoutY="225.0" prefHeight="360.0" prefWidth="880.0">
                                                    <columns>
                                                       <TableColumn fx:id="colCursoId" prefWidth="100.0" text="ID" />
                                                       <TableColumn fx:id="colCursoName" prefWidth="150.0" text="Nome" />
@@ -999,7 +1010,7 @@
                                                       <TableColumn fx:id="colCursoUpdatedAt" prefWidth="150.0" text="Actualizado em" />
                                                    </columns>
                                                 </TableView>
-                                                <Button fx:id="btnCarregarCursos" alignment="CENTER" layoutX="354.0" layoutY="124.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="30.0" prefWidth="120.0" text="Carregar">
+                                                <Button fx:id="btnCarregarCursos" alignment="CENTER" layoutX="320.0" layoutY="184.0" mnemonicParsing="false" onAction="#listarDepartamentos" prefHeight="30.0" prefWidth="120.0" text="Carregar">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -1007,12 +1018,12 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="447.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="411.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../../Images/icons8_refresh_32px.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Button layoutX="643.0" layoutY="14.0" mnemonicParsing="false" onAction="#adicionarCurso" prefHeight="30.0" prefWidth="140.0" text="Registar">
+                                                <Button layoutX="799.0" layoutY="184.0" mnemonicParsing="false" onAction="#adicionarCurso" prefHeight="30.0" prefWidth="140.0" text="Registar">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -1020,7 +1031,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button layoutX="325.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Actualizar">
+                                                <Button layoutX="481.0" layoutY="184.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Actualizar">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
@@ -1028,7 +1039,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button layoutX="484.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Eliminar">
+                                                <Button layoutX="640.0" layoutY="184.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Eliminar">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
@@ -1036,6 +1047,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
+                                                <CheckListView fx:id="checkListCursoRegime" layoutX="481.0" layoutY="15.0" prefHeight="141.0" prefWidth="200.0" />
                                              </children>
                                           </Pane>
                                        </children>
@@ -1551,7 +1563,7 @@
                   <Image url="@../../../../Images/icons8_male_user_50px.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblLoggedUserName" layoutX="900.0" layoutY="16.0" text="Ola, Docente!">
+            <Label fx:id="lblLoggedUserName" layoutX="885.0" layoutY="15.0" text="Ola, Docente!">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
