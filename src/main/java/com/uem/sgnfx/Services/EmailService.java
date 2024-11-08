@@ -12,7 +12,7 @@ public class EmailService {
 
     public void enviarEmailNovoUsuario(String destinatario, String nome, String apelido, String username, String email) {
         String remetente = "mariomelembe98@gmail.com";  // O seu endereço eletrónico do Gmail
-        String senha = "melembe98";  // Senha de aplicativo
+        String senha = "";  // Senha de aplicativo
 
         String assunto = "Bem-vindo(a), " + nome;
         String mensagem = String.format(

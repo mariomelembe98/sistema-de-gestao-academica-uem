@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.uem.sgnfx.DAO.*;
+import com.uem.sgnfx.LoginApplication;
 import com.uem.sgnfx.Models.*;
 import com.uem.sgnfx.Services.EmailService;
 import com.uem.sgnfx.Services.SessionManager;
@@ -17,6 +18,8 @@ import com.uem.sgnfx.Validations.AlertMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -25,15 +28,18 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.controlsfx.control.CheckListView;
 import org.controlsfx.control.SearchableComboBox;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class AdminController {
 
@@ -41,7 +47,7 @@ public class AdminController {
     @FXML
     private Button btnAddDocente, btnAddEstudante, btnBuscaDocente, btnBuscarEstudantes, btnCursos, btnDocentes;
     @FXML
-    private Button btnTurmas, btnDisciplinas, btnEstudantes, btnDepartamentos, btnRegistarDocente, btnRegistarDocente1, btnListarDocente, listarDocentebtn, btnCarregarEstudantes, btnUtilizadores;
+    private Button btnSair, btnTurmas, btnDisciplinas, btnEstudantes, btnDepartamentos, btnRegistarDocente, btnRegistarDocente1, btnListarDocente, listarDocentebtn, btnCarregarEstudantes, btnUtilizadores;
     @FXML
     private JFXButton btnRegistarDepartemento, btnListarCursos, btnListarDisciplinas, btnListarDocentes, btnListarEstudantes, btnListarTurmas, btnListarUtilizadores;
     @FXML
@@ -569,7 +575,7 @@ public class AdminController {
             userDAO.create(user);
 
             // Envia o endereço eletrónico após criar o usuário
-//            EmailService emailService = new EmailService();
+            EmailService emailService = new EmailService();
 //            emailService.enviarEmailNovoUsuario(email, nome, apelido, username, email);
 
             alertMessage.showAlertSuccess("Utilizador " + nome + " criado com sucesso!");
@@ -791,7 +797,37 @@ public class AdminController {
 
 
 
+    @FXML
+    private void sair() {
 
+        // Mostrar uma caixa de diálogo de confirmação
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Saída");
+        alert.setHeaderText(null);
+        alert.setContentText("Tem certeza de que deseja sair?");
+
+        // Aguardar resposta do utilizador
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Obtém a janela atual a partir do botão "Sair"
+            Stage currentStage = (Stage) btnSair.getScene().getWindow();
+            currentStage.close();
+
+            // Abre a tela de login
+            try {
+                Stage loginStage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("tela-login.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+                loginStage.setScene(scene);
+                loginStage.setResizable(false);
+                loginStage.setTitle("Autenticação!");
+                loginStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 
     // TODO: Estudantes

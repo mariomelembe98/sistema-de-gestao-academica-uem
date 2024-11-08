@@ -325,30 +325,34 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </ImageView>
-                                    <Label layoutX="55.0" layoutY="55.0" text="Disciplina de: ">
-                                       <font>
-                                          <Font name="System Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblNomeDisciplina" layoutX="189.0" layoutY="55.0" text="Nome da Disciplina" textFill="#38613f">
-                                       <font>
-                                          <Font name="System Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="64.0" layoutY="96.0" text="Lista de Estudantes" textFill="#38613f">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <TableView fx:id="estudanteTableView" layoutX="55.0" layoutY="149.0" prefHeight="342.0" prefWidth="740.0">
-                                      <columns>
-                                         <TableColumn fx:id="inscricaoNumeroEstudanteColumn" prefWidth="132.00000762939453" text="Nr. Estudante" />
-                                         <TableColumn fx:id="inscricaoEstudanteColumn" prefWidth="181.60006713867188" text="Estudante" />
-                                         <TableColumn fx:id="inscricaoDisciplinaColumn" prefWidth="112.0" text="Curso" />
-                                         <TableColumn fx:id="inscricaoCreatedAtColumn" prefWidth="155.99996948242188" text="Criado em" />
-                                         <TableColumn fx:id="inscricaoUpdatedAtColumn" prefWidth="158.4000244140625" text="Actualizado em" />
-                                      </columns>
-                                    </TableView>
+                                    <Pane layoutX="25.0" layoutY="70.0" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <Label fx:id="lblNomeDisciplina" layoutX="211.0" layoutY="24.0" text="Nome da Disciplina" textFill="#38613f">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="80.0" layoutY="66.0" text="Lista de Estudantes" textFill="#38613f">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="estudanteTableView" layoutX="80.0" layoutY="109.0" prefHeight="342.0" prefWidth="740.0">
+                                             <columns>
+                                                <TableColumn fx:id="inscricaoNumeroEstudanteColumn" prefWidth="132.00000762939453" text="Nr. Estudante" />
+                                                <TableColumn fx:id="inscricaoEstudanteColumn" prefWidth="181.60006713867188" text="Estudante" />
+                                                <TableColumn fx:id="inscricaoDisciplinaColumn" prefWidth="112.0" text="Curso" />
+                                                <TableColumn fx:id="inscricaoCreatedAtColumn" prefWidth="155.99996948242188" text="Criado em" />
+                                                <TableColumn fx:id="inscricaoUpdatedAtColumn" prefWidth="158.4000244140625" text="Actualizado em" />
+                                             </columns>
+                                          </TableView>
+                                          <Label layoutX="80.0" layoutY="24.0" text="Disciplina de: ">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -372,10 +376,11 @@
                                  <children>
                                     <Pane layoutX="25.0" layoutY="71.0" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: white;">
                                        <children>
-                                          <TableView layoutX="50.0" layoutY="158.0" prefHeight="300.0" prefWidth="800.0">
+                                          <TableView fx:id="tableAvaliacoes" layoutX="50.0" layoutY="158.0" prefHeight="300.0" prefWidth="800.0">
                                              <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
+                                                <TableColumn fx:id="colDescricao" prefWidth="150" text="Descrição" />
+                                                <TableColumn fx:id="colDataRealizacao" prefWidth="150" text="Data de Realização" />
+                                                <TableColumn fx:id="colPeso" prefWidth="100" text="Peso" />
                                              </columns>
                                           </TableView>
                                           <TextField fx:id="txtDescricaoAvaliacao" layoutX="50.0" layoutY="65.0" prefHeight="30.0" prefWidth="200.0" promptText="Nome da Avaliação" />

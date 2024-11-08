@@ -36,7 +36,7 @@
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1400.0">
          <left>
-            <Pane prefHeight="800.0" prefWidth="300.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="800.0" prefWidth="300.0" style="-fx-background-color: #2F4F4F;" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #008B8B;">
                      <children>
@@ -188,10 +188,13 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
-                  <JFXButton fx:id="btnSair" layoutX="10.0" layoutY="746.0" prefHeight="40.0" prefWidth="280.0" text="Sair" textFill="#fcfcfc">
+                  <JFXButton fx:id="btnSair" layoutX="10.0" layoutY="746.0" onAction="#sair" prefHeight="40.0" prefWidth="280.0" text="Sair" textFill="#fcfcfc">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="751.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -350,40 +353,34 @@
                                          </Label>
                                           <Pane layoutX="50.0" layoutY="105.0" prefHeight="620.0" prefWidth="1000.0" style="-fx-background-color: white;">
                                              <children>
-                                                <TextField fx:id="txtEstudanteCodigo" layoutX="99.0" layoutY="71.0" prefHeight="30.0" promptText="Codico do estudante" />
-                                                <TextField fx:id="txtEstudanteNome" layoutX="99.0" layoutY="112.0" prefHeight="30.0" promptText="Nome do estudante" />
-                                                <TextField fx:id="txtEstudanteApelido" layoutX="99.0" layoutY="151.0" prefHeight="30.0" promptText="Apelido do estudante" />
-                                                <TextField fx:id="txtEstudanteDocumento" layoutX="586.0" layoutY="113.0" prefHeight="30.0" promptText="Número do documento" />
-                                                <TextField fx:id="txtEstudanteNuit" layoutX="586.0" layoutY="152.0" prefHeight="30.0" promptText="NUIT" />
-                                                <DatePicker fx:id="dateEstudanteNascimento" layoutX="269.0" layoutY="151.0" prefHeight="30.0" prefWidth="152.0" promptText="Data de nascimento" />
-                                                <ComboBox fx:id="cbEstudanteGenero" layoutX="430.0" layoutY="70.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione o gênero" />
-                                                <TextField fx:id="txtEstudanteEmail" layoutX="271.0" layoutY="71.0" prefHeight="30.0" promptText="Email do estudante" />
-                                                <TextField fx:id="txtEstudanteNaturalidade" layoutX="742.0" layoutY="72.0" prefHeight="30.0" promptText="Naturalidade" />
-                                                <TextField fx:id="txtEstudanteNacionalidade" layoutX="431.0" layoutY="113.0" prefHeight="30.0" promptText="Nacionalidade" />
-                                                <ComboBox fx:id="comboEstudanteProvincia" layoutX="430.0" layoutY="151.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione uma província" />
-                                                <TextField fx:id="txtEstudanteTelefone" layoutX="270.0" layoutY="112.0" prefHeight="30.0" promptText="Telefone" />
-                                                <ComboBox fx:id="cbEstudanteCurso" layoutX="311.0" layoutY="245.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione um curso" />
-                                                <ComboBox fx:id="cbEstudanteDocumento" layoutX="585.0" layoutY="72.0" prefHeight="30.0" prefWidth="150.0" promptText="Tipo de documento" />
-                                                <Separator layoutX="124.0" layoutY="48.0" prefHeight="3.0" prefWidth="250.0" />
-                                                <Label layoutX="386.0" layoutY="38.0" text="Informações Pessoais Do Estudante" textFill="#b1bdbc">
+                                                <TextField fx:id="txtEstudanteCodigo" layoutX="99.0" layoutY="45.0" prefHeight="30.0" promptText="Codico do estudante" />
+                                                <TextField fx:id="txtEstudanteNome" layoutX="99.0" layoutY="86.0" prefHeight="30.0" promptText="Nome do estudante" />
+                                                <TextField fx:id="txtEstudanteApelido" layoutX="99.0" layoutY="125.0" prefHeight="30.0" promptText="Apelido do estudante" />
+                                                <TextField fx:id="txtEstudanteDocumento" layoutX="586.0" layoutY="87.0" prefHeight="30.0" promptText="Número do documento" />
+                                                <TextField fx:id="txtEstudanteNuit" layoutX="586.0" layoutY="126.0" prefHeight="30.0" promptText="NUIT" />
+                                                <DatePicker fx:id="dateEstudanteNascimento" layoutX="269.0" layoutY="125.0" prefHeight="30.0" prefWidth="152.0" promptText="Data de nascimento" />
+                                                <ComboBox fx:id="cbEstudanteGenero" layoutX="430.0" layoutY="44.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione o gênero" />
+                                                <TextField fx:id="txtEstudanteEmail" layoutX="271.0" layoutY="45.0" prefHeight="30.0" promptText="Email do estudante" />
+                                                <TextField fx:id="txtEstudanteNaturalidade" layoutX="742.0" layoutY="46.0" prefHeight="30.0" promptText="Naturalidade" />
+                                                <TextField fx:id="txtEstudanteNacionalidade" layoutX="431.0" layoutY="87.0" prefHeight="30.0" promptText="Nacionalidade" />
+                                                <ComboBox fx:id="comboEstudanteProvincia" layoutX="430.0" layoutY="125.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione uma província" />
+                                                <TextField fx:id="txtEstudanteTelefone" layoutX="270.0" layoutY="86.0" prefHeight="30.0" promptText="Telefone" />
+                                                <ComboBox fx:id="cbEstudanteCurso" layoutX="98.0" layoutY="220.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione um curso" />
+                                                <ComboBox fx:id="cbEstudanteDocumento" layoutX="585.0" layoutY="44.0" prefHeight="30.0" prefWidth="150.0" promptText="Tipo de documento" />
+                                                <Separator layoutX="133.0" layoutY="24.0" prefHeight="3.0" prefWidth="250.0" />
+                                                <Label layoutX="395.0" layoutY="14.0" text="Informações Pessoais Do Estudante" textFill="#b1bdbc">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Separator layoutX="614.0" layoutY="47.0" prefHeight="3.0" prefWidth="234.0" />
-                                                <Separator layoutX="309.0" layoutY="208.0" prefHeight="3.0" prefWidth="550.0" />
-                                                <Label layoutX="142.0" layoutY="197.0" text="Informações Acadêmicas" textFill="#b1bdbc">
+                                                <Separator layoutX="623.0" layoutY="23.0" prefHeight="3.0" prefWidth="234.0" />
+                                                <Separator layoutX="309.0" layoutY="182.0" prefHeight="3.0" prefWidth="550.0" />
+                                                <Label layoutX="142.0" layoutY="171.0" text="Informações Acadêmicas" textFill="#b1bdbc">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="97.0" layoutY="224.0" text="Certificado de conclusão do ensino médio ou equivalente">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <ComboBox layoutX="99.0" layoutY="245.0" prefHeight="30.0" prefWidth="205.0" promptText="Selecione o tipo de certificado" />
-                                                <Button alignment="BOTTOM_LEFT" layoutX="184.0" layoutY="287.0" mnemonicParsing="false" onAction="#adicionarEstudante" prefHeight="25.0" prefWidth="100.0" text="Registar">
+                                                <Button alignment="BOTTOM_LEFT" layoutX="791.0" layoutY="220.0" mnemonicParsing="false" onAction="#adicionarEstudante" prefHeight="25.0" prefWidth="100.0" text="Registar">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -391,12 +388,12 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="251.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="858.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../../Images/icons8_save_32px.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Button fx:id="btnBackEstudantes" alignment="BOTTOM_LEFT" layoutX="88.0" layoutY="288.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="79.0" text="Listar">
+                                                <Button fx:id="btnBackEstudantes" alignment="BOTTOM_LEFT" layoutX="685.0" layoutY="221.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" text="Listar">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -404,13 +401,54 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="135.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="742.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../../../../Images/icons8_syllabus_32px.png" />
                                                    </image>
                                                 </ImageView>
-                                                <TextField fx:id="txtEstudanteEndereco" layoutX="742.0" layoutY="113.0" prefHeight="30.0" promptText="endereco" />
-                                                <TextField fx:id="txtEstudanteSenha" layoutX="312.0" layoutY="287.0" prefHeight="30.0" promptText="senha" />
+                                                <TextField fx:id="txtEstudanteEndereco" layoutX="742.0" layoutY="87.0" prefHeight="30.0" promptText="endereco" />
+                                                <TextField fx:id="txtEstudanteSenha" layoutX="743.0" layoutY="125.0" prefHeight="30.0" promptText="senha" />
+                                                <Button fx:id="btnAddEstudante" alignment="CENTER" defaultButton="true" layoutX="742.0" layoutY="277.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Adicionar Novo" textAlignment="JUSTIFY">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="862.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_add_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <TextField fx:id="txtPesquisarEstudante" layoutX="99.0" layoutY="278.0" prefHeight="30.0" promptText="pesquisar..." />
+                                                <Button fx:id="btnBuscarEstudantes" alignment="CENTER" layoutX="251.0" layoutY="278.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="320.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_search_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnCarregarEstudantes" alignment="CENTER" layoutX="615.0" layoutY="278.0" mnemonicParsing="false" onAction="#listarEstudantes" prefHeight="30.0" prefWidth="100.0" text="Actualizar">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="692.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../Images/icons8_refresh_32px.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <SearchableComboBox fx:id="txtLiveSearchEstudante" layoutX="364.0" layoutY="278.0" onAction="#buscarEstudantesPorCurso" prefHeight="30.0" />
+                                                <TableView fx:id="estudanteTable" layoutX="98.0" layoutY="322.0" prefHeight="285.0" prefWidth="803.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="idEstudanteColumn" prefWidth="150" text="Número de Estudante" />
+                                                      <TableColumn fx:id="nomeColumn" prefWidth="150.0" text="Nome" />
+                                                      <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
+                                                      <TableColumn fx:id="telefoneColumn" prefWidth="150.0" text="Telefone" />
+                                                      <TableColumn fx:id="createdAtEstudanteColumn" prefWidth="150.0" text="Criado em" />
+                                                   </columns>
+                                                </TableView>
                                              </children>
                                           </Pane>
                                       </children>
@@ -439,44 +477,6 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnAddEstudante" alignment="BOTTOM_LEFT" defaultButton="true" layoutX="833.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Adicionar Novo" textAlignment="JUSTIFY">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor></Button>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" layoutX="930.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../Images/icons8_add_32px.png" />
-                                             </image>
-                                          </ImageView>
-                                          <TextField fx:id="txtPesquisarEstudante" layoutX="140.0" layoutY="104.0" promptText="pesquisar..." />
-                                          <Button fx:id="btnBuscarEstudantes" alignment="BOTTOM_LEFT" layoutX="293.0" layoutY="104.0" mnemonicParsing="false" onAction="#buscarEstudantesPorCriterio" prefHeight="25.0" prefWidth="72.0" text="Buscar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor></Button>
-                                          <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="336.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../Images/icons8_search_32px.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Button fx:id="btnCarregarEstudantes" alignment="BOTTOM_LEFT" layoutX="715.0" layoutY="106.0" mnemonicParsing="false" onAction="#listarEstudantes" prefHeight="25.0" prefWidth="89.0" text="Actualizar">
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor></Button>
-                                          <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="778.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../Images/icons8_refresh_32px.png" />
-                                             </image>
-                                          </ImageView>
-                                          <SearchableComboBox fx:id="txtLiveSearchEstudante" layoutX="384.0" layoutY="104.0" onAction="#buscarEstudantesPorCurso" />
-                                          <TableView fx:id="estudanteTable" layoutX="140.0" layoutY="167.0" prefHeight="480.0" prefWidth="820.0">
-                                             <columns>
-                                                <TableColumn fx:id="idEstudanteColumn" prefWidth="150" text="Número de Estudante" />
-                                                <TableColumn fx:id="nomeColumn" prefWidth="150.0" text="Nome" />
-                                                <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
-                                                <TableColumn fx:id="telefoneColumn" prefWidth="150.0" text="Telefone" />
-                                                <TableColumn fx:id="createdAtEstudanteColumn" prefWidth="150.0" text="Criado em" />
-                                             </columns>
-                                          </TableView>
                                        </children>
                                     </Pane>
                                  </children>

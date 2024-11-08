@@ -17,6 +17,7 @@ import com.uem.sgnfx.Models.Inscricao;
 import com.uem.sgnfx.Services.SessionManager;
 import com.uem.sgnfx.Utils.HibernateUtil;
 import com.uem.sgnfx.Validations.AlertMessage;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,6 +132,17 @@ public class ProfessorController {
     @FXML
     private TableColumn<Inscricao, Instant> inscricaoCreatedAtColumn, inscricaoUpdatedAtColumn;
 
+    @FXML
+    private TableView<Avaliacao> tableAvaliacoes;
+    @FXML
+    private TableColumn<Avaliacao, String> colDescricao;
+    @FXML
+    private TableColumn<Avaliacao, LocalDate> colDataRealizacao;
+    @FXML
+    private TableColumn<Avaliacao, Double> colPeso;
+    @FXML
+    private TableColumn<Avaliacao, Double> colMedia;
+
     private Disciplina disciplinaSelecionada;
 
     private InscricaoDAOImpl inscricaoDAO;
@@ -168,12 +180,6 @@ public class ProfessorController {
         carregarDisciplinasDinamicamente();
     }
 
-    private void carregarEstudantesPorDisciplina(Long disciplinaId) {
-        List<Inscricao> inscricoes = inscricaoDAO.listarInscricoesPorDisciplina(disciplinaId);
-        atualizarTabelaInscricoes(inscricoes);
-    }
-
-
     private void atualizarTabelaInscricoes(List<Inscricao> inscricoes) {
         ObservableList<Inscricao> inscricaoObservableList = FXCollections.observableArrayList(inscricoes);
         estudanteTableView.setItems(inscricaoObservableList);
@@ -192,6 +198,25 @@ public class ProfessorController {
         inscricaoUpdatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
     }
 
+    private void atualizarTabelaAvaliacoes(List<Avaliacao> avaliacoes) {
+        // Converte a lista de avaliações para um ObservableList
+        ObservableList<Avaliacao> avaliacaoObservableList = FXCollections.observableArrayList(avaliacoes);
+        tableAvaliacoes.setItems(avaliacaoObservableList);
+
+        // Configura cada coluna para mostrar o valor correto
+        colDescricao.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDescricao())
+        );
+        colDataRealizacao.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getDataRealizacao())
+        );
+        colPeso.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getPeso())
+        );
+//        colMedia.setCellValueFactory(cellData ->
+//                new SimpleObjectProperty<>(calcularMediaAvaliacao(cellData.getValue()))
+//        );
+    }
 
     public void carregarDisciplinasDinamicamente() {
         Docente docenteLogado = (Docente) SessionManager.getLoggedInEntity();
@@ -277,7 +302,7 @@ public class ProfessorController {
                 });
 
                 btnAvaliacoe.setOnAction(event -> {
-                    criarAvaliacaoPorDisciplina(disciplina);
+                    listarAvaliacaoPorDisciplina(disciplina);
                 });
 
 
@@ -312,7 +337,10 @@ public class ProfessorController {
         tabPane.getSelectionModel().select(tabDisciplina);
     }
 
-    private void criarAvaliacaoPorDisciplina(Disciplina disciplina) {
+    private void listarAvaliacaoPorDisciplina(Disciplina disciplina) {
+        List<Avaliacao> avaliacaos = avaliacaoDAO.getAvaliacoesPorDisciplina(disciplina.getId());
+        atualizarTabelaAvaliacoes(avaliacaos);
+
         // Atualizar o título da disciplina para o contexto da nova avaliação
         lblNomeDisciplina2.setText(disciplina.getDesignacao());
 
@@ -321,8 +349,73 @@ public class ProfessorController {
 
         // Abre a aba de criação de avaliação
         tabPane.getSelectionModel().select(tabAvaliacao);
+
     }
 
+    private void carregarAvaliacoesPorDisciplina(Disciplina disciplina) {
+        if (disciplina == null) {
+            System.out.println("Nenhuma disciplina selecionada.");
+            return;
+        }
+
+        // Obter a lista de avaliações da disciplina usando o DAO
+        List<Avaliacao> avaliacoes = avaliacaoDAO.getAvaliacoesPorDisciplina(disciplina.getId());
+
+        // Atualizar a TableView
+        tableAvaliacoes.getItems().setAll(avaliacoes);
+    }
+
+
+    @FXML
+    private void salvarAvaliacao() {
+        if (disciplinaSelecionada == null) {
+            System.out.println("Nenhuma disciplina selecionada.");
+            return;
+        }
+
+        // Capturar os dados do formulário
+        String descricao = txtDescricaoAvaliacao.getText();
+        LocalDate dataRealizacao = txtDataAvaliacao.getValue();
+        double peso;
+
+        if (descricao == null || descricao.isEmpty() || dataRealizacao == null) {
+            alertMessage.showAlertWarning("Por favor, preecha todos os campos");
+            return;
+        }
+
+        try {
+            peso = Double.parseDouble(txtPesoAvaliacao.getText());
+        } catch (NumberFormatException e) {
+            alertMessage.showAlertError("Peso inválido.");
+            return;
+        }
+
+        // Criar uma instância de Avaliacao e preencher os campos
+        Avaliacao novaAvaliacao = new Avaliacao();
+        novaAvaliacao.setDescricao(descricao);
+        novaAvaliacao.setDataRealizacao(dataRealizacao);
+        novaAvaliacao.setDisciplina(disciplinaSelecionada);
+        novaAvaliacao.setPeso(peso);
+        novaAvaliacao.setDocente(SessionManager.getLoggedInEntity());  // Utilizador logado como criador
+        novaAvaliacao.setCreatedAt(Instant.now());
+        //novaAvaliacao.setUpdatedAt(Instant.now());
+
+        // Salvar a nova avaliação no banco de dados
+        try {
+            avaliacaoDAO.create(novaAvaliacao);
+            alertMessage.showAlertSuccess("Avaliação salva com sucesso para a disciplina: " + disciplinaSelecionada.getDesignacao());
+            //atualizarTabelaAvaliacoes((List<Avaliacao>) disciplinaSelecionada);
+            carregarAvaliacoesPorDisciplina(disciplinaSelecionada);
+
+            // Limpar o formulário
+            txtDescricaoAvaliacao.clear();
+            txtDataAvaliacao.setValue(null);
+            txtPesoAvaliacao.clear();
+        } catch (Exception e) {
+            alertMessage.showAlertWarning("Erro ao salvar a avaliação: " + e.getMessage());
+            return;
+        }
+    }
 
     @FXML
     private void sair() {
@@ -355,54 +448,5 @@ public class ProfessorController {
         }
 
     }
-
-    @FXML
-    private void salvarAvaliacao() {
-        if (disciplinaSelecionada == null) {
-            System.out.println("Nenhuma disciplina selecionada.");
-            return;
-        }
-
-        // Capturar os dados do formulário
-        String descricao = txtDescricaoAvaliacao.getText();
-        LocalDate dataRealizacao = txtDataAvaliacao.getValue();
-        double peso;
-
-        if (descricao == null || descricao.isEmpty() || dataRealizacao == null) {
-            alertMessage.showAlertWarning("Por favor, preecha todos os campos");
-            return;
-        }
-
-        try {
-            peso = Double.parseDouble(txtPesoAvaliacao.getText());
-        } catch (NumberFormatException e) {
-            alertMessage.showAlertError("Peso inválido.");
-            return;
-        }
-
-        // Criar uma instância de Avaliacao e preencher os campos
-        Avaliacao novaAvaliacao = new Avaliacao();
-        novaAvaliacao.setDescricao(descricao);
-        novaAvaliacao.setDataRealizacao(dataRealizacao);
-        novaAvaliacao.setDisciplina(disciplinaSelecionada);
-        novaAvaliacao.setPeso(peso);
-        novaAvaliacao.setDocente(SessionManager.getLoggedInEntity());  // Usuário logado como criador
-        novaAvaliacao.setCreatedAt(Instant.now());
-        //novaAvaliacao.setUpdatedAt(Instant.now());
-
-        // Salvar a nova avaliação no banco de dados
-        try {
-            avaliacaoDAO.create(novaAvaliacao);
-            alertMessage.showAlertSuccess("Avaliação salva com sucesso para a disciplina: " + disciplinaSelecionada.getDesignacao());
-
-            // Limpar o formulário
-            txtDescricaoAvaliacao.clear();
-            txtDataAvaliacao.setValue(null);
-            txtPesoAvaliacao.clear();
-        } catch (Exception e) {
-            alertMessage.showAlertWarning("Erro ao salvar a avaliação: " + e.getMessage());
-        }
-    }
-
 
 }

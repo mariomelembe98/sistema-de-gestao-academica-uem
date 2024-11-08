@@ -5,6 +5,8 @@ import com.uem.sgnfx.Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import java.util.List;
 
 public class AvaliacaoDAO extends GenericDAOImpl<Avaliacao>{
@@ -80,4 +82,19 @@ public class AvaliacaoDAO extends GenericDAOImpl<Avaliacao>{
             e.printStackTrace();
         }
     }
+
+    public List<Avaliacao> getAvaliacoesPorDisciplina(Long disciplinaId) {
+        List<Avaliacao> avaliacoes = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Criar a consulta para buscar as avaliações por disciplina
+            Query<Avaliacao> query = session.createQuery("FROM Avaliacao WHERE disciplina.id = :disciplinaId", Avaliacao.class);
+            query.setParameter("disciplinaId", disciplinaId);
+            avaliacoes = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return avaliacoes;
+    }
+
+
 }
